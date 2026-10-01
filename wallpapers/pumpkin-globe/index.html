@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Net Works Pumpkin Globe</title>
+<style>html{background:#0a0a0a}</style>
+</head>
+<body>
+<script src="nwlive.js"></script>
+<script src="land-110m.js"></script>
+<script>
+/* Net // Works pumpkin globe, as a desktop wallpaper.
+ * Copyright (c) 2026 Net Works Lab LLC. All rights reserved. See LICENSE.txt.
+ *
+ * The globe the Net Works site wears every October, in its two looks:
+ *
+ *   Pumpkin          the flat drawing - pumpkin orange with the continents and
+ *                    a carved face in ink, the 15-degree graticule stroked in
+ *                    difference, the two orbit rings, squashed like a pumpkin,
+ *                    a stem on the North Pole
+ *   Jack-o'-lantern  the same pumpkin shaded - ten ribs, a scalloped limb, the
+ *                    continents burnt into the rind and the face lit from inside
+ *
+ * The face is carved into the open Pacific, where no land gets in its way, and
+ * turns with the body. The outline, rings and flat stem follow the page theme;
+ * the pumpkin keeps its own colours on either ground. The coastlines are
+ * Natural Earth 1:110m (land-110m.js).
+ *
+ * The body is raycast in a WebGL2 fragment shader (see nwlive.js for the shared
+ * pieces); the limb, rings and stem are a small canvas over it.
+ * Query string, for looking at the page in a browser:
+ *   ?look=1   ?theme=light   ?speed=100   ?orbits=0   ?mark=0   ?corner=YOUR+TEXT
+ *   ?t=12.5   freeze the clock at that many seconds
+ */
+(function () {
+  var D = NWLive.D, G = NWLive.GLSL;
+
+  var SPIN = 0.45, TILT = 0.35;   /* tipped toward the viewer, so the stem is in view */
+  var SQUASH = 0.86;              /* a pumpkin is wider than it is tall */
+  var FACE_LON = -150;
+  var PHI0 = -FACE_LON * D - 0.55;   /* start with the face just east of centre, coming round */
+  var cGT = Math.cos(TILT), sGT = Math.sin(TILT);
+
+  var mask = NWLive.land(4096, 2048);
+
+  function v3(c) { return 'vec3(' + (c[0] / 255).toFixed(5) + ',' + (c[1] / 255).toFixed(5) + ',' + (c[2] / 255).toFixed(5) + ')'; }
+  var LX = -0.45, LY = 0.55, LZ = 0.70, LN = Math.hypot(LX, LY, LZ);   /* light from the upper left, fixed to the screen */
+
+  var FRAG = G.head + [
+    'uniform sampler2D u_mask;',
+    'uniform float u_look;',     /* 0 pumpkin, 1 jack-o-lantern */
+    'uniform float u_squash;',
+    'uniform float u_lw;',
+    'const vec3 ORANGE=' + v3([238, 116, 26]) + ';',
+    'const vec3 INKY=' + v3([22, 21, 15]) + ';',
+    'const vec3 RIND=' + v3([236, 116, 22]) + ';',
+    'const vec3 BURNT=' + v3([150, 58, 8]) + ';',
+    'const vec3 CANDLE=' + v3([255, 200, 70]) + ';',
+    'const vec3 LIGHT=vec3(' + (LX / LN).toFixed(5) + ',' + (LY / LN).toFixed(5) + ',' + (LZ / LN).toFixed(5) + ');',
+    'const float FACE_LON=' + FACE_LON.toFixed(1) + ';',
+    'const float RIBS=10.0;',
+    ''
+  ].join('\n') + G.lonlat + G.mask + G.graticule + [
+    /* the face: degrees east and north of FACE_LON on the equator - two triangle
+       eyes, a triangle nose and a toothed grin */
+    'bool tri(vec2 p,vec2 a,vec2 b,vec2 q){',
+    '  float d1=(p.x-b.x)*(a.y-b.y)-(a.x-b.x)*(p.y-b.y);',
+    '  float d2=(p.x-q.x)*(b.y-q.y)-(b.x-q.x)*(p.y-q.y);',
+    '  float d3=(p.x-a.x)*(q.y-a.y)-(q.x-a.x)*(p.y-a.y);',
+    '  return !((d1<0.0||d2<0.0||d3<0.0)&&(d1>0.0||d2>0.0||d3>0.0));',
+    '}',
+    'bool carved(float du,float dv){',
+    '  if(du<-36.0||du>36.0||dv<-30.0||dv>30.0)return false;',
+    '  vec2 p=vec2(du,dv);',
+    '  if(tri(p,vec2(-16.0,27.0),vec2(-27.0,8.0),vec2(-5.0,8.0)))return true;',
+    '  if(tri(p,vec2(16.0,27.0),vec2(5.0,8.0),vec2(27.0,8.0)))return true;',
+    '  if(tri(p,vec2(0.0,5.0),vec2(-6.0,-4.0),vec2(6.0,-4.0)))return true;',
+    '  float top=-9.0+0.010*du*du, bot=-25.0+0.014*du*du;',
+    '  if(du>-32.0&&du<32.0&&dv<top&&dv>bot){',
+    '    if(du>-5.0&&du<5.0&&dv>top-6.0)return false;',                               /* top tooth */
+    '    if(((du>-20.0&&du<-12.0)||(du>12.0&&du<20.0))&&dv<bot+6.0)return false;',   /* bottom teeth */
+    '    return true;',
+    '  }',
+    '  return false;',
+    '}',
+    /* one sample of the body, premultiplied */
+    'vec4 shade(vec2 P){',
+    '  float d2=dot(P,P);',
+    '  if(d2>1.0)return vec4(0.0);',
+    '  vec3 ll=nwLonLat(P);',
+    '  float lon=mod(degrees(ll.x)+180.0,360.0)-180.0, lat=degrees(ll.y);',
+    '  float du=lon-FACE_LON; if(du>180.0)du-=360.0; else if(du<-180.0)du+=360.0;',
+    '  bool face=carved(du,lat);',
+    '  bool land=nwMask(u_mask,ll.xy)>0.5;',
+    '  if(u_look<0.5)return vec4((face||land)?INKY:ORANGE,1.0);',
+    /* 0 in a groove, 1 on the crest of a rib; the grooves pull the limb in a
+       little, fading out toward the poles where every groove meets */
+    '  float rib=sqrt(abs(sin(RIBS*0.5*radians(lon))));',
+    '  float cl=cos(ll.y), lim=1.0-0.045*(1.0-rib)*cl*cl;',
+    '  if(d2>lim*lim)return vec4(0.0);',
+    '  float a=clamp((lim-sqrt(d2))*u_R/1.5,0.0,1.0);',
+    '  vec3 c;',
+    '  if(face)c=CANDLE*(0.72+0.28*ll.z);',
+    '  else c=(land?BURNT:RIND)*(0.26+0.74*max(0.0,dot(vec3(P,ll.z),LIGHT)))*(0.6+0.4*rib);',
+    '  return vec4(c*a,a);',
+    '}',
+    'void main(){',
+    '  vec2 sc=vec2(u_R,u_R*u_squash);',   /* the body is squashed on screen; P is in the round body\'s own space */
+    '  vec2 p=(gl_FragCoord.xy-u_c)/sc;',
+    '  vec4 acc=vec4(0.0);',
+    '  for(int sy=0;sy<2;sy++)for(int sx=0;sx<2;sx++)acc+=shade(p+(vec2(float(sx),float(sy))-0.5)*0.5/sc);',
+    '  acc*=0.25;',
+    '  if(acc.a<=0.0){o=vec4(0.0);return;}',
+    '  if(u_look<0.5){',
+    /* difference with the rind colour: ink lines on the rind, orange lines over land */
+    '    vec3 c=acc.rgb/acc.a;',
+    '    vec2 g=nwGraticule(p,u_lw);',
+    '    c=mix(c,abs(c-ORANGE),g.x);',
+    '    c=mix(c,abs(c-ORANGE),g.y);',
+    '    acc=vec4(c*acc.a,acc.a);',
+    '  }',
+    '  o=acc;',
+    '}'
+  ].join('\n');
+
+  /* The stem on the North Pole, foreshortened as the pole tips toward the
+     viewer; its curl turns with the spin. */
+  function drawStem(ctx, S, phi, lantern) {
+    var R = S.R, cx = S.cx, cy = S.cy;
+    if (sGT <= -0.05) return;
+    var up = cGT >= 0 ? 1 : -1;
+    var bx = cx, by = cy - R * SQUASH * cGT;
+    var w = R * 0.07, hgt = R * (0.06 + 0.2 * Math.abs(cGT)) * up, lip = w * 0.2 * up;
+    var curl = R * 0.09 * Math.sin(phi);
+    if (lantern) {
+      ctx.fillStyle = 'rgba(70,28,4,0.55)';   /* the dimple the stem sits in */
+      ctx.beginPath(); ctx.ellipse(bx, by, w * 1.8, Math.max(1, w * 1.8 * Math.abs(sGT)), 0, 0, 6.2832); ctx.fill();
+    }
+    ctx.fillStyle = lantern ? '#5b5a22' : 'rgba(' + S.T.ink.join(',') + ',0.95)';
+    ctx.beginPath();
+    ctx.moveTo(bx - w, by);
+    ctx.quadraticCurveTo(bx - w * 0.9, by - hgt * 0.6, bx + curl - w * 0.45, by - hgt);
+    ctx.lineTo(bx + curl + w * 0.45, by - hgt - lip);
+    ctx.quadraticCurveTo(bx + w * 0.7, by - hgt * 0.55, bx + w, by);
+    ctx.closePath(); ctx.fill();
+    if (lantern) {
+      ctx.fillStyle = '#3f3d14';   /* shaded side */
+      ctx.beginPath();
+      ctx.moveTo(bx + w * 0.15, by);
+      ctx.quadraticCurveTo(bx + w * 0.2, by - hgt * 0.55, bx + curl + w * 0.1, by - hgt - lip * 0.5);
+      ctx.lineTo(bx + curl + w * 0.45, by - hgt - lip);
+      ctx.quadraticCurveTo(bx + w * 0.7, by - hgt * 0.55, bx + w, by);
+      ctx.closePath(); ctx.fill();
+    }
+  }
+
+  var gb, ob;
+  var S = NWLive.stage({
+    settings: { look: 0, orbits: true },
+    layout: function (S) {
+      gb = S.place(body, S.cx - S.R - 1, S.cy - S.R * SQUASH - 1, S.cx + S.R + 1, S.cy + S.R * SQUASH + 1);
+      ob = S.ringBox(over, S.R * 0.1);   /* the stem stands a little above the body */
+    },
+    draw: function (S, clock) {
+      var lantern = S.cfg.look === 1, phi = PHI0 + SPIN * clock;
+      if (P.live) {
+        P.sphere(gb, phi, TILT);
+        P.gl.uniform1f(P.u('u_look'), lantern ? 1 : 0);
+        P.gl.uniform1f(P.u('u_squash'), SQUASH);
+        P.gl.uniform1f(P.u('u_lw'), Math.max(1, 2 * S.R * 0.0034));
+        P.draw(gb);
+      }
+      var ctx = S.context(over, ob);
+      S.drawRings(ctx, clock, { limb: !lantern, squash: SQUASH, rings: !lantern && S.cfg.orbits });
+      drawStem(ctx, S, phi, lantern);
+    }
+  });
+  var body = S.canvas(), over = S.canvas();
+  var P = S.program(body, FRAG, function (gl, P) { P.bitmap(0, mask); gl.uniform1i(P.u('u_mask'), 0); });
+  S.start();
+})();
+</script>
+</body>
+</html>

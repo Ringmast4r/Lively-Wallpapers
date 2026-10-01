@@ -30,9 +30,16 @@ open-source license.
 
 Third-party material
 
-The DM Mono typeface in wallpapers/networks-globe/fonts/ is not covered by
-this license. It is Copyright 2020 The DM Mono Project Authors and is licensed
-under the SIL Open Font License, Version 1.1; see OFL.txt in that folder.
+Three things in the Work belong to others and are not covered by this license:
+
+  - The DM Mono typeface, in each fonts/ folder, is Copyright 2020 The DM Mono
+    Project Authors and is licensed under the SIL Open Font License, Version
+    1.1; see OFL.txt in that folder.
+  - The lunar surface and elevation maps in moon-data.js come from NASA's
+    Scientific Visualization Studio CGI Moon Kit (Lunar Reconnaissance
+    Orbiter). NASA imagery is in the public domain.
+  - The coastline data in land-110m.js comes from Natural Earth
+    (naturalearthdata.com), which is in the public domain.
 
 Disclaimer
 

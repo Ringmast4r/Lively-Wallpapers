@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Net Works Dot Matrix Globe</title>
+<style>html{background:#0a0a0a}</style>
+</head>
+<body>
+<script src="nwlive.js"></script>
+<script src="land-110m.js"></script>
+<script>
+/* Dot matrix globe, as a desktop wallpaper.
+ * Copyright (c) 2026 Net Works Lab LLC. All rights reserved. See LICENSE.txt.
+ *
+ * The coastline, resampled. There are no outlines at all: land is sampled on
+ * an equal-area lattice and every point becomes a dot that shrinks and fades
+ * toward the limb, so the sphere is described by density rather than by a
+ * drawn edge. Nothing is shaded; the dots simply get smaller as they turn away.
+ *
+ * Canvas 2D. Every point is fixed on the sphere and only the viewer moves, so
+ * the unit vectors are built once and a frame is a few multiplies per point.
+ * The dots are drawn in depth bands, one path per band, rather than one fill
+ * per dot. Coastlines are Natural Earth 1:110m (land-110m.js).
+ * Query string, for looking at the page in a browser:
+ *   ?theme=light   ?speed=100   ?grid=0   ?mark=0   ?corner=YOUR+TEXT   ?t=12.5
+ */
+(function () {
+  var D = NWLive.D;
+  var SPIN = 0.45 / D;         /* degrees a second at Speed 100: one turn in 14 s */
+  var LAM0 = -20, PHI = 12;    /* where it starts, and the latitude it is seen from */
+  var STEP = 2.1;              /* degrees between dots */
+  var BANDS = 8;
+
+  var m = NWLive.land(1440, 720);
+  var V = NWLive.vectors(NWLive.lattice(STEP).filter(function (p) { return m.at(p[0], p[1]); }));
+
+  /* graticule every 30 degrees, faint, near face only */
+  var lines = [], a, b, l;
+  for (a = -180; a < 180; a += 30) { l = []; for (b = -90; b <= 90; b += 3) l.push([a, b]); lines.push(NWLive.vectors(l)); }
+  for (b = -60; b <= 60; b += 30) { l = []; for (a = -180; a <= 180; a += 3) l.push([a, b]); lines.push(NWLive.vectors(l)); }
+
+  var sx = new Float32Array(V.n), sy = new Float32Array(V.n), sz = new Float32Array(V.n);
+  var band = new Int8Array(V.n);
+
+  var box;
+  var S = NWLive.stage({
+    size: 0.33, fps: 30,
+    settings: { grid: true },
+    layout: function (S) { box = S.place(cv, S.cx - S.R - 8, S.cy - S.R - 8, S.cx + S.R + 8, S.cy + S.R + 8); },
+    draw: function (S, clock) {
+      var ctx = S.context(cv, box), R = S.R, cx = S.cx, cy = S.cy;
+      var w = NWLive.view(LAM0 - SPIN * clock, PHI), i, X, depth;
+      var hair = Math.max(1, R / 380);
+
+      /* the ocean disc: one hairline, no fill, so the ground stays the ground */
+      ctx.strokeStyle = S.T.rule; ctx.lineWidth = hair;
+      ctx.beginPath(); ctx.arc(cx, cy, R, 0, 6.2832); ctx.stroke();
+
+      if (S.cfg.grid) {
+        ctx.beginPath();
+        for (var g = 0; g < lines.length; g++) {
+          var L = lines[g], open = false;
+          for (i = 0; i < L.n; i++) {
+            X = L.x[i] * w.a + L.y[i] * w.b; depth = w.sp * L.z[i] + w.cp * X;
+            if (depth <= 0) { open = false; continue; }
+            var px = cx + (-L.x[i] * w.b + L.y[i] * w.a) * R, py = cy - (w.cp * L.z[i] - w.sp * X) * R;
+            if (open) ctx.lineTo(px, py); else { ctx.moveTo(px, py); open = true; }
+          }
+        }
+        ctx.stroke();
+      }
+
+      /* the land itself: radius and alpha both fall off with depth, which is the whole illusion */
+      for (i = 0; i < V.n; i++) {
+        X = V.x[i] * w.a + V.y[i] * w.b; depth = w.sp * V.z[i] + w.cp * X;
+        if (depth <= 0) { band[i] = -1; continue; }
+        sx[i] = cx + (-V.x[i] * w.b + V.y[i] * w.a) * R; sy[i] = cy - (w.cp * V.z[i] - w.sp * X) * R; sz[i] = depth;
+        band[i] = depth >= 1 ? BANDS - 1 : (depth * BANDS) | 0;
+      }
+      var base = Math.max(0.9, R / 190);
+      ctx.fillStyle = S.ink();
+      for (var k = 0; k < BANDS; k++) {
+        ctx.globalAlpha = 0.25 + 0.75 * (k + 0.5) / BANDS;
+        ctx.beginPath();
+        for (i = 0; i < V.n; i++) {
+          if (band[i] !== k) continue;
+          var r = base * (0.35 + 0.65 * sz[i]);
+          ctx.moveTo(sx[i] + r, sy[i]); ctx.arc(sx[i], sy[i], r, 0, 6.2832);
+        }
+        ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+    }
+  });
+  var cv = S.canvas();
+  S.start();
+})();
+</script>
+</body>
+</html>

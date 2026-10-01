@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Net Works Moon</title>
+<style>html{background:#0a0a0a}</style>
+</head>
+<body>
+<script src="nwlive.js"></script>
+<script src="moon-data.js"></script>
+<script>
+/* The Moon, turning, as a desktop wallpaper.
+ * Copyright (c) 2026 Net Works Lab LLC. All rights reserved. See LICENSE.txt.
+ * The lunar maps in moon-data.js are NASA's and in the public domain.
+ *
+ * Two looks:
+ *
+ *   Photograph   the real surface from Lunar Reconnaissance Orbiter, lit from
+ *                one side. The light is fixed to the screen and the Moon turns
+ *                under it, so craters rise out of the dark at the terminator
+ *                and flatten as they cross the lit face. The relief is real:
+ *                it comes from the laser altimeter's elevation model, not from
+ *                the photograph.
+ *   Two-tone     the house drawing - the dark seas (maria) in the ground
+ *                colour, the highlands in ink, the 15-degree graticule and the
+ *                outline, exactly as the Net Works globe treats land and sea.
+ *
+ * Both are one WebGL2 fragment shader over two textures (brightness, slope).
+ * The orbit rings are the Net Works globe's and are off unless you turn them on.
+ * Query string, for looking at the page in a browser:
+ *   ?style=1   ?sun=90   ?orbits=1   ?theme=light   ?speed=100   ?mark=0   ?corner=YOUR+TEXT
+ *   ?t=12.5    freeze the clock at that many seconds
+ */
+(function () {
+  var D = NWLive.D, G = NWLive.GLSL;
+
+  var SPIN = 0.45, TILT = 0.10;
+  var RELIEF = 2.6;       /* how far the slopes are exaggerated; 1 is true to scale and reads as flat at this size */
+  var MARE = 0.50;        /* brightness that separates sea from highland in the two-tone look */
+  var SOFT = 7;           /* and how many pixels wide the map is blurred before that cut is made */
+
+  var FRAG = G.head + [
+    'uniform sampler2D u_albedo;',
+    'uniform sampler2D u_relief;',
+    'uniform float u_style;',      /* 0 photograph, 1 two-tone */
+    'uniform vec3 u_sun;',         /* direction to the light, in screen space */
+    'uniform float u_relief_k;',   /* slope range of the relief texture, times the exaggeration */
+    'uniform float u_lw;',
+    'uniform vec3 u_hi;',          /* two-tone: the highlands, always the lighter of the two page colours */
+    'uniform vec3 u_lo;',          /* and the seas, the darker */
+    'uniform vec3 u_night;',
+    'uniform float u_earthshine;',
+    'const float SOFT=' + SOFT.toFixed(1) + ';',
+    ''
+  ].join('\n') + G.graticule + [
+    'void main(){',
+    '  vec2 p=(gl_FragCoord.xy-u_c)/u_R;',
+    '  float d=length(p);',
+    '  float a=clamp((1.0-d)*u_R+0.5,0.0,1.0);',   /* antialiased limb */
+    '  if(a<=0.0){o=vec4(0.0);return;}',
+    '  vec2 q=d>0.9995?p*(0.9995/d):p;',
+    '  vec3 N=vec3(q,sqrt(1.0-dot(q,q)));',
+    '  float wy=q.y*u_tilt.x+N.z*u_tilt.y, wz=-q.y*u_tilt.y+N.z*u_tilt.x;',
+    '  float lat=asin(clamp(wy,-1.0,1.0));',
+    /* Longitude has a cut where atan wraps. Taking the screen gradient from
+       whichever of two half-turn-apart copies is smooth here keeps the texture
+       filter from seeing a jump there and drawing a seam. */
+    '  float a1=atan(q.x,wz), a2=atan(-q.x,-wz);',
+    '  vec2 g1=vec2(dFdx(a1),dFdy(a1)), g2=vec2(dFdx(a2),dFdy(a2));',
+    '  vec2 ga=dot(g1,g1)<dot(g2,g2)?g1:g2;',
+    '  vec2 uv=vec2((a1-u_phi)/(2.0*PI)+0.5,0.5-lat/PI);',
+    '  vec2 dx=vec2(ga.x/(2.0*PI),-dFdx(lat)/PI), dy=vec2(ga.y/(2.0*PI),-dFdy(lat)/PI);',
+    '  float alb=textureGrad(u_albedo,uv,dx,dy).r;',
+    '  vec3 c;',
+    '  if(u_style<0.5){',
+    /* tip the surface normal by the ground slope: east and north on the body, seen from the screen */
+    '    vec3 pole=vec3(0.0,u_tilt.x,u_tilt.y);',
+    '    vec3 E=cross(pole,N); float el=length(E); E=el>1e-4?E/el:vec3(1.0,0.0,0.0);',
+    '    vec3 Nn=cross(N,E);',
+    '    vec2 s=(textureGrad(u_relief,uv,dx,dy).rg-0.5)*2.0*u_relief_k;',
+    '    vec3 n=normalize(N-s.x*E-s.y*Nn);',
+    '    float lit=max(0.0,dot(n,u_sun));',
+    /* the real Moon does not darken toward its limb the way a matte ball does; this flattens the falloff */
+    '    lit=pow(lit,0.72)*smoothstep(-0.02,0.10,dot(N,u_sun));',
+    '    float v=pow(alb,1.25)*1.55*lit;',
+    '    c=min(vec3(1.0),v*vec3(1.0,0.985,0.955));',
+    /* the night side: a trace of earthshine over the page colour, so it sinks
+       into a dark ground instead of punching a hole in it */
+    '    c=max(c,u_night+u_earthshine*alb);',
+    '  }else{',
+    /* read the map well out of focus, so the seas come out as shapes and the
+       craters and rays drop away */
+    '    float soft=textureGrad(u_albedo,uv,dx*SOFT,dy*SOFT).r;',
+    '    float w=max(fwidth(soft)*0.75,0.003);',
+    '    c=mix(u_lo,u_hi,smoothstep(' + MARE.toFixed(3) + '-w,' + MARE.toFixed(3) + '+w,soft));',
+    '    vec2 g=nwGraticule(p,u_lw);',
+    '    c=mix(c,1.0-c,g.x);',
+    '    c=mix(c,1.0-c,g.y);',
+    '  }',
+    '  o=vec4(c*a,a);',
+    '}'
+  ].join('\n');
+
+  function load(src) {
+    return new Promise(function (ok, fail) {
+      var img = new Image();
+      img.onload = function () { ok(img); }; img.onerror = function () { fail(Error('moon map did not decode')); };
+      img.src = src;
+    });
+  }
+  var maps = Promise.all([load(NW_MOON.albedo), load(NW_MOON.relief)]);
+
+  var gb, ob, P = null;
+  var S = NWLive.stage({
+    settings: { style: 0, sun: 55, orbits: false },
+    ready: maps,
+    layout: function (S) {
+      gb = S.place(body, S.cx - S.R - 1, S.cy - S.R - 1, S.cx + S.R + 1, S.cy + S.R + 1);
+      ob = S.ringBox(over);
+    },
+    draw: function (S, clock) {
+      var flat = S.cfg.style === 1;
+      if (P && P.live) {
+        var gl = P.gl, sun = S.cfg.sun * D;
+        P.sphere(gb, SPIN * clock, TILT);
+        gl.uniform1f(P.u('u_style'), flat ? 1 : 0);
+        /* the light swings from straight on (0, a full Moon) round to the upper left */
+        var lx = -Math.sin(sun) * 0.92, ly = Math.sin(sun) * 0.39, lz = Math.cos(sun), ln = Math.hypot(lx, ly, lz);
+        gl.uniform3f(P.u('u_sun'), lx / ln, ly / ln, lz / ln);
+        gl.uniform1f(P.u('u_relief_k'), NW_MOON.slopeRange * RELIEF);
+        var dark = S.T.name === 'dark';
+        P.rgb('u_hi', dark ? S.T.ink : S.T.sea); P.rgb('u_lo', dark ? S.T.sea : S.T.ink);
+        P.rgb('u_night', dark ? S.T.sea : [0, 0, 0]);
+        gl.uniform1f(P.u('u_earthshine'), dark ? 0.035 : 0.02);
+        gl.uniform1f(P.u('u_lw'), Math.max(1, 2 * S.R * 0.0034));
+        P.draw(gb);
+      }
+      S.drawRings(S.context(over, ob), clock, { limb: flat, rings: S.cfg.orbits });
+    }
+  });
+  var body = S.canvas(), over = S.canvas();
+  maps.then(function (m) {
+    P = S.program(body, FRAG, function (gl, P) {
+      P.image(0, m[0], gl.R8, gl.RED); gl.uniform1i(P.u('u_albedo'), 0);
+      P.image(1, m[1], gl.RGB8, gl.RGB); gl.uniform1i(P.u('u_relief'), 1);
+    });
+    S.redraw();
+  });
+  S.start();
+})();
+</script>
+</body>
+</html>

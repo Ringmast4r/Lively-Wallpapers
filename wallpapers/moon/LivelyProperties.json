@@ -1,0 +1,51 @@
+{
+  "speed": {
+    "type": "slider",
+    "text": "Speed (100 = one turn in 14 s)",
+    "value": 40,
+    "min": 0,
+    "max": 200,
+    "step": 5
+  },
+  "style": {
+    "type": "dropdown",
+    "text": "Look",
+    "value": 0,
+    "items": [
+      "Photograph",
+      "Two-tone"
+    ]
+  },
+  "sun": {
+    "type": "slider",
+    "text": "Sunlight angle (0 = full Moon, 90 = half)",
+    "value": 55,
+    "min": 0,
+    "max": 150,
+    "step": 5
+  },
+  "orbits": {
+    "type": "checkbox",
+    "text": "Orbit rings",
+    "value": false
+  },
+  "theme": {
+    "type": "dropdown",
+    "text": "Theme",
+    "value": 0,
+    "items": [
+      "Dark",
+      "Light"
+    ]
+  },
+  "mark": {
+    "type": "checkbox",
+    "text": "Corner wordmark",
+    "value": true
+  },
+  "corner": {
+    "type": "textbox",
+    "text": "Right corner text",
+    "value": "NET-WORKS-LAB.COM"
+  }
+}

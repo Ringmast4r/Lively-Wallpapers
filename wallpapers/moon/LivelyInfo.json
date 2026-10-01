@@ -1,0 +1,14 @@
+{
+  "AppVersion": "2.2.1.0",
+  "Title": "Net Works Moon",
+  "Thumbnail": "thumbnail.jpg",
+  "Preview": "preview.gif",
+  "Desc": "The Moon, turning under a fixed light: the real surface from NASA's Lunar Reconnaissance Orbiter, with craters that shade at the terminator. Or switch to the two-tone house drawing.",
+  "Author": "Net Works",
+  "License": "Proprietary. Copyright (c) 2026 Net Works Lab LLC. All rights reserved. Personal, non-commercial use only; see LICENSE.txt.",
+  "Contact": "https://github.com/Ringmast4r/Lively-Wallpapers",
+  "Type": 1,
+  "FileName": "index.html",
+  "Arguments": null,
+  "IsAbsolutePath": false
+}

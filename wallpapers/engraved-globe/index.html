@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Net Works Engraved Globe</title>
+<style>html{background:#0a0a0a}</style>
+</head>
+<body>
+<script src="nwlive.js"></script>
+<script src="land-110m.js"></script>
+<script>
+/* Engraved globe, as a desktop wallpaper.
+ * Copyright (c) 2026 Net Works Lab LLC. All rights reserved. See LICENSE.txt.
+ *
+ * Continents made of parallels. One line per parallel, unbroken from limb to
+ * limb. Where a line crosses land it thickens; over water it stays a hairline.
+ * Nothing is filled and nothing is outlined - the continents appear because
+ * the ruling gets heavier, the way a banknote or a Victorian atlas builds a
+ * shape.
+ *
+ * Canvas 2D. Every ruled point is fixed on the sphere, so its unit vector and
+ * its land flag are built once into typed arrays and a frame is six multiplies
+ * per point. Points are emitted as runs, not loose segments: a few hundred
+ * subpaths a frame rather than sixteen thousand.
+ * Coastlines are Natural Earth 1:110m (land-110m.js).
+ * Query string, for looking at the page in a browser:
+ *   ?theme=light   ?speed=100   ?mark=0   ?corner=YOUR+TEXT   ?t=12.5
+ */
+(function () {
+  var D = NWLive.D;
+  var SPIN = 0.45 / D;         /* degrees a second at Speed 100: one turn in 14 s */
+  var LAM0 = -20, PHI = 12;
+  var RING_STEP = 2.6;         /* degrees of latitude between ruled lines */
+  var LON_STEP = 1.5;          /* sampling along each line */
+  var BANDS = 4;               /* depth bands, so the far edge fades without per-point alpha */
+
+  var m = NWLive.land(2048, 1024);
+  var rings = [], total = 0;
+  for (var lat = -86; lat <= 86; lat += RING_STEP) {
+    var n = Math.round(360 / LON_STEP), list = [], flags = new Uint8Array(n);
+    for (var i = 0; i < n; i++) { var lon = -180 + i * LON_STEP; list.push([lon, lat]); flags[i] = m.at(lon, lat) ? 1 : 0; }
+    var v = NWLive.vectors(list); v.land = flags;
+    rings.push(v); total += n;
+  }
+
+  /* Scratch buffers, allocated once and refilled in place; s marks where a new run begins. */
+  function buffer(n) { return { x: new Float32Array(n), y: new Float32Array(n), s: new Uint8Array(n), n: 0 }; }
+  var sea = buffer(total + 64), land = [];
+  for (var q = 0; q < BANDS; q++) land.push(buffer(total + 64));
+  function push(buf, x, y, isStart) {
+    var k = buf.n;
+    if (k >= buf.x.length) return;
+    buf.x[k] = x; buf.y[k] = y; buf.s[k] = isStart ? 1 : 0; buf.n = k + 1;
+  }
+
+  var box;
+  var S = NWLive.stage({
+    size: 0.33, fps: 30,
+    layout: function (S) { box = S.place(cv, S.cx - S.R - 8, S.cy - S.R - 8, S.cx + S.R + 8, S.cy + S.R + 8); },
+    draw: function (S, clock) {
+      var ctx = S.context(cv, box), R = S.R, cx = S.cx, cy = S.cy;
+      var w = NWLive.view(LAM0 - SPIN * clock, PHI);
+      ctx.lineJoin = 'round';
+      sea.n = 0;
+      for (var q = 0; q < BANDS; q++) land[q].n = 0;
+
+      for (var r = 0; r < rings.length; r++) {
+        var v = rings[r], open = null, prevX = 0, prevY = 0, hasPrev = false;
+        for (var i = 0; i < v.n; i++) {
+          var X = v.x[i] * w.a + v.y[i] * w.b, depth = w.sp * v.z[i] + w.cp * X;
+          if (depth <= 0) { open = null; hasPrev = false; continue; }
+          var sx = cx + (-v.x[i] * w.b + v.y[i] * w.a) * R, sy = cy - (w.cp * v.z[i] - w.sp * X) * R;
+          var target = v.land[i] ? land[depth >= 1 ? BANDS - 1 : (depth * BANDS) | 0] : sea;
+          if (open !== target) {
+            /* a new run: carry the previous point in so land and water stay stitched together */
+            push(target, hasPrev ? prevX : sx, hasPrev ? prevY : sy, true);
+            open = target;
+          }
+          push(target, sx, sy, false);
+          prevX = sx; prevY = sy; hasPrev = true;
+        }
+      }
+
+      function strokeRuns(buf, width, alpha) {
+        if (!buf.n) return;
+        ctx.globalAlpha = alpha; ctx.lineWidth = width;
+        ctx.beginPath();
+        for (var k = 0; k < buf.n; k++) { if (buf.s[k]) ctx.moveTo(buf.x[k], buf.y[k]); else ctx.lineTo(buf.x[k], buf.y[k]); }
+        ctx.stroke();
+      }
+
+      /* the water ruling: a single hairline weight, barely there */
+      ctx.strokeStyle = S.T.grey;
+      strokeRuns(sea, Math.max(0.35, R / 620), 0.28);
+
+      /* the land ruling: heavier, and heavier still as it faces us */
+      ctx.strokeStyle = S.ink();
+      for (var b = 0; b < BANDS; b++) {
+        var t = (b + 0.5) / BANDS;
+        strokeRuns(land[b], Math.max(1, R / 200) * (0.45 + 0.95 * t), 0.35 + 0.65 * t);
+      }
+
+      /* the limb last, so the ruling never spills past the edge */
+      ctx.globalAlpha = 1; ctx.lineWidth = Math.max(1.1, R / 330);
+      ctx.beginPath(); ctx.arc(cx, cy, R, 0, 6.2832); ctx.stroke();
+    }
+  });
+  var cv = S.canvas();
+  S.start();
+})();
+</script>
+</body>
+</html>

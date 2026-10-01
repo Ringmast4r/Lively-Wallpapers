@@ -11,7 +11,10 @@
     "type": "dropdown",
     "text": "Theme",
     "value": 0,
-    "items": ["Dark", "Light"]
+    "items": [
+      "Dark",
+      "Light"
+    ]
   },
   "orbits": {
     "type": "checkbox",

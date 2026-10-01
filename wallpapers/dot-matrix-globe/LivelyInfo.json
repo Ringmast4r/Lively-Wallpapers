@@ -1,0 +1,14 @@
+{
+  "AppVersion": "2.2.1.0",
+  "Title": "Net Works Dot Matrix Globe",
+  "Thumbnail": "thumbnail.jpg",
+  "Preview": "preview.gif",
+  "Desc": "The coastline, resampled: no outlines, only dots on an equal-area lattice that shrink and fade toward the limb.",
+  "Author": "Net Works",
+  "License": "Proprietary. Copyright (c) 2026 Net Works Lab LLC. All rights reserved. Personal, non-commercial use only; see LICENSE.txt.",
+  "Contact": "https://github.com/Ringmast4r/Lively-Wallpapers",
+  "Type": 1,
+  "FileName": "index.html",
+  "Arguments": null,
+  "IsAbsolutePath": false
+}

@@ -1,0 +1,14 @@
+{
+  "AppVersion": "2.2.1.0",
+  "Title": "Net Works Engraved Globe",
+  "Thumbnail": "thumbnail.jpg",
+  "Preview": "preview.gif",
+  "Desc": "Continents made of parallels: one ruled line per parallel that thickens over land, the way a banknote builds a shape.",
+  "Author": "Net Works",
+  "License": "Proprietary. Copyright (c) 2026 Net Works Lab LLC. All rights reserved. Personal, non-commercial use only; see LICENSE.txt.",
+  "Contact": "https://github.com/Ringmast4r/Lively-Wallpapers",
+  "Type": 1,
+  "FileName": "index.html",
+  "Arguments": null,
+  "IsAbsolutePath": false
+}

@@ -1,8 +1,8 @@
 <div align="center">
 
-<img width="100%" alt="LIVELY WALLPAPERS" src="https://capsule-render.vercel.app/api?type=waving&color=0:000000,100:00C853&height=220&section=header&text=LIVELY%20WALLPAPERS&fontSize=58&fontColor=ffffff&animation=twinkling&fontAlignY=35&desc=Live%20desktop%20wallpapers%20for%20Windows%20%7C%20WebGL%20%7C%20Plain%20HTML&descSize=18&descAlignY=58"/>
+<img width="100%" alt="LIVELY WALLPAPERS" src="https://capsule-render.vercel.app/api?type=waving&color=0:000000,100:00C853&height=220&section=header&text=LIVELY%20WALLPAPERS&fontSize=58&fontColor=ffffff&animation=twinkling&fontAlignY=35&desc=Six%20live%20desktop%20wallpapers%20for%20Windows%20%7C%20WebGL%20%7C%20Plain%20HTML&descSize=18&descAlignY=58"/>
 
-`Windows` [`Lively Wallpaper`](https://github.com/lively-community/lively) `WebGL` `HTML` `Live Wallpaper` - Custom live wallpapers for Lively Wallpaper on Windows: plain HTML pages that draw on the GPU, each with its own settings panel. Widget counterpart: [Ringmast4r/Rainmeter](https://github.com/Ringmast4r/Rainmeter)
+`Windows` [`Lively Wallpaper`](https://github.com/lively-community/lively) `WebGL` `Canvas` `HTML` `Live Wallpaper` - Custom live wallpapers for Lively Wallpaper on Windows: plain HTML pages that draw on the GPU, each with its own settings panel. Widget counterpart: [Ringmast4r/Rainmeter](https://github.com/Ringmast4r/Rainmeter)
 
 [![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=600&size=22&pause=1000&color=00E676&center=true&vCenter=true&multiline=true&repeat=true&width=950&height=100&lines=Your+wallpaper+does+not+have+to+sit+still.;Plain+HTML+%C2%B7+WebGL+%C2%B7+no+build+step;Drop+the+zip+on+Lively.+Done.)](https://git.io/typing-svg)
 
@@ -10,9 +10,9 @@
 
 <br>
 
-[![Wallpapers](https://img.shields.io/badge/Wallpapers-1-00C853?style=for-the-badge&logo=windows&logoColor=white)](#the-wallpapers)
+[![Wallpapers](https://img.shields.io/badge/Wallpapers-6-00C853?style=for-the-badge&logo=windows&logoColor=white)](#the-wallpapers)
 [![Host](https://img.shields.io/badge/Host-Lively_Wallpaper-000000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/lively-community/lively)
-[![Drawn with](https://img.shields.io/badge/Drawn_with-WebGL2-00C853?style=for-the-badge&logo=webgl&logoColor=white)](#how-a-wallpaper-is-built)
+[![Drawn with](https://img.shields.io/badge/Drawn_with-WebGL2_%2B_Canvas-00C853?style=for-the-badge&logo=webgl&logoColor=white)](#how-a-wallpaper-is-built)
 [![License](https://img.shields.io/badge/License-Proprietary-000000?style=for-the-badge&logo=readme&logoColor=white)](./LICENSE)
 
 [![Stars](https://img.shields.io/github/stars/Ringmast4r/Lively-Wallpapers?style=flat-square&color=00C853&label=%E2%98%85%20Stars)](https://github.com/Ringmast4r/Lively-Wallpapers/stargazers)
@@ -34,23 +34,39 @@ you@github:~$ cat lively-wallpapers.txt
   PURPOSE:        Live wallpapers we made for our own desktops, shared
   HOST:           Lively Wallpaper (free, open source, Windows 10 and 11)
   FORMAT:         One folder per wallpaper: index.html + two small JSON files
-  NETWORK:        None. Fonts ship in the folder; nothing is fetched
+  NETWORK:        None. Fonts and data ship in the folder; nothing is fetched
   RIGHTS:         Proprietary to Net Works Lab LLC. Free to run, not to redistribute
   STATUS:         [ ACTIVE ]
 ```
 
 > Windows has no live wallpaper of its own. [Lively Wallpaper](https://github.com/lively-community/lively) fills that gap by running a web page behind your desktop icons, and these are the pages.
 
-The GIF above is the wallpaper itself, recorded by stepping the real page frame by frame (`scripts/shoot.py`). It is not a mock-up.
+Every picture in this README is the wallpaper itself, recorded by stepping the real page frame by frame (`scripts/shoot.py`). None of it is a mock-up.
 
 ---
 
 <a id="the-wallpapers"></a>
 ## `> ls wallpapers/`
 
-| Wallpaper | What it is | Get it |
+| | Wallpaper | What it is | Get it |
+|:--|:--|:--|:--|
+| <img width="200" alt="" src="wallpapers/networks-globe/preview.gif"/> | **[Net Works Globe](#net-works-globe)** | A black and white low-polygon world turning inside two orbit rings. | [`networks-globe.zip`](https://github.com/Ringmast4r/Lively-Wallpapers/raw/main/packages/networks-globe.zip) |
+| <img width="200" alt="" src="wallpapers/pumpkin-globe/preview.gif"/> | **[Pumpkin Globe](#pumpkin-globe)** | The globe as a pumpkin with a carved face, flat or as a lit jack-o'-lantern. | [`pumpkin-globe.zip`](https://github.com/Ringmast4r/Lively-Wallpapers/raw/main/packages/pumpkin-globe.zip) |
+| <img width="200" alt="" src="wallpapers/moon/preview.gif"/> | **[Moon](#moon)** | The real lunar surface turning under a fixed light, craters and all. | [`moon.zip`](https://github.com/Ringmast4r/Lively-Wallpapers/raw/main/packages/moon.zip) |
+| <img width="200" alt="" src="wallpapers/dot-matrix-globe/preview.gif"/> | **[Dot Matrix Globe](#dot-matrix-globe)** | No outlines: the continents as a lattice of dots that fade toward the limb. | [`dot-matrix-globe.zip`](https://github.com/Ringmast4r/Lively-Wallpapers/raw/main/packages/dot-matrix-globe.zip) |
+| <img width="200" alt="" src="wallpapers/great-circles/preview.gif"/> | **[Great Circles](#great-circles)** | Routes between cities arcing over a quiet dotted globe, each carrying a pulse. | [`great-circles.zip`](https://github.com/Ringmast4r/Lively-Wallpapers/raw/main/packages/great-circles.zip) |
+| <img width="200" alt="" src="wallpapers/engraved-globe/preview.gif"/> | **[Engraved Globe](#engraved-globe)** | Continents ruled out of parallels, the way a banknote builds a shape. | [`engraved-globe.zip`](https://github.com/Ringmast4r/Lively-Wallpapers/raw/main/packages/engraved-globe.zip) |
+
+**Settings every wallpaper has** (right click the wallpaper in Lively, then Customise):
+
+| Setting | Default | What it does |
 |:--|:--|:--|
-| **[Net Works Globe](#net-works-globe)** | A black and white low-polygon world turning inside two orbit rings. Dark or light. | [`networks-globe.zip`](https://github.com/Ringmast4r/Lively-Wallpapers/raw/main/packages/networks-globe.zip) |
+| Speed | `40` | Percent of full pace. `100` is one turn in 14 seconds; `40` is one in 35. `0` stops it, and a stopped wallpaper stops drawing. |
+| Theme | Dark | Dark is ink on black, Light is ink on paper. |
+| Corner wordmark | on | `NET // WORKS` bottom left and the line bottom right. |
+| Right corner text | `NET-WORKS-LAB.COM` | Put anything you like there, or clear it. |
+
+**Any screen.** Each one is sized from the shorter side of the monitor and drawn at the monitor's real pixel count, including at 125% and 150% Windows scaling. On screens wider than 16:9 the wordmark keeps to a centred 16:9 frame, so a taskbar docked to the side does not cover it.
 
 ---
 
@@ -66,19 +82,75 @@ The Net // Works globe set in motion. The world turns east, eleven nodes travel 
 
 It is the still wallpaper from [net-works-lab.com](https://net-works-lab.com/downloads/) redrawn every frame: frozen on the same pose, the two match apart from edge antialiasing.
 
-**Settings** (right click the wallpaper in Lively, then Customise):
+Its own setting: **Orbit rings** (on).
 
-| Setting | Default | What it does |
-|:--|:--|:--|
-| Speed | `40` | Percent of full pace. `100` is one turn in 14 seconds; `40` is one in 35. `0` stops it. |
-| Theme | Dark | Dark is ink on black, Light is ink on paper. |
-| Orbit rings | on | The two rings and their nodes. |
-| Corner wordmark | on | `NET // WORKS` bottom left and the line bottom right. |
-| Right corner text | `NET-WORKS-LAB.COM` | Put anything you like there, or clear it. |
+**What it costs.** Measured on a 5120x1440 monitor with an RTX 3070: Lively and its browser together used about 30% of one CPU core and 6 to 7% of the GPU. Lively pauses a wallpaper while a full-screen app or game is in front. The other five have not been measured.
 
-**Any screen.** The globe is sized from the shorter side of the monitor and drawn at the monitor's real pixel count, including at 125% and 150% Windows scaling. On screens wider than 16:9 the wordmark keeps to a centred 16:9 frame, so a taskbar docked to the side does not cover it.
+---
 
-**What it costs.** Measured on a 5120x1440 monitor with an RTX 3070: Lively and its browser together used about 30% of one CPU core and 6 to 7% of the GPU. Lively pauses the wallpaper while a full-screen app or game is in front.
+<a id="pumpkin-globe"></a>
+## `> pumpkin_globe`
+
+<p align="center">
+  <img width="49%" alt="Pumpkin Globe, the Pumpkin look" src="screenshots/pumpkin-globe-pumpkin.png"/>
+  <img width="49%" alt="Pumpkin Globe, the Jack-o'-lantern look" src="screenshots/pumpkin-globe-lantern.png"/>
+</p>
+
+The globe the Net Works site wears every October. The face is carved into the open Pacific, where no land gets in its way, and turns with the body; the stem sits on the North Pole and its curl follows the spin.
+
+Its own settings: **Look** (Pumpkin is the flat drawing with graticule and rings; Jack-o'-lantern is the same pumpkin shaded, with ten ribs and the face lit from inside) and **Orbit rings** (Pumpkin look only).
+
+---
+
+<a id="moon"></a>
+## `> moon`
+
+<p align="center">
+  <img width="49%" alt="Moon, the Photograph look" src="screenshots/moon-photograph.png"/>
+  <img width="49%" alt="Moon, the Two-tone look" src="screenshots/moon-two-tone.png"/>
+</p>
+
+The real surface, from NASA's Lunar Reconnaissance Orbiter. The light is fixed to the screen and the Moon turns under it, so craters rise out of the dark at the terminator and flatten as they cross the lit face. That relief is not painted on: it is worked out from the laser altimeter's elevation model. Because it turns all the way round, you also get the far side, which nobody sees from Earth.
+
+Its own settings: **Look** (Photograph, or Two-tone: the seas and highlands as two flat tones with the graticule, drawn the way the Net Works globe draws land and sea), **Sunlight angle** (`0` is a full Moon, `90` a half, default `55`) and **Orbit rings** (off).
+
+---
+
+<a id="dot-matrix-globe"></a>
+## `> dot_matrix_globe`
+
+<p align="center">
+  <img width="49%" alt="Dot Matrix Globe, dark" src="screenshots/dot-matrix-globe-dark.png"/>
+  <img width="49%" alt="Dot Matrix Globe, light" src="screenshots/dot-matrix-globe-light.png"/>
+</p>
+
+The coastline, resampled. Land is sampled on an equal-area lattice and every point becomes a dot that shrinks and fades as it turns away, so the sphere is described by density rather than by a drawn edge. Nothing is shaded.
+
+Its own setting: **Graticule** (on).
+
+---
+
+<a id="great-circles"></a>
+## `> great_circles`
+
+<p align="center">
+  <img width="49%" alt="Great Circles, dark" src="screenshots/great-circles-dark.png"/>
+  <img width="49%" alt="Great Circles, light" src="screenshots/great-circles-light.png"/>
+</p>
+
+Routes, not places. Twenty-four real great circles between twenty-one cities, lifted off the surface so they arc over the limb, each carrying a pulse that dims as it turns away. The land is only a quiet silhouette of dots. The cities are real coordinates; the routes are a drawing, not traffic data.
+
+---
+
+<a id="engraved-globe"></a>
+## `> engraved_globe`
+
+<p align="center">
+  <img width="49%" alt="Engraved Globe, dark" src="screenshots/engraved-globe-dark.png"/>
+  <img width="49%" alt="Engraved Globe, light" src="screenshots/engraved-globe-light.png"/>
+</p>
+
+Continents made of parallels. One line per parallel, unbroken from limb to limb; where it crosses land it thickens, over water it stays a hairline. Nothing is filled and nothing is outlined. The continents appear because the ruling gets heavier.
 
 ---
 
@@ -87,7 +159,7 @@ It is the still wallpaper from [net-works-lab.com](https://net-works-lab.com/dow
 
 ```
 1.  Install Lively Wallpaper            winget install rocksdanister.LivelyWallpaper
-2.  Download a zip from packages/       networks-globe.zip
+2.  Download a zip from packages/       networks-globe.zip, moon.zip, ...
 3.  Drag the zip onto the Lively window
 4.  Click the wallpaper to set it; right click > Customise for its settings
 ```
@@ -100,7 +172,7 @@ powershell -ExecutionPolicy Bypass -File install.ps1 -Restart
 
 `install.ps1` copies each folder under `wallpapers/` into Lively's library and restarts Lively so they show up. It needs no admin rights and leaves the settings you have saved for a wallpaper alone.
 
-Just want a look first? Open `wallpapers/networks-globe/index.html` in a browser. It takes its settings from the query string: `?speed=100&theme=light&orbits=0&corner=HELLO`.
+Just want a look first? Open any `wallpapers/<name>/index.html` in a browser. It takes its settings from the query string: `?speed=100&theme=light&corner=HELLO`.
 
 ---
 
@@ -110,8 +182,10 @@ Just want a look first? Open `wallpapers/networks-globe/index.html` in a browser
 A Lively web wallpaper is a folder. No SDK and no build step.
 
 ```
-wallpapers/networks-globe/
-  index.html               the wallpaper: one page, no dependencies
+wallpapers/pumpkin-globe/
+  index.html               the wallpaper: its drawing, and nothing else
+  nwlive.js                the kit all six share: settings, layout, wordmark, clock, shader pieces
+  land-110m.js             the real coastlines (the globes that use them)
   LivelyInfo.json          title, author, which file to open, thumbnail
   LivelyProperties.json    the settings panel: sliders, dropdowns, checkboxes, text boxes
   thumbnail.jpg            what Lively's library shows
@@ -129,13 +203,25 @@ window.livelyPropertyListener = function (name, val) {
 };
 ```
 
-Three things we learned building the globe:
+Things we learned building these:
 
-- **Put the per-pixel work in a shader.** The globe is raycast in a WebGL2 fragment shader with the land mask as a texture, so the per-pixel work (four samples for every pixel of the disc, every frame, for as long as the desktop is up) runs on the GPU and not in a JavaScript loop.
-- **Repaint only what moves.** The page is four small canvases over a plain CSS background: the two corners of the wordmark (drawn once), the globe, and the rings. A frame touches the globe's box and nothing else.
-- **Land every canvas on the device-pixel grid.** At 125% or 150% scaling a canvas whose CSS size is a hair off its pixel size gets resampled and the linework goes soft. The page snaps each canvas edge to a pixel value that survives the conversion. See `gridDown` / `gridUp` in `index.html`.
+- **Put the per-pixel work in a shader.** The globe, the pumpkin and the Moon are raycast in a WebGL2 fragment shader with their maps as textures, so the per-pixel work (up to four samples for every pixel of the disc, every frame, for as long as the desktop is up) runs on the GPU and not in a JavaScript loop.
+- **Build the geometry once.** The dot, arc and ruled globes are canvas 2D. Every point is fixed on the sphere and only the viewer moves, so the unit vectors go into typed arrays once and a frame is a few multiplies per point, with no trigonometry and no allocation.
+- **Repaint only what moves.** Each page is a few small canvases over a plain CSS background: the two corners of the wordmark (drawn once) and the globe's own box. When nothing has moved (Speed at 0), nothing is drawn at all.
+- **Land every canvas on the device-pixel grid.** At 125% or 150% scaling a canvas whose CSS size is a hair off its pixel size gets resampled and the linework goes soft. The kit snaps each canvas edge to a pixel value that survives the conversion. See `gridDown` / `gridUp` in `nwlive.js`.
+- **Ship data as script.** A page opened from disk may not read pixels out of an image file, but it may always run a script. The coastlines and the Moon's maps are `.js` files for that reason.
 
-Adding a wallpaper to this repo: make a folder under `wallpapers/` with those files, run `py -3.13 scripts/build_packages.py` to zip it into `packages/`, and add its row to the table above.
+The repo's own plumbing:
+
+```
+shared/                    the one copy of nwlive.js, land-110m.js and the font
+wallpapers.json            the list of wallpapers and what to shoot for each
+scripts/build_lively_json.py   writes LivelyInfo.json and LivelyProperties.json
+scripts/build_packages.py      copies shared/ into each folder, zips each into packages/
+scripts/shoot.py               records the stills, thumbnails and previews from the real pages
+scripts/build_land.py          Natural Earth GeoJSON -> shared/land-110m.js
+scripts/build_moon.py          NASA's lunar maps -> wallpapers/moon/moon-data.js
+```
 
 ---
 
@@ -146,11 +232,11 @@ Adding a wallpaper to this repo: make a folder under `wallpapers/` with those fi
 
 | METRIC | COUNT | NOTES |
 |:------:|:-----:|:-----:|
-| **Wallpapers** | `1` | Net Works Globe |
-| **Settings** | `5` | Speed, theme, rings, wordmark, corner text |
-| **Network requests** | `0` | Fonts and code are in the folder |
-| **Dependencies** | `0` | One HTML file, no libraries |
-| **Package size** | `783 KB` | Most of it is the hover preview |
+| **Wallpapers** | `6` | Three drawn in a shader, three in canvas 2D |
+| **Looks** | `8` | Pumpkin and Moon have two each; every one also comes in dark and light |
+| **Network requests** | `0` | Fonts, coastlines and lunar maps are in the folder |
+| **Libraries** | `0` | One shared kit of our own, no third-party code |
+| **Package size** | `0.5 to 3.3 MB` | The Moon is the big one: it carries the lunar maps |
 
 </div>
 
@@ -172,7 +258,11 @@ These wallpapers are proprietary to Net Works Lab LLC. Copyright (c) 2026 Net Wo
 
 You are welcome to download them and run them, unmodified, on your own devices for personal, non-commercial use. Redistributing, re-hosting, modifying or using them commercially needs written permission. The full terms are in [LICENSE](./LICENSE); this is not an open-source project.
 
-The DM Mono font in `wallpapers/networks-globe/fonts/` is the one exception: it belongs to its own authors and stays under the SIL Open Font License, whose text is beside it in `OFL.txt`.
+Three things inside belong to other people and keep their own terms:
+
+- **DM Mono** (the `fonts/` folders) is under the SIL Open Font License; its text is beside it in `OFL.txt`.
+- **The lunar maps** in `wallpapers/moon/moon-data.js` come from NASA's Scientific Visualization Studio [CGI Moon Kit](https://svs.gsfc.nasa.gov/4720) (Lunar Reconnaissance Orbiter). NASA imagery is in the public domain.
+- **The coastlines** in `land-110m.js` come from [Natural Earth](https://www.naturalearthdata.com/), which is in the public domain.
 
 **Maintained by** [@Ringmast4r](https://github.com/Ringmast4r)
 

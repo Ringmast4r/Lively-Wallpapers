@@ -1,0 +1,82 @@
+[
+  {
+    "id": "networks-globe",
+    "title": "Net Works Globe",
+    "shared": [
+      "nwlive.js"
+    ],
+    "turn": 13.963,
+    "stills": {
+      "dark": "?still",
+      "light": "?still&theme=light"
+    }
+  },
+  {
+    "id": "pumpkin-globe",
+    "title": "Net Works Pumpkin Globe",
+    "shared": [
+      "nwlive.js",
+      "land-110m.js"
+    ],
+    "turn": 13.963,
+    "stills": {
+      "pumpkin": "?t=1.6",
+      "lantern": "?t=1.6&look=1"
+    },
+    "colour": true
+  },
+  {
+    "id": "moon",
+    "title": "Net Works Moon",
+    "shared": [
+      "nwlive.js"
+    ],
+    "turn": 13.963,
+    "stills": {
+      "photograph": "?t=0",
+      "two-tone": "?t=0&style=1"
+    },
+    "levels": 128,
+    "thumb": 2
+  },
+  {
+    "id": "dot-matrix-globe",
+    "title": "Net Works Dot Matrix Globe",
+    "shared": [
+      "nwlive.js",
+      "land-110m.js"
+    ],
+    "turn": 13.963,
+    "stills": {
+      "dark": "?t=2",
+      "light": "?t=2&theme=light"
+    }
+  },
+  {
+    "id": "great-circles",
+    "title": "Net Works Great Circles",
+    "shared": [
+      "nwlive.js",
+      "land-110m.js"
+    ],
+    "turn": 13.963,
+    "stills": {
+      "dark": "?t=11.6",
+      "light": "?t=11.6&theme=light"
+    },
+    "thumb": 70
+  },
+  {
+    "id": "engraved-globe",
+    "title": "Net Works Engraved Globe",
+    "shared": [
+      "nwlive.js",
+      "land-110m.js"
+    ],
+    "turn": 13.963,
+    "stills": {
+      "dark": "?t=2",
+      "light": "?t=2&theme=light"
+    }
+  }
+]
