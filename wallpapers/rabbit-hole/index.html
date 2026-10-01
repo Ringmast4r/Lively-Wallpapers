@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Net Works Rabbit Hole</title>
+<style>html{background:#0a0a0a}</style>
+</head>
+<body>
+<script src="nwlive.js"></script>
+<script>
+/* Down the rabbit hole, forever, as a desktop wallpaper.
+ * Copyright (c) 2026 Net Works Lab LLC. All rights reserved. See LICENSE.txt.
+ *
+ * An original drawing after Lewis Carroll's "Alice's Adventures in Wonderland"
+ * (1865, public domain). The book says the well was very deep, that she fell
+ * slowly, and that its sides were filled with cupboards and book-shelves, with
+ * maps and pictures hung upon pegs, and a jar on one of the shelves. That is
+ * the inventory here, drawn in ink on the back wall of the shaft, with the
+ * earth either side of it; the girl in front never reaches the bottom.
+ *
+ * How it loops: the wall is drawn once into a tall strip, one period long, and
+ * a frame is that strip blitted twice at a whole-pixel offset, then the figure.
+ * Her sway, her skirt and her hair all run on whole multiples of the same
+ * period, so the picture at the end of a loop is the picture at its start.
+ *
+ * Canvas 2D on the shared kit (nwlive.js).
+ * Query string, for looking at the page in a browser:
+ *   ?theme=light   ?speed=100   ?mark=0   ?corner=YOUR+TEXT   ?t=12.5
+ */
+(function () {
+  var LOOP = 13.963;      /* seconds for one period at Speed 100, the same as one turn of the globes */
+  var L = 3200;           /* length of the wall strip, in units; a unit is 1/1000 of the screen height */
+  var SHAFT = 400;        /* half-width of the shaft */
+  var BAND = 700;         /* half-width of everything that is drawn: the shaft and the earth beside it */
+
+  /* A small seeded generator, so the books and the strata are the same every time. */
+  var seed = 1865;
+  function rnd() { seed |= 0; seed = seed + 0x6D2B79F5 | 0; var t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }
+
+  var strip = document.createElement('canvas'), box, Lpx = 1, u = 1;
+
+  /* ---- the things on the wall, each drawn from its top centre, in units ---- */
+  function rect(c, x, y, w, h) { c.strokeRect(x, y, w, h); }
+  function dot(c, x, y, r) { c.beginPath(); c.arc(x, y, r, 0, 6.2832); c.fill(); }
+
+  function bookshelf(c, x, y) {
+    var w = 220, h = 164, tier = h / 2;
+    rect(c, x - w / 2, y, w, h);
+    c.beginPath(); c.moveTo(x - w / 2, y + tier); c.lineTo(x + w / 2, y + tier); c.stroke();
+    for (var t = 0; t < 2; t++) {
+      var floor = y + tier * (t + 1) - 1.5, bx = x - w / 2 + 7;
+      while (bx < x + w / 2 - 24) {
+        if (rnd() < 0.13) { bx += 12 + rnd() * 10; continue; }   /* a gap where a book was taken */
+        var bw = 10 + rnd() * 12, bh = (tier - 12) * (0.62 + rnd() * 0.34), lean = rnd() < 0.12;
+        c.save();
+        c.translate(bx, floor);
+        if (lean) { c.rotate(0.2); bx += 8; }
+        if (rnd() < 0.42) c.fillRect(0, -bh, bw, bh);
+        else {
+          c.strokeRect(0, -bh, bw, bh);
+          c.beginPath(); c.moveTo(0, -bh * 0.78); c.lineTo(bw, -bh * 0.78); c.moveTo(0, -bh * 0.22); c.lineTo(bw, -bh * 0.22); c.stroke();
+        }
+        c.restore();
+        bx += bw + 2.5;
+      }
+    }
+  }
+
+  function cupboard(c, x, y) {
+    var w = 170, h = 214;
+    c.save(); c.lineWidth *= 1.8;
+    c.beginPath(); c.moveTo(x - w / 2 - 9, y); c.lineTo(x + w / 2 + 9, y); c.stroke();
+    c.restore();
+    rect(c, x - w / 2, y + 7, w, h);
+    c.beginPath(); c.moveTo(x, y + 7); c.lineTo(x, y + 7 + h); c.stroke();
+    rect(c, x - w / 2 + 12, y + 20, w / 2 - 24, h - 26);
+    rect(c, x + 12, y + 20, w / 2 - 24, h - 26);
+    dot(c, x - 7, y + h * 0.55, 3.4); dot(c, x + 7, y + h * 0.55, 3.4);
+  }
+
+  /* hung from one peg by two strings */
+  function picture(c, x, y, rabbit) {
+    var w = 144, h = 112, top = y + 36;
+    dot(c, x, y + 4, 4);
+    c.beginPath(); c.moveTo(x - w / 2 + 14, top); c.lineTo(x, y + 4); c.lineTo(x + w / 2 - 14, top); c.stroke();
+    rect(c, x - w / 2, top, w, h); rect(c, x - w / 2 + 9, top + 9, w - 18, h - 18);
+    var mx = x, my = top + h / 2;
+    if (rabbit) {
+      /* a rabbit in profile: two ears, a head, the line of a waistcoat collar */
+      c.beginPath(); c.ellipse(mx + 4, my + 14, 17, 14, 0, 0, 6.2832); c.fill();
+      c.beginPath(); c.ellipse(mx - 3, my - 16, 5, 19, -0.22, 0, 6.2832); c.fill();
+      c.beginPath(); c.ellipse(mx + 9, my - 15, 5, 18, 0.12, 0, 6.2832); c.fill();
+      c.beginPath(); c.moveTo(mx - 22, my + 36); c.quadraticCurveTo(mx + 2, my + 20, mx + 28, my + 36); c.stroke();
+    } else {
+      /* a landscape: two hills and a sun */
+      c.beginPath(); c.moveTo(x - w / 2 + 9, my + 22); c.quadraticCurveTo(mx - 26, my - 18, mx - 2, my + 14);
+      c.quadraticCurveTo(mx + 24, my - 6, x + w / 2 - 9, my + 20); c.stroke();
+      c.beginPath(); c.arc(mx + 30, my - 20, 9, 0, 6.2832); c.stroke();
+    }
+  }
+
+  /* a map of the two hemispheres, on two pegs */
+  function map(c, x, y) {
+    var w = 196, h = 128, top = y + 8;
+    dot(c, x - w / 2 + 12, y + 4, 4); dot(c, x + w / 2 - 12, y + 4, 4);
+    c.beginPath();
+    c.moveTo(x - w / 2, top); c.lineTo(x + w / 2, top); c.lineTo(x + w / 2, top + h - 8);
+    c.quadraticCurveTo(x + w / 2 - 4, top + h + 4, x + w / 2 - 16, top + h);
+    c.lineTo(x - w / 2 + 16, top + h);
+    c.quadraticCurveTo(x - w / 2 + 4, top + h + 4, x - w / 2, top + h - 8);
+    c.closePath(); c.stroke();
+    for (var s = -1; s <= 1; s += 2) {
+      var gx = x + s * 46, gy = top + h / 2 - 2, r = 39;
+      c.beginPath(); c.arc(gx, gy, r, 0, 6.2832); c.stroke();
+      c.save(); c.lineWidth *= 0.6;
+      c.beginPath(); c.moveTo(gx, gy - r); c.lineTo(gx, gy + r); c.moveTo(gx - r, gy); c.lineTo(gx + r, gy); c.stroke();
+      c.beginPath(); c.ellipse(gx, gy, r * 0.36, r, 0, 0, 6.2832); c.stroke();
+      c.beginPath(); c.ellipse(gx, gy, r * 0.72, r, 0, 0, 6.2832); c.stroke();
+      for (var d = -1; d <= 1; d += 2) {
+        var cy = gy + d * r * 0.46, half = Math.sqrt(r * r - (r * 0.46) * (r * 0.46));
+        c.beginPath(); c.moveTo(gx - half, cy); c.quadraticCurveTo(gx, cy + d * 7, gx + half, cy); c.stroke();
+      }
+      c.restore();
+    }
+  }
+
+  /* a shelf on two brackets, with the jar on it */
+  function jarShelf(c, x, y) {
+    var plank = y + 96;
+    c.save(); c.lineWidth *= 1.6;
+    c.beginPath(); c.moveTo(x - 86, plank); c.lineTo(x + 86, plank); c.stroke();
+    c.restore();
+    for (var s = -1; s <= 1; s += 2) {
+      c.beginPath(); c.moveTo(x + s * 62, plank); c.lineTo(x + s * 62, plank + 22); c.lineTo(x + s * 44, plank); c.stroke();
+    }
+    /* the jar */
+    c.fillRect(x - 24, y + 14, 48, 9);
+    rect(c, x - 19, y + 23, 38, 9);
+    c.beginPath();
+    c.moveTo(x - 19, y + 32); c.quadraticCurveTo(x - 30, y + 36, x - 30, y + 46); c.lineTo(x - 30, plank - 9);
+    c.quadraticCurveTo(x - 30, plank - 1.5, x - 22, plank - 1.5); c.lineTo(x + 22, plank - 1.5);
+    c.quadraticCurveTo(x + 30, plank - 1.5, x + 30, plank - 9); c.lineTo(x + 30, y + 46);
+    c.quadraticCurveTo(x + 30, y + 36, x + 19, y + 32); c.stroke();
+    rect(c, x - 25, y + 50, 50, 26);
+    c.save();
+    c.font = '500 6.2px "DM Mono", ui-monospace, monospace'; c.textAlign = 'center'; c.textBaseline = 'middle';
+    c.fillText('ORANGE', x, y + 58.5); c.fillText('MARMALADE', x, y + 68);
+    c.restore();
+    /* two books lying flat, and a smaller pot */
+    c.strokeRect(x - 82, plank - 12.5, 40, 11); c.fillRect(x - 78, plank - 22.5, 34, 10);
+    c.beginPath(); c.moveTo(x + 46, plank - 1.5); c.lineTo(x + 46, plank - 26); c.quadraticCurveTo(x + 58, plank - 34, x + 70, plank - 26); c.lineTo(x + 70, plank - 1.5); c.stroke();
+    c.fillRect(x + 44, plank - 31, 28, 5);
+  }
+
+  /* Where each thing hangs: [draw, x, y]. Three loose columns, staggered, with
+     nothing across the seam at the top and bottom of the strip. */
+  var THINGS = [
+    [bookshelf, -250, 110], [map, -246, 900], [cupboard, -252, 1660], [function (c, x, y) { picture(c, x, y, true); }, -250, 2500],
+    [function (c, x, y) { picture(c, x, y, false); }, 6, 470], [jarShelf, 0, 1290], [bookshelf, 4, 2060], [map, -2, 2880],
+    [cupboard, 252, 300], [function (c, x, y) { picture(c, x, y, true); }, 250, 1090], [jarShelf, 254, 1880], [bookshelf, 248, 2590]
+  ];
+
+  /* ---- the wall strip: drawn once per size and theme ---- */
+  function buildStrip() {
+    u = S.H / 1000; Lpx = Math.round(L * u);
+    strip.width = box.w; strip.height = Lpx;
+    var c = strip.getContext('2d');
+    c.clearRect(0, 0, strip.width, strip.height);
+    c.translate(S.cx - box.x, 0); c.scale(Lpx / L, Lpx / L);   /* units from here on; the strip is exactly L of them tall */
+    c.lineJoin = 'round'; c.lineCap = 'round';
+    var INK = S.ink(), hair = Math.max(1.5, 1.1 / u);
+    seed = 1865;
+
+    /* the earth either side: short strata, thickest against the shaft and thinning away from it */
+    c.strokeStyle = S.T.grey; c.lineWidth = hair;
+    for (var i = 0; i < 300; i++) {
+      var side = rnd() < 0.5 ? -1 : 1, y = 6 + rnd() * (L - 12), far = rnd() * rnd() * (BAND - SHAFT - 40);
+      var len = (28 + rnd() * 130) * (1 - far / (BAND - SHAFT)), x0 = SHAFT + 14 + far;
+      c.globalAlpha = 0.25 + 0.45 * (1 - far / (BAND - SHAFT));
+      c.beginPath(); c.moveTo(side * x0, y); c.lineTo(side * Math.min(BAND - 6, x0 + len), y); c.stroke();
+    }
+    for (i = 0; i < 46; i++) {   /* and a few stones */
+      var sd = rnd() < 0.5 ? -1 : 1, sy = 12 + rnd() * (L - 24), sx = SHAFT + 30 + rnd() * rnd() * 200;
+      c.globalAlpha = 0.5;
+      c.beginPath(); c.ellipse(sd * sx, sy, 5 + rnd() * 9, 3 + rnd() * 4, rnd() - 0.5, 0, 6.2832); c.stroke();
+    }
+
+    /* the two sides of the shaft, a heavy line and a light one */
+    c.globalAlpha = 1; c.strokeStyle = INK;
+    for (var s = -1; s <= 1; s += 2) {
+      c.lineWidth = hair * 2; c.beginPath(); c.moveTo(s * SHAFT, 0); c.lineTo(s * SHAFT, L); c.stroke();
+      c.lineWidth = hair * 0.8; c.beginPath(); c.moveTo(s * (SHAFT - 9), 0); c.lineTo(s * (SHAFT - 9), L); c.stroke();
+    }
+
+    /* the things on the back wall, a little quieter than the figure in front of them */
+    c.globalAlpha = 0.62; c.strokeStyle = INK; c.fillStyle = INK; c.lineWidth = hair * 1.35;
+    for (i = 0; i < THINGS.length; i++) THINGS[i][0](c, THINGS[i][1], THINGS[i][2]);
+    c.globalAlpha = 1;
+  }
+
+  /* ---- the girl: every part twice, once wide in the ground colour to lift her off the wall, once in ink ---- */
+  function figure(c, ph, halo) {
+    var f1 = Math.sin(6 * ph), f2 = Math.sin(8 * ph + 1.3), f3 = Math.sin(9 * ph + 2.1);
+    var INK = S.ink(), BG = S.T.bg, grow = halo ? 11 : 0;
+    c.lineJoin = 'round'; c.lineCap = 'round';
+    c.fillStyle = c.strokeStyle = halo ? BG : INK;
+    function shape() { if (halo) { c.lineWidth = grow; c.stroke(); } c.fill(); }
+    function limb(w) { c.lineWidth = w + grow; c.stroke(); }
+
+    /* hair, streaming up */
+    c.beginPath();
+    c.moveTo(-24, -96);
+    c.quadraticCurveTo(-46, -140, -36 + 8 * f1, -188 + 5 * f2);
+    c.quadraticCurveTo(-22, -162, -14, -148);
+    c.quadraticCurveTo(-18, -192, -8 + 10 * f2, -224 + 6 * f3);
+    c.quadraticCurveTo(0, -176, 6, -152);
+    c.quadraticCurveTo(8, -186, 20 + 10 * f3, -208 + 6 * f1);
+    c.quadraticCurveTo(22, -166, 26, -146);
+    c.quadraticCurveTo(34, -166, 42 + 8 * f1, -178 + 5 * f2);
+    c.quadraticCurveTo(42, -130, 24, -96);
+    c.closePath(); shape();
+
+    /* legs, with a slow scissor kick */
+    var legs = [[-15, 0.10 + 0.08 * Math.sin(2 * ph)], [15, -0.07 + 0.08 * Math.sin(2 * ph + 2)]];
+    legs.forEach(function (lg) {
+      var x0 = lg[0], a = lg[1], x1 = x0 - Math.sin(a) * 118, y1 = 78 + Math.cos(a) * 118;
+      c.lineCap = 'butt';
+      c.beginPath(); c.moveTo(x0, 78); c.lineTo(x1, y1); limb(15);
+      c.lineCap = 'round';
+      c.beginPath(); c.ellipse(x1 + (x0 < 0 ? -5 : 5), y1 + 3, 14, 8, x0 < 0 ? -0.35 : 0.35, 0, 6.2832); shape();
+      if (!halo) {   /* striped stockings */
+        c.strokeStyle = BG; c.lineWidth = 4.2; c.lineCap = 'butt';
+        for (var k = 0; k < 5; k++) {
+          var t = (34 + k * 16) / 118, sx = x0 + (x1 - x0) * t, sy = 78 + (y1 - 78) * t;
+          c.beginPath(); c.moveTo(sx - Math.cos(a) * 8.5, sy - Math.sin(a) * 8.5); c.lineTo(sx + Math.cos(a) * 8.5, sy + Math.sin(a) * 8.5); c.stroke();
+        }
+        c.strokeStyle = INK; c.lineCap = 'round';
+      }
+    });
+
+    /* skirt, lifted by the air into a bell */
+    function hem() {
+      c.quadraticCurveTo(-100, 96 + 5 * f2, -70, 84 + 6 * f3);
+      c.quadraticCurveTo(-40, 104 + 5 * f1, -8, 90 + 5 * f2);
+      c.quadraticCurveTo(26, 106 + 5 * f3, 60, 86 + 6 * f1);
+      c.quadraticCurveTo(96, 100 + 5 * f2, 128 + 8 * f3, 66 + 6 * f1);
+    }
+    c.beginPath();
+    c.moveTo(-20, 0);
+    c.bezierCurveTo(-60, 10, -118 - 6 * f1, 30, -128 - 8 * f1, 66 + 6 * f2);
+    hem();
+    c.bezierCurveTo(118 + 6 * f3, 30, 60, 10, 20, 0);
+    c.closePath(); shape();
+
+    /* bodice, sleeves, arms, neck and head */
+    c.beginPath(); c.moveTo(-20, 2); c.lineTo(-26, -58); c.lineTo(-14, -70); c.lineTo(14, -70); c.lineTo(26, -58); c.lineTo(20, 2); c.closePath(); shape();
+    c.beginPath(); c.arc(-30, -60, 17, 0, 6.2832); shape();
+    c.beginPath(); c.arc(30, -60, 17, 0, 6.2832); shape();
+    c.beginPath(); c.moveTo(-36, -62); c.lineTo(-72 - 4 * f2, -86 + 4 * f1); c.lineTo(-92 - 6 * f1, -134 + 8 * f2); limb(10);
+    c.beginPath(); c.arc(-92 - 6 * f1, -134 + 8 * f2, 7.5, 0, 6.2832); shape();
+    c.beginPath(); c.moveTo(36, -62); c.lineTo(76 + 4 * f3, -72 + 4 * f2); c.lineTo(112 + 6 * f2, -104 + 8 * f3); limb(10);
+    c.beginPath(); c.arc(112 + 6 * f2, -104 + 8 * f3, 7.5, 0, 6.2832); shape();
+    c.beginPath(); c.rect(-6, -84, 12, 18); shape();
+    c.beginPath(); c.arc(0, -102, 24, 0, 6.2832); shape();
+
+    if (halo) return;
+    /* the pinafore, and the petticoat showing under the hem, as lines in the ground colour */
+    c.strokeStyle = BG; c.lineWidth = 2.4;
+    c.beginPath(); c.moveTo(-15, -70); c.lineTo(-11, -52); c.lineTo(-11, -4); c.moveTo(15, -70); c.lineTo(11, -52); c.lineTo(11, -4);
+    c.moveTo(-11, -52); c.lineTo(11, -52); c.stroke();
+    c.beginPath(); c.moveTo(-14, 4); c.quadraticCurveTo(-30, 44, -52, 68 + 4 * f3); c.quadraticCurveTo(0, 82 + 4 * f2, 52, 68 + 4 * f1); c.quadraticCurveTo(30, 44, 14, 4); c.stroke();
+    c.save(); c.translate(0, -11); c.scale(0.93, 1);
+    c.beginPath(); c.moveTo(-128 - 8 * f1, 66 + 6 * f2); hem(); c.stroke();
+    c.restore();
+  }
+
+  var S = NWLive.stage({
+    layout: function (S) {
+      var un = S.H / 1000;
+      box = S.place(wall, Math.max(0, S.cx - BAND * un), 0, Math.min(S.W, S.cx + BAND * un), S.H);
+      buildStrip();
+    },
+    change: function (S, name) { if (name === 'theme') buildStrip(); },
+    draw: function (S, clock) {
+      var c = wall.getContext('2d'), ph = 2 * Math.PI * clock / LOOP;
+      c.setTransform(1, 0, 0, 1, 0, 0); c.clearRect(0, 0, box.w, box.h);
+      /* she falls, so the wall goes up: a whole-pixel offset keeps the linework sharp */
+      var off = Math.round((clock / LOOP % 1) * Lpx) % Lpx;
+      c.drawImage(strip, 0, -off);
+      if (Lpx - off < box.h) c.drawImage(strip, 0, Lpx - off);
+
+      /* a slow drift from side to side, a bob, and a tilt that follows the drift */
+      c.translate(S.cx - box.x + 34 * u * Math.sin(ph), S.H * 0.46 + 14 * u * Math.sin(2 * ph + 1));
+      c.rotate(0.14 * Math.sin(ph + 0.6) + 0.05 * Math.sin(3 * ph));
+      c.scale(u * 1.12, u * 1.12);
+      figure(c, ph, true);
+      figure(c, ph, false);
+    }
+  });
+  var wall = S.canvas();
+  /* the jar's label is set in the wordmark's face; draw the wall again once it has arrived */
+  document.fonts.load('500 20px "DM Mono"').then(function () { if (box) { buildStrip(); S.redraw(); } }).catch(function () {});
+  S.start();
+})();
+</script>
+</body>
+</html>

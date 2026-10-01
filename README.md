@@ -1,6 +1,6 @@
 <div align="center">
 
-<img width="100%" alt="LIVELY WALLPAPERS" src="https://capsule-render.vercel.app/api?type=waving&color=0:000000,100:00C853&height=220&section=header&text=LIVELY%20WALLPAPERS&fontSize=58&fontColor=ffffff&animation=twinkling&fontAlignY=35&desc=Six%20live%20desktop%20wallpapers%20for%20Windows%20%7C%20WebGL%20%7C%20Plain%20HTML&descSize=18&descAlignY=58"/>
+<img width="100%" alt="LIVELY WALLPAPERS" src="https://capsule-render.vercel.app/api?type=waving&color=0:000000,100:00C853&height=220&section=header&text=LIVELY%20WALLPAPERS&fontSize=58&fontColor=ffffff&animation=twinkling&fontAlignY=35&desc=Seven%20live%20desktop%20wallpapers%20for%20Windows%20%7C%20WebGL%20%7C%20Plain%20HTML&descSize=18&descAlignY=58"/>
 
 `Windows` [`Lively Wallpaper`](https://github.com/lively-community/lively) `WebGL` `Canvas` `HTML` `Live Wallpaper` - Custom live wallpapers for Lively Wallpaper on Windows: plain HTML pages that draw on the GPU, each with its own settings panel. Widget counterpart: [Ringmast4r/Rainmeter](https://github.com/Ringmast4r/Rainmeter)
 
@@ -10,7 +10,7 @@
 
 <br>
 
-[![Wallpapers](https://img.shields.io/badge/Wallpapers-6-00C853?style=for-the-badge&logo=windows&logoColor=white)](#the-wallpapers)
+[![Wallpapers](https://img.shields.io/badge/Wallpapers-7-00C853?style=for-the-badge&logo=windows&logoColor=white)](#the-wallpapers)
 [![Host](https://img.shields.io/badge/Host-Lively_Wallpaper-000000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/lively-community/lively)
 [![Drawn with](https://img.shields.io/badge/Drawn_with-WebGL2_%2B_Canvas-00C853?style=for-the-badge&logo=webgl&logoColor=white)](#how-a-wallpaper-is-built)
 [![License](https://img.shields.io/badge/License-Proprietary-000000?style=for-the-badge&logo=readme&logoColor=white)](./LICENSE)
@@ -56,6 +56,7 @@ Every picture in this README is the wallpaper itself, recorded by stepping the r
 | <img width="200" alt="" src="wallpapers/dot-matrix-globe/preview.gif"/> | **[Dot Matrix Globe](#dot-matrix-globe)** | No outlines: the continents as a lattice of dots that fade toward the limb. | [`dot-matrix-globe.zip`](https://github.com/Ringmast4r/Lively-Wallpapers/raw/main/packages/dot-matrix-globe.zip) |
 | <img width="200" alt="" src="wallpapers/great-circles/preview.gif"/> | **[Great Circles](#great-circles)** | Routes between cities arcing over a quiet dotted globe, each carrying a pulse. | [`great-circles.zip`](https://github.com/Ringmast4r/Lively-Wallpapers/raw/main/packages/great-circles.zip) |
 | <img width="200" alt="" src="wallpapers/engraved-globe/preview.gif"/> | **[Engraved Globe](#engraved-globe)** | Continents ruled out of parallels, the way a banknote builds a shape. | [`engraved-globe.zip`](https://github.com/Ringmast4r/Lively-Wallpapers/raw/main/packages/engraved-globe.zip) |
+| <img width="200" alt="" src="wallpapers/rabbit-hole/preview.gif"/> | **[Rabbit Hole](#rabbit-hole)** | A girl falling down a well lined with shelves, maps and cupboards, forever. | [`rabbit-hole.zip`](https://github.com/Ringmast4r/Lively-Wallpapers/raw/main/packages/rabbit-hole.zip) |
 
 **Settings every wallpaper has** (right click the wallpaper in Lively, then Customise):
 
@@ -154,6 +155,20 @@ Continents made of parallels. One line per parallel, unbroken from limb to limb;
 
 ---
 
+<a id="rabbit-hole"></a>
+## `> rabbit_hole`
+
+<p align="center">
+  <img width="49%" alt="Rabbit Hole, dark" src="screenshots/rabbit-hole-dark.png"/>
+  <img width="49%" alt="Rabbit Hole, light" src="screenshots/rabbit-hole-light.png"/>
+</p>
+
+Down the rabbit hole, and never landing. This is our own ink drawing of the fall as Lewis Carroll's 1865 book describes it: a very deep well, a slow fall, and sides filled with cupboards and book-shelves, with maps and pictures hung upon pegs and a jar of marmalade on a shelf. Those drift up the back wall of the shaft while she sways in front of it, skirt and hair lifted by the air.
+
+It loops without a seam. The wall is drawn once into a tall strip one period long, and her sway, skirt and hair all run on whole multiples of that period, so the last frame of a loop is its first. Here Speed sets the pace of the fall.
+
+---
+
 <a id="install"></a>
 ## `> install`
 
@@ -184,7 +199,7 @@ A Lively web wallpaper is a folder. No SDK and no build step.
 ```
 wallpapers/pumpkin-globe/
   index.html               the wallpaper: its drawing, and nothing else
-  nwlive.js                the kit all six share: settings, layout, wordmark, clock, shader pieces
+  nwlive.js                the kit all seven share: settings, layout, wordmark, clock, shader pieces
   land-110m.js             the real coastlines (the globes that use them)
   LivelyInfo.json          title, author, which file to open, thumbnail
   LivelyProperties.json    the settings panel: sliders, dropdowns, checkboxes, text boxes
@@ -232,8 +247,8 @@ scripts/build_moon.py          NASA's lunar maps -> wallpapers/moon/moon-data.js
 
 | METRIC | COUNT | NOTES |
 |:------:|:-----:|:-----:|
-| **Wallpapers** | `6` | Three drawn in a shader, three in canvas 2D |
-| **Looks** | `8` | Pumpkin and Moon have two each; every one also comes in dark and light |
+| **Wallpapers** | `7` | Three drawn in a shader, four in canvas 2D |
+| **Looks** | `9` | Pumpkin and Moon have two each; every one also comes in dark and light |
 | **Network requests** | `0` | Fonts, coastlines and lunar maps are in the folder |
 | **Libraries** | `0` | One shared kit of our own, no third-party code |
 | **Package size** | `0.5 to 3.3 MB` | The Moon is the big one: it carries the lunar maps |
@@ -257,6 +272,8 @@ scripts/build_moon.py          NASA's lunar maps -> wallpapers/moon/moon-data.js
 These wallpapers are proprietary to Net Works Lab LLC. Copyright (c) 2026 Net Works Lab LLC, all rights reserved.
 
 You are welcome to download them and run them, unmodified, on your own devices for personal, non-commercial use. Redistributing, re-hosting, modifying or using them commercially needs written permission. The full terms are in [LICENSE](./LICENSE); this is not an open-source project.
+
+The Rabbit Hole is an original drawing after Lewis Carroll's book of 1865, which is in the public domain. It takes nothing from any film or later illustration.
 
 Three things inside belong to other people and keep their own terms:
 

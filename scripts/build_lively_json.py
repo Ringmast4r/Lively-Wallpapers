@@ -57,6 +57,13 @@ WALLPAPERS = {
                 "carrying a pulse.",
         "props": [SPEED, THEME, MARK, CORNER],
     },
+    "rabbit-hole": {
+        "desc": "Down the rabbit hole, forever: an original ink drawing after Lewis Carroll's 1865 book. Cupboards, "
+                "book-shelves, maps, pictures and a jar of marmalade drift up the wall of the well past a girl who "
+                "never lands.",
+        "props": [("speed", {"type": "slider", "text": "Speed of the fall (100 = full pace)", "value": 40, "min": 0, "max": 200, "step": 5}),
+                  THEME, MARK, CORNER],
+    },
     "engraved-globe": {
         "desc": "Continents made of parallels: one ruled line per parallel that thickens over land, the way a "
                 "banknote builds a shape.",

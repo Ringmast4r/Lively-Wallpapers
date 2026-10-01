@@ -1,0 +1,52 @@
+Net Works Wallpapers - Proprietary License
+
+Copyright (c) 2026 Net Works Lab LLC. All rights reserved.
+
+The wallpapers, artwork, source code, scripts, documentation and other
+material in this repository (the "Work"), including the Net // Works name,
+wordmark and globe design, are the property of Net Works Lab LLC.
+
+Permitted use
+
+You may download the Work and run the wallpapers, unmodified, on devices you
+own or control, for personal, non-commercial use. Changing a wallpaper's own
+settings (speed, theme, corner text and the like) is not a modification.
+
+Everything else requires prior written permission
+
+Without prior written permission from Net Works Lab LLC you may not:
+
+  - copy, redistribute, re-host, mirror, sublicense, rent or sell the Work or
+    any part of it;
+  - modify the Work or create derivative works from it;
+  - use the Work, or anything derived from it, for a commercial purpose;
+  - remove or alter this notice or any copyright or trademark notice;
+  - use the Net Works name, wordmark or globe design in a way that suggests
+    endorsement by, or affiliation with, Net Works Lab LLC.
+
+No other rights are granted, by implication or otherwise. Publishing this
+repository does not place the Work in the public domain or under any
+open-source license.
+
+Third-party material
+
+Three things in the Work belong to others and are not covered by this license:
+
+  - The DM Mono typeface, in each fonts/ folder, is Copyright 2020 The DM Mono
+    Project Authors and is licensed under the SIL Open Font License, Version
+    1.1; see OFL.txt in that folder.
+  - The lunar surface and elevation maps in moon-data.js come from NASA's
+    Scientific Visualization Studio CGI Moon Kit (Lunar Reconnaissance
+    Orbiter). NASA imagery is in the public domain.
+  - The coastline data in land-110m.js comes from Natural Earth
+    (naturalearthdata.com), which is in the public domain.
+
+Disclaimer
+
+THE WORK IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+NET WORKS LAB LLC BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE WORK OR ITS USE.
+
+Permission requests: https://net-works-lab.com

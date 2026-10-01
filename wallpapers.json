@@ -78,5 +78,18 @@
       "dark": "?t=2",
       "light": "?t=2&theme=light"
     }
+  },
+  {
+    "id": "rabbit-hole",
+    "title": "Net Works Rabbit Hole",
+    "shared": [
+      "nwlive.js"
+    ],
+    "turn": 13.963,
+    "stills": {
+      "dark": "?t=3.2",
+      "light": "?t=3.2&theme=light"
+    },
+    "thumb": 19
   }
 ]
