@@ -1,0 +1,120 @@
+{
+  "generalLabel": {
+    "type": "label",
+    "value": "General"
+  },
+  "speed": {
+    "max": 50,
+    "min": 0,
+    "step": 1,
+    "text": "Speed",
+    "type": "slider",
+    "help": "Speed of animation",
+    "value": 25
+  },
+  "backgroundColor": {
+    "text": "Background Color",
+    "type": "color",
+    "value": "#000000"
+  },
+  "fadeStrength": {
+    "max": 1,
+    "min": 0,
+    "step": 0.05,
+    "text": "Fade Strength",
+    "type": "slider",
+    "help": "Affects comet trails",
+    "value": 0.05
+  },
+  "cometColorLabel": {
+    "type": "label",
+    "value": "Comet Color"
+  },
+  "cometColorMode": {
+    "type": "dropdown",
+    "value": 1,
+    "text": "Color Mode",
+    "items": [
+      "Custom Static",
+      "Custom Gradient",
+      "Rainbow",
+      "Fire",
+      "Black and White"
+    ]
+  },
+    "cometColor": {
+      "text": "Color",
+      "type": "color",
+      "value": "#FFFFFF"
+    },
+    "customGradientVector": {
+      "text": "Gradient Vectors. you can generate them at http://dev.thi.ng/gradients",
+      "type": "textbox",
+      "value": "[[0.500 0.500 0.500] [0.500 0.500 0.500] [1.000 1.000 1.000] [0.000 0.333 0.667]]"
+    },
+
+  "sparkleLabel": {
+    "type": "label",
+    "value": "Sparkles"
+  },
+  "sparkleCount": {
+    "max": 1000,
+    "min": 0,
+    "step": 100,
+    "text": "Sparkle Count",
+    "type": "slider",
+    "help": "Number of sparkles in the background",
+    "value": 100
+  },
+  "sparkleSpeed": {
+    "max": 4,
+    "min": 0,
+    "step": 1,
+    "text": "Sparkle Speed",
+    "type": "slider",
+    "help": "How fast sparkles are drawn",
+    "value": 4
+  },
+  "cometLabel": {
+    "type": "label",
+    "value": "Comets"
+  },
+  "cometCount": {
+    "max": 300,
+    "min": 0,
+    "step": 1,
+    "text": "Comet Count",
+    "type": "slider",
+    "help": "Maximum number of comets at a time",
+    "value": 20
+  },
+  
+  "velocityLabel": {
+    "type": "label",
+    "value": "Velocity"
+  },
+  "velocityX": {
+    "text": "X",
+    "type": "textbox",
+    "value": -10
+  },
+  "velocityY": {
+    "text": "Y",
+    "type": "textbox",
+    "value": 10
+  },
+  "accelLabel": {
+    "type": "label",
+    "value": "Acceleration"
+  },
+  "accelX": {
+    "text": "X",
+    "type": "textbox",
+    "value": 0
+  },
+  "accelY": {
+    "text": "Y",
+    "type": "textbox",
+    "value": 0
+  }
+}

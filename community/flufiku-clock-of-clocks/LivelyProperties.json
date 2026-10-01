@@ -1,0 +1,22 @@
+{
+    "CheckboxShowSeconds": {
+        "type": "checkbox",
+        "value": true,
+        "text": "Show Seconds"
+    },
+
+    "SliderClockSize": {
+        "type": "slider",
+        "text": "Clock Size",
+        "value": 75,
+        "min": 20,
+        "max": 100,
+        "tick": 1
+    },
+
+    "ColorClockHandle": {
+    "text": "Clock Handle Color",
+    "type": "color",
+    "value": "#00FF00"
+    }
+}

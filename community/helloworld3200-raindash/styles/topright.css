@@ -1,0 +1,70 @@
+.top-right {
+    grid-column: 3;
+    grid-row: 1;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    justify-self: end;
+    margin-right: 3.5vw;
+    margin-top: 1.5vw;
+    gap: 1.1vw;
+    text-align: right;
+    text-align-last: right;
+    justify-content: flex-end;
+}
+
+.greeting {
+    font-size: 1.6vw;
+    font-weight: 200;
+    display: flex;
+    flex-direction: row;
+    gap: 0.5vw;
+    justify-content: flex-end;
+}
+
+.greeting-name {
+    font-weight: 500;
+}
+
+.weather-primary {
+    display: flex;
+    flex-direction: row;
+    gap: 1vw;
+    font-size: 2vw;
+    justify-content: flex-end;
+}
+
+.weather-secondary {
+    display: flex;
+    flex-direction: row;
+    font-size: 1.0vw;
+    gap: 0.5vw;
+    justify-content: flex-end;
+    font-weight: 300;
+    color: #ffffff8a;
+}
+
+.weather-item {
+    color: #ffffffec;
+    font-weight: 400;
+}
+
+.weather-temp {
+    font-weight: 400;
+    font-size: 2.6vw;
+    display: flex;
+    flex-direction: row;
+    gap: 0.5vw;
+}
+
+.weather-icon {
+    width: 3vw;
+    height: 3vw;
+}
+
+.weather-main {
+    display: none;
+    flex-direction: column;
+    gap: 0.8vw;
+}

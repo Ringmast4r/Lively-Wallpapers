@@ -1,0 +1,14 @@
+{
+  "AppVersion": "1.0.0.0",
+  "Title": "Particles",
+  "Thumbnail": "lively_thumbnail.jpg",
+  "Preview": null,
+  "Desc": "Customizable particles wallpaper for Lively.",
+  "Author": "Vincent Garreau",
+  "License": "MIT",
+  "Contact": "https://github.com/McShoothy/particles-wallpaper",
+  "Type": 1,
+  "FileName": "index.html",
+  "Arguments": null,
+  "IsAbsolutePath": false
+}

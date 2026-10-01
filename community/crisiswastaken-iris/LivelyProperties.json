@@ -1,0 +1,100 @@
+{
+  "renderMode": {
+    "type": "dropdown",
+    "value": 0,
+    "text": "Render",
+    "help": "ASCII draws the eyes out of colored glyphs. PNG uses the photographic frames — lighter on CPU, and it starts instantly.",
+    "items": ["ASCII", "PNG"]
+  },
+  "scale": {
+    "type": "slider",
+    "value": 100,
+    "min": 40,
+    "max": 160,
+    "step": 2,
+    "text": "Scale",
+    "help": "How much of the screen the eyes fill. Past 100% they overflow and the edges are cropped."
+  },
+  "labelColor": {
+    "type": "label",
+    "value": "Color"
+  },
+  "tintEnabled": {
+    "type": "checkbox",
+    "value": false,
+    "text": "Custom color",
+    "help": "Off leaves the default ember red. On replaces it with the color below."
+  },
+  "tintColor": {
+    "type": "color",
+    "value": "#FF2D55",
+    "text": "Eye color",
+    "help": "Only the hue is used — the eyes keep their own black shadows and white-hot cores."
+  },
+  "tintStrength": {
+    "type": "slider",
+    "value": 85,
+    "min": 0,
+    "max": 100,
+    "step": 1,
+    "text": "Intensity",
+    "help": "How far the color pulls away from gray. Needs Custom color switched on."
+  },
+  "glowAuto": {
+    "type": "checkbox",
+    "value": true,
+    "text": "Auto glow",
+    "help": "Picks the bloom strength that suits the current render mode. Turn off to set it yourself."
+  },
+  "glow": {
+    "type": "slider",
+    "value": 100,
+    "min": 0,
+    "max": 150,
+    "step": 5,
+    "text": "Glow",
+    "help": "Bloom strength. Needs Auto glow switched off."
+  },
+  "labelBehavior": {
+    "type": "label",
+    "value": "Behavior"
+  },
+  "trackMouse": {
+    "type": "checkbox",
+    "value": true,
+    "text": "Follow the cursor",
+    "help": "Needs mouse input enabled in Lively's own settings. Mutually exclusive with Follow the webcam."
+  },
+  "trackWebcam": {
+    "type": "checkbox",
+    "value": false,
+    "text": "Follow the webcam",
+    "help": "Uses your camera to track face position. Mutually exclusive with Follow the cursor. First-time setup: hide desktop icons (right-click desktop → View), then use the on-screen setup panel. Allow camera for Lively in Windows Settings → Privacy → Camera."
+  },
+  "autoBlink": {
+    "type": "checkbox",
+    "value": true,
+    "text": "Blink",
+    "help": "Blink every 3 to 5 seconds, on their own."
+  },
+  "idleDrowsySec": {
+    "type": "slider",
+    "value": 5,
+    "min": 0,
+    "max": 60,
+    "step": 1,
+    "text": "Drowsy after",
+    "help": "Seconds of no cursor activity before the eyes go half-closed. 0 keeps them awake."
+  },
+  "labelPerformance": {
+    "type": "label",
+    "value": "Performance"
+  },
+  "fpsCap": {
+    "type": "dropdown",
+    "value": 1,
+    "text": "Frame rate",
+    "help": "30 roughly halves the CPU cost. Uncapped follows your display's refresh rate.",
+    "items": ["30 FPS", "60 FPS", "Uncapped"]
+  }
+}

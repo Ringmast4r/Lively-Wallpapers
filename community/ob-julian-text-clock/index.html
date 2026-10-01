@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Clock</title>
+        <meta name="description" content="A different Clock">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Julian Oberhofer">
+        <link rel="stylesheet" href="css/main.css">
+        <script type="text/javascript" src="js/english.js"></script>
+        <script type="text/javascript" src="js/main.js"></script>
+
+        <link rel="icon" href="thumbnail.png" type="image/x-icon">
+        <link rel="shortcut icon" href="thumbnail.png" type="image/x-icon">
+        <meta property="og:title" content="Clock">
+        <meta property="og:description" content="A different Clock">
+        <meta property="og:image" content="https://oberhofer.ddns.net/clock/thumbnail.png">
+        <meta property="og:url" content="https://oberhofer.ddns.net/clock/english">
+        <meta property="og:type" content="website">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="Clock">
+        <meta name="twitter:description" content="A different Clock">
+        <meta name="twitter:image" content="https://oberhofer.ddns.net/clock/thumbnail.png">
+        <script>
+            const userLang = navigator.language || navigator.userLanguage;
+            if (userLang.startsWith("de")) {
+                window.location.href = "german.html";
+            } else {
+                window.location.href = "english.html";
+            }
+        </script>
+    </head>
+    <body class="light-mode loading">
+        <h1>Redirecting...</h1>
+    </body>
+</html>

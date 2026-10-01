@@ -1,0 +1,17 @@
+{
+    "size": {
+        "max": 100,
+        "min": 10,
+        "text": "Hexagon Size",
+        "type": "slider",
+        "value": 20
+    },
+    "hueChange": {
+        "max": 1,
+        "min": 0,
+        "step": 0.01,
+        "text": "Hue Change Speed",
+        "type": "slider",
+        "value": 0.1
+    }
+}

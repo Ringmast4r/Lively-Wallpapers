@@ -1,0 +1,11 @@
+# ---- 构建产物 ----
+# Lively 安装包：请作为 GitHub Release 附件发布，不提交进仓库
+行星之间-Lively.zip
+
+# ---- 系统 / 编辑器 ----
+Thumbs.db
+Desktop.ini
+.DS_Store
+*.swp
+.idea/
+.vscode/

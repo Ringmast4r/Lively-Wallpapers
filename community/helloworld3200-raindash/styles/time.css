@@ -1,0 +1,41 @@
+.ui-main {
+    z-index: 5;
+    position: absolute;
+    top: 1vw;
+    left: 2vw;
+    color: #ffffff;
+    font-size: 3vw;
+    font-weight: 600;
+
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    grid-template-rows: 1fr auto 1fr;
+    width: 100%;
+    height: 90%;
+}
+
+.clock {
+    font-weight: 500;
+    font-size: 6vw;
+    height: 7vw;
+    letter-spacing: 0.3vw;
+}
+
+.day {
+    margin-left: 0.2vw;
+    font-weight: 400;
+    font-size: 1.75vw;
+}
+
+.date {
+    font-weight: 300;
+    font-size: 1.75vw;
+    display: flex;
+    flex-direction: row;
+    gap: 0.5vw;
+}
+
+.timer {
+    grid-column: 1;
+    grid-row: 1;
+}

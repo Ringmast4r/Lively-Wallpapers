@@ -1,0 +1,41 @@
+{
+    "Monday": [
+        { "SubjectName": "", "Start": "08:45AM", "End": "09:45AM" },
+        { "SubjectName": "", "Start": "09:55AM", "End": "10:55AM" },
+        { "SubjectName": "", "Start": "11:25AM", "End": "12:20PM" },
+        { "SubjectName": "", "Start": "12:25PM", "End": "01:25PM" },
+        { "SubjectName": "", "Start": "02:15PM", "End": "03:15PM" }
+    ],
+
+    "Tuesday": [
+        { "SubjectName": "", "Start": "08:45AM", "End": "09:45AM" },
+        { "SubjectName": "", "Start": "09:55AM", "End": "10:55AM" },
+        { "SubjectName": "", "Start": "11:25AM", "End": "12:20PM" },
+        { "SubjectName": "", "Start": "12:25PM", "End": "01:25PM" },
+        { "SubjectName": "", "Start": "02:15PM", "End": "03:15PM" }
+    ],
+
+    "Wednesday": [
+        { "SubjectName": "", "Start": "09:15AM", "End": "10:05AM" },
+        { "SubjectName": "", "Start": "10:15AM", "End": "11:05AM" },
+        { "SubjectName": "", "Start": "11:35AM", "End": "12:30PM" },
+        { "SubjectName": "", "Start": "12:35PM", "End": "01:30PM" },
+        { "SubjectName": "", "Start": "02:20PM", "End": "03:15PM" }
+    ],
+
+    "Thursday": [
+        { "SubjectName": "", "Start": "08:45AM", "End": "09:45AM" },
+        { "SubjectName": "", "Start": "09:55AM", "End": "10:55AM" },
+        { "SubjectName": "", "Start": "11:25AM", "End": "12:20PM" },
+        { "SubjectName": "", "Start": "12:25PM", "End": "01:25PM" },
+        { "SubjectName": "", "Start": "02:15PM", "End": "03:15PM" }
+    ],
+
+    "Friday": [
+        { "SubjectName": "", "Start": "08:45AM", "End": "09:45AM" },
+        { "SubjectName": "", "Start": "09:55AM", "End": "10:55AM" },
+        { "SubjectName": "", "Start": "11:25AM", "End": "12:20PM" },
+        { "SubjectName": "", "Start": "12:25PM", "End": "01:25PM" },
+        { "SubjectName": "", "Start": "02:15PM", "End": "03:15PM" }
+    ]
+}

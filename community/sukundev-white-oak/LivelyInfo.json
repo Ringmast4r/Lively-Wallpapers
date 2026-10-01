@@ -1,0 +1,14 @@
+{
+  "AppVersion": "2.0.6.1",
+  "Title": "White Oak",
+  "Thumbnail": "thumbnails.png",
+  "Preview": "previews.gif",
+  "Desc": "White Oak Lively Wallpaper",
+  "Author": "sukundev",
+  "License": "See License.txt",
+  "Contact": "https://github.com/sukundev/white-oak",
+  "Type": 1,
+  "FileName": "index.html",
+  "Arguments": "--system-information",
+  "IsAbsolutePath": false
+}

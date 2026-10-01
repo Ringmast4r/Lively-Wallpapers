@@ -1,0 +1,30 @@
+{
+  "clockColor1": {
+    "text": "Clock Body",
+    "type": "color",
+    "value": "#FFFFFF"
+  },
+    "clockColor2": {
+    "text": "Clock Border",
+    "type": "color",
+    "value": "#0BFDFD"
+  },
+  "bgColor": {
+    "text": "Background",
+    "type": "color",
+    "value": "#121212"
+  },
+  "imgSelect": {
+    "type": "folderDropdown",
+    "value": "sky.jpg",
+    "text": "Image",
+    "filter": "*.jpg|*.png|*.gif",
+    "folder": "images"
+  },
+   "imageChk": {
+    "type": "checkbox",
+    "value": true,
+    "text": "BG Image"
+  },
+
+}

@@ -1,0 +1,14 @@
+{
+  "AppVersion": "0.9.5.1",
+  "Title": "Ribbon",
+  "Thumbnail": "lively_t.jpg",
+  "Preview": "lively_p.gif",
+  "Desc": "Customisable canvas ribbon animation.",
+  "Author": "Boris Šehovac",
+  "License": "see license.txt",
+  "Contact": "https://codepen.io/bsehovac/pen/LQVzxJ",
+  "Type": 1,
+  "FileName": "ribbon.html",
+  "Arguments": null,
+  "IsAbsolutePath": false
+}

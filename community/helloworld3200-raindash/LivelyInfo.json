@@ -1,0 +1,14 @@
+{
+  "AppVersion": "2.0.6.1",
+  "Title": "Raindash",
+  "Thumbnail": "thumbnail.jpg",
+  "Preview": "preview.gif",
+  "Desc": "Rainy window with dashboard widgets",
+  "Author": "helloworld3200",
+  "License": "See License.txt",
+  "Contact": "https://github.com/helloworld3200/raindash",
+  "Type": 1,
+  "FileName": "index.html",
+  "Arguments": "--pause-event true --system-nowplaying --audio --system-information",
+  "IsAbsolutePath": false
+}

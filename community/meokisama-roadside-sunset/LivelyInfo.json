@@ -1,0 +1,14 @@
+{
+  "AppVersion": "0.9.6.0",
+  "Title": "Roadside Sunset",
+  "Thumbnail": "lively_t.jpg",
+  "Preview": "lively_p.gif",
+  "Desc": "web animation.",
+  "Author": "Alex Trost",
+  "License": null,
+  "Contact": "https://codepen.io/a-trost/pen/pXzbbq",
+  "Type": 1,
+  "FileName": "index.html",
+  "Arguments": null,
+  "IsAbsolutePath": false
+}

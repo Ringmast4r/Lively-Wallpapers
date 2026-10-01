@@ -1,0 +1,14 @@
+{
+  "AppVersion": "0.9.6.0",
+  "Title": "Falling Zombie",
+  "Thumbnail": "lively_t.jpg",
+  "Preview": "lively_p.gif",
+  "Desc": "Click and drag to smash the zombie!",
+  "Author": "Gerard Ferrandez",
+  "License": null,
+  "Contact": "https://codepen.io/ge1doot/pen/xrBryP",
+  "Type": 1,
+  "FileName": "index.html",
+  "Arguments": null,
+  "IsAbsolutePath": false
+}

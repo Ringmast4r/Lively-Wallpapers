@@ -1,0 +1,14 @@
+{
+  "AppVersion": "0.9.6.0",
+  "Title": "Sunset Birds",
+  "Thumbnail": "lively_t.jpg",
+  "Preview": "lively_p.gif",
+  "Desc": "CSS only sunset animation.",
+  "Author": "Yusuke Nakaya",
+  "License": null,
+  "Contact": "https://codepen.io/YusukeNakaya/pen/oNNLeyv",
+  "Type": 1,
+  "FileName": "index.html",
+  "Arguments": null,
+  "IsAbsolutePath": false
+}

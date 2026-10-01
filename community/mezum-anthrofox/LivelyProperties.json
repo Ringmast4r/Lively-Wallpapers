@@ -1,0 +1,43 @@
+{
+    "season": {
+        "type": "dropdown",
+        "value": 0,
+        "text": "Season",
+        "items": [
+            "Auto - Northern",
+            "Auto - Southern",
+            "Spring",
+            "Summer",
+            "Autumn",
+            "Winter"
+        ]
+    },
+    "time": {
+        "type": "dropdown",
+        "value": 0,
+        "text": "Time",
+        "items": [
+            "System",
+            "Day",
+            "Night"
+        ]
+    },
+    "beginningOfDay": {
+        "type": "textbox",
+        "value": "6:00",
+        "text": "Beginning Hour of Day (24:00 format)"
+    },
+    "endOfDay": {
+        "type": "textbox",
+        "value": "18:00",
+        "text": "End Hour of Day (24:00 format)"
+    },
+    "updateIntervalMinutes": {
+        "type": "slider",
+        "value": 5,
+        "text": "Update Interval in minutes",
+        "min": 1,
+        "max": 60,
+        "step": 1
+    }
+}

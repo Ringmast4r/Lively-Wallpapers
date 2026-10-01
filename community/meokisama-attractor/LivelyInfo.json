@@ -1,0 +1,14 @@
+{
+  "AppVersion": "0.9.5.0",
+  "Title": "Attractor",
+  "Thumbnail": "lively_t.jpg",
+  "Preview": "lively_p.gif",
+  "Desc": "Particles that interacts with cursor location.",
+  "Author": "Marco Dell'Anna",
+  "License": null,
+  "Contact": "https://codepen.io/plasm/pen/VJYaQg",
+  "Type": 1,
+  "FileName": "attractor.html",
+  "Arguments": null,
+  "IsAbsolutePath": false
+}

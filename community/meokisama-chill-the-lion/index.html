@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Chill the lion</title>
+  <link rel="stylesheet" href="style/reset.min.css">
+<link rel="stylesheet" href="style/style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div id="world"></div>
+<div id="instructions">Press and drag to make wind<br/>
+<span class="lightInstructions">the lion will surely appreciate</span>
+</div>
+<!--
+<div id="credits">
+  <p>Prints on <a class="society6" href="https://society6.com/yakudoo/"  target="blank">society6</a> | <a href="https://codepen.io/Yakudoo/"  target="blank">my other codepens</a> | <a href="https://www.epic.net" target="blank">epic.net</a></p>
+</div>
+-->
+<!-- partial -->
+<script src='js/three.min.js'></script>
+<script src='js/OrbitControls.js'></script>
+<script src="js/script.js"></script>
+
+<script src="js/jquery.min.js"></script>
+<script type="text/javascript">
+	setTimeout(function() {
+    $('#instructions').fadeOut('slow');
+}, 5000); // <-- time in milliseconds
+</script>
+
+</body>
+</html>

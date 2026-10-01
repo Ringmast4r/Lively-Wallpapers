@@ -1,0 +1,82 @@
+body {
+    margin: 0;
+    overflow: hidden;
+}
+
+#background {
+    --default-bg-image: linear-gradient(135deg, #3498DB, #8E44AD);
+    --bg-image: var(--default-bg-image);
+    background: var(--bg-image) center/cover no-repeat;
+    display: block;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+#foreground {
+    display: block;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.symbols-container {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 95vh;
+}
+.symbols {
+    --left: 25%;
+    --no-opacity: 0%;
+    --full-opacity: 100%;
+    --shift: 90%;
+    --width: 1em;
+    --animation-duration: 400ms;
+    --font-size-absolute: 40pt;
+    --font-size-relative: 4vw;
+    --font-size: var(--font-size-absolute);
+
+    font-family: 'Victor Mono', 'Courier New', Courier, monospace;
+    font-size: var(--font-size);
+    display: flex;
+    flex-direction: row;
+
+    background-color: rgba(0, 0, 0, 0.5);
+    color: rgba(255, 255, 255, 1);
+    box-shadow: inset 0 0 calc(var(--font-size) * 3 / 4) calc(var(--font-size) / 10) rgba(0, 0, 0, 0.5);
+    border-radius: calc(var(--font-size) / 2);
+    padding: calc(var(--font-size) / 4);
+    overflow: hidden;
+}
+.symbols div {
+    --next-symb: "-";
+    --symb: "-";
+}
+
+.symbols div::before {
+    content: var(--next-symb);
+    position: relative;
+    left: var(--left);
+    opacity: var(--no-opacity);
+    top: calc(-1 * var(--shift));
+    width: var(--width);
+}
+.symbols div.transition::before {
+    transition: opacity var(--animation-duration), top var(--animation-duration);
+    opacity: var(--full-opacity);
+    top: 0;
+}
+.symbols div::after {
+    content: var(--symb);
+    position: relative;
+    left: calc(-1 * var(--left));
+    opacity: var(--full-opacity);
+    top: 0;
+}
+.symbols div.transition::after {
+    transition: opacity var(--animation-duration), top var(--animation-duration);
+    opacity: var(--no-opacity);
+    top: var(--shift);
+}

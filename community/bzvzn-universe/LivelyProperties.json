@@ -1,0 +1,404 @@
+{
+    "labelInfo": {
+        "type": "label",
+        "value": "Info: Advanced settings (colors, detailed look & presets) are configured in config.js. Most changes marked (Restart) require reloading the wallpaper."
+    },
+    "labelSystem": {
+        "type": "label",
+        "value": "▬▬▬ SYSTEM & LAYOUT ▬▬▬"
+    },
+    "showDebug": {
+        "type": "checkbox",
+        "value": false,
+        "text": "Show System Debugger Overlay"
+    },
+    "monitorLayout": {
+        "type": "dropdown",
+        "value": 0,
+        "text": "Monitor Layout (Restart)",
+        "items": [
+            "0: Auto-Detect",
+            "1: Single",
+            "2: Dual (Horizontal)",
+            "3: Dual (Vertical)",
+            "4: Triple",
+            "5: Grid 2x2",
+            "6: Pyramid",
+            "7: Inverted Pyramid",
+            "8: Custom"
+        ]
+    },
+    "bezelWidth": {
+        "type": "slider",
+        "value": 40,
+        "min": 0,
+        "max": 200,
+        "step": 1,
+        "text": "Monitor Bezel Width / Deadzone (Restart)"
+    },
+    "labelPerformance": {
+        "type": "label",
+        "value": "▬▬▬ PERFORMANCE & CUSTOM LIMITS ▬▬▬"
+    },
+    "performanceSetup": {
+        "type": "dropdown",
+        "value": 2,
+        "text": "Performance Mode (Restart)",
+        "items": [
+            "0: Low (Laptops)",
+            "1: Medium",
+            "2: High (Gaming PCs)",
+            "3: Extreme (Enthusiast)",
+            "4: Custom (Use Inputs Below)"
+        ]
+    },
+    "customStarCount": {
+        "type": "textbox",
+        "value": "30000",
+        "text": "[Custom] Star Count (Restart)"
+    },
+    "customGalaxyCount": {
+        "type": "textbox",
+        "value": "20",
+        "text": "[Custom] Galaxy Count (Restart)"
+    },
+    "customNebulaCount": {
+        "type": "textbox",
+        "value": "40",
+        "text": "[Custom] Nebula Cloud Count (Restart)"
+    },
+    "customDensity": {
+        "type": "slider",
+        "value": 2.0,
+        "min": 0.1,
+        "max": 10.0,
+        "step": 0.1,
+        "text": "[Custom] Particle Density Multiplier (Restart)"
+    },
+    "labelCamera": {
+        "type": "label",
+        "value": "▬▬▬ CAMERA & VIEW ▬▬▬"
+    },
+    "camFov": {
+        "type": "slider",
+        "value": 50,
+        "min": 30,
+        "max": 120,
+        "step": 1,
+        "text": "Camera Field of View (FOV) (Restart)"
+    },
+    "camRotationSpeed": {
+        "type": "slider",
+        "value": 0.002,
+        "min": 0.0,
+        "max": 0.05,
+        "step": 0.001,
+        "text": "Universe Auto-Rotation Speed"
+    },
+    "parallaxIntensity": {
+        "type": "slider",
+        "value": 15,
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "text": "Mouse Parallax Intensity"
+    },
+    "parallaxSpeed": {
+        "type": "slider",
+        "value": 0.1,
+        "min": 0.01,
+        "max": 0.5,
+        "step": 0.01,
+        "text": "Mouse Parallax Smoothing/Speed"
+    },
+    "labelUniverse": {
+        "type": "label",
+        "value": "▬▬▬ UNIVERSE BEHAVIOR ▬▬▬"
+    },
+    "galaxySpeed": {
+        "type": "slider",
+        "value": 0.05,
+        "min": 0.0,
+        "max": 0.5,
+        "step": 0.01,
+        "text": "Galaxy Spiral Rotation Speed"
+    },
+    "labelBH": {
+        "type": "label",
+        "value": "▬▬▬ BLACK HOLES (LIVE) ▬▬▬"
+    },
+    "labelBHInfo": {
+        "type": "label",
+        "value": "Note: If a Black Hole radius is 0 at startup, it is not created for performance reasons. To enable it (radius > 0) or to rebuild the disk density after changing radius, reload/restart the wallpaper."
+    },
+    "labelBH1": {
+        "type": "label",
+        "value": "— Black Hole 1 —"
+    },
+    "bh1Radius": {
+        "type": "slider",
+        "value": 15,
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "text": "Radius (0 = Off) (Restart required to enable/rebuild disk)"
+    },
+    "bh1PosX": {
+        "type": "textbox",
+        "value": "0",
+        "text": "Offset X (World units)"
+    },
+    "bh1PosY": {
+        "type": "textbox",
+        "value": "0",
+        "text": "Offset Y (World units)"
+    },
+    "bh1TiltX": {
+        "type": "slider",
+        "value": 0.35,
+        "min": -3.14,
+        "max": 3.14,
+        "step": 0.01,
+        "text": "Tilt X-Axis"
+    },
+    "bh1TiltY": {
+        "type": "slider",
+        "value": 0.0,
+        "min": -3.14,
+        "max": 3.14,
+        "step": 0.01,
+        "text": "Tilt Y-Axis"
+    },
+    "bh1TiltZ": {
+        "type": "slider",
+        "value": 0.0,
+        "min": -3.14,
+        "max": 3.14,
+        "step": 0.01,
+        "text": "Tilt Z-Axis"
+    },
+    "bh1Speed": {
+        "type": "slider",
+        "value": 5.0,
+        "min": -15.0,
+        "max": 15.0,
+        "step": 0.1,
+        "text": "Disk Rotation Speed"
+    },
+    "labelBH2": {
+        "type": "label",
+        "value": "— Black Hole 2 —"
+    },
+    "bh2Radius": {
+        "type": "slider",
+        "value": 15,
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "text": "Radius (0 = Off) (Restart required to enable/rebuild disk)"
+    },
+    "bh2PosX": {
+        "type": "textbox",
+        "value": "0",
+        "text": "Offset X (World units)"
+    },
+    "bh2PosY": {
+        "type": "textbox",
+        "value": "0",
+        "text": "Offset Y (World units)"
+    },
+    "bh2TiltX": {
+        "type": "slider",
+        "value": 0.25,
+        "min": -3.14,
+        "max": 3.14,
+        "step": 0.01,
+        "text": "Tilt X-Axis"
+    },
+    "bh2TiltY": {
+        "type": "slider",
+        "value": 0.0,
+        "min": -3.14,
+        "max": 3.14,
+        "step": 0.01,
+        "text": "Tilt Y-Axis"
+    },
+    "bh2TiltZ": {
+        "type": "slider",
+        "value": -0.1,
+        "min": -3.14,
+        "max": 3.14,
+        "step": 0.01,
+        "text": "Tilt Z-Axis"
+    },
+    "bh2Speed": {
+        "type": "slider",
+        "value": -1.2,
+        "min": -15.0,
+        "max": 15.0,
+        "step": 0.1,
+        "text": "Disk Rotation Speed"
+    },
+    "labelBH3": {
+        "type": "label",
+        "value": "— Black Hole 3 —"
+    },
+    "bh3Radius": {
+        "type": "slider",
+        "value": 0,
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "text": "Radius (0 = Off) (Restart required to enable/rebuild disk)"
+    },
+    "bh3PosX": {
+        "type": "textbox",
+        "value": "0",
+        "text": "Offset X (World units)"
+    },
+    "bh3PosY": {
+        "type": "textbox",
+        "value": "0",
+        "text": "Offset Y (World units)"
+    },
+    "bh3TiltX": {
+        "type": "slider",
+        "value": 0.5,
+        "min": -3.14,
+        "max": 3.14,
+        "step": 0.01,
+        "text": "Tilt X-Axis"
+    },
+    "bh3TiltY": {
+        "type": "slider",
+        "value": 0.0,
+        "min": -3.14,
+        "max": 3.14,
+        "step": 0.01,
+        "text": "Tilt Y-Axis"
+    },
+    "bh3TiltZ": {
+        "type": "slider",
+        "value": -0.2,
+        "min": -3.14,
+        "max": 3.14,
+        "step": 0.01,
+        "text": "Tilt Z-Axis"
+    },
+    "bh3Speed": {
+        "type": "slider",
+        "value": 1.2,
+        "min": -15.0,
+        "max": 15.0,
+        "step": 0.1,
+        "text": "Disk Rotation Speed"
+    },
+    "labelBH4": {
+        "type": "label",
+        "value": "— Black Hole 4 —"
+    },
+    "bh4Radius": {
+        "type": "slider",
+        "value": 0,
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "text": "Radius (0 = Off) (Restart required to enable/rebuild disk)"
+    },
+    "bh4PosX": {
+        "type": "textbox",
+        "value": "0",
+        "text": "Offset X (World units)"
+    },
+    "bh4PosY": {
+        "type": "textbox",
+        "value": "0",
+        "text": "Offset Y (World units)"
+    },
+    "bh4TiltX": {
+        "type": "slider",
+        "value": 0.1,
+        "min": -3.14,
+        "max": 3.14,
+        "step": 0.01,
+        "text": "Tilt X-Axis"
+    },
+    "bh4TiltY": {
+        "type": "slider",
+        "value": 0.0,
+        "min": -3.14,
+        "max": 3.14,
+        "step": 0.01,
+        "text": "Tilt Y-Axis"
+    },
+    "bh4TiltZ": {
+        "type": "slider",
+        "value": 0.0,
+        "min": -3.14,
+        "max": 3.14,
+        "step": 0.01,
+        "text": "Tilt Z-Axis"
+    },
+    "bh4Speed": {
+        "type": "slider",
+        "value": 0.5,
+        "min": -15.0,
+        "max": 15.0,
+        "step": 0.1,
+        "text": "Disk Rotation Speed"
+    },
+    "labelBH5": {
+        "type": "label",
+        "value": "— Black Hole 5 —"
+    },
+    "bh5Radius": {
+        "type": "slider",
+        "value": 0,
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "text": "Radius (0 = Off) (Restart required to enable/rebuild disk)"
+    },
+    "bh5PosX": {
+        "type": "textbox",
+        "value": "0",
+        "text": "Offset X (World units)"
+    },
+    "bh5PosY": {
+        "type": "textbox",
+        "value": "0",
+        "text": "Offset Y (World units)"
+    },
+    "bh5TiltX": {
+        "type": "slider",
+        "value": -0.4,
+        "min": -3.14,
+        "max": 3.14,
+        "step": 0.01,
+        "text": "Tilt X-Axis"
+    },
+    "bh5TiltY": {
+        "type": "slider",
+        "value": 0.0,
+        "min": -3.14,
+        "max": 3.14,
+        "step": 0.01,
+        "text": "Tilt Y-Axis"
+    },
+    "bh5TiltZ": {
+        "type": "slider",
+        "value": 0.3,
+        "min": -3.14,
+        "max": 3.14,
+        "step": 0.01,
+        "text": "Tilt Z-Axis"
+    },
+    "bh5Speed": {
+        "type": "slider",
+        "value": 1.5,
+        "min": -15.0,
+        "max": 15.0,
+        "step": 0.1,
+        "text": "Disk Rotation Speed"
+    }
+}

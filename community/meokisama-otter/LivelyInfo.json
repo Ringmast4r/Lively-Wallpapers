@@ -1,0 +1,14 @@
+{
+  "AppVersion": "0.8.0.0",
+  "Title": "Otter",
+  "Thumbnail": "lively_t.jpg",
+  "Preview": "lively_p.gif",
+  "Desc": "Pure css Otter animation.",
+  "Author": "Charity",
+  "License": null,
+  "Contact": "https://codepen.io/charity-temple/pen/rNxgBZa",
+  "Type": 1,
+  "FileName": "index.html",
+  "Arguments": null,
+  "IsAbsolutePath": false
+}

@@ -1,0 +1,14 @@
+{
+  "AppVersion": "2.0.0.0",
+  "Title": "Iris",
+  "Thumbnail": "lively_t.jpg",
+  "Preview": null,
+  "Desc": "A pair of glowing eyes that follow your cursor or webcam, blink on their own, get bored, and get annoyed. Rendered as ANSI art or as photographic frames.",
+  "Author": "Crisiswastaken",
+  "License": "MIT",
+  "Contact": "https://github.com/Crisiswastaken/iris",
+  "Type": 1,
+  "FileName": "index.html",
+  "Arguments": "--pause-event true",
+  "IsAbsolutePath": false
+}

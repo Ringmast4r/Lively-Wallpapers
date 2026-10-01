@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Falling Zombie</title>
+  <!--
+KEEP
+CALM
+AND
+ZOMBIE
+ON
+-->
+<script>
+if (window.location.href.indexOf("fullcpgrid") > -1) {
+	document.addEventListener('DOMContentLoaded', function() {
+		const original = document.createElement('iframe');
+		original.style.display = 'none';
+		document.body.appendChild(original);
+		window.requestAnimationFrame = original.contentWindow.requestAnimationFrame;
+	}, false);
+}
+</script><link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+
+<!-- partial -->
+  <script  src="js/script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "AppVersion": "0.9.5.0",
+  "Title": "Sparks",
+  "Thumbnail": "lively_t.jpg",
+  "Preview": "lively_p.gif",
+  "Desc": "Fizzy Sparks",
+  "Author": "Bennett Waisbren",
+  "License": null,
+  "Contact": "https://codepen.io/waisbren89/pen/gwvVpP",
+  "Type": 1,
+  "FileName": "sparks.html",
+  "Arguments": null,
+  "IsAbsolutePath": false
+}

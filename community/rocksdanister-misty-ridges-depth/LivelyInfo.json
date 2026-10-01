@@ -1,0 +1,18 @@
+{
+  "AppVersion": "2.0.7.0",
+  "Title": "Misty Ridges (AI depth)",
+  "Thumbnail": "thumbnail.jpg",
+  "Preview": null,
+  "Desc": "AI depth parallax (Lively's MiDaS model) that follows the mouse. Photo: cmonphotography on Pexels, from rocksdanister's Rain pack.",
+  "Author": "rocksdanister",
+  "License": "See License.txt",
+  "Contact": "https://github.com/rocksdanister/depthmap-wallpaper",
+  "Type": 1,
+  "FileName": "index.html",
+  "Arguments": "--pause-event true",
+  "Tags": [
+    "depth",
+    "depthmap"
+  ],
+  "IsAbsolutePath": false
+}

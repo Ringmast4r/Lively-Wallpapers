@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>行星之间 · SOLAR — 可交互三维太阳系动态壁纸</title>
+<meta name="description" content="可交互的三维太阳系动态壁纸：八大行星、木星卫星、土卫六、双尾彗星、太阳日珥与六艘深空探测器。完全离线，支持 4K 与 120 帧。MIT 开源。">
+<link rel="icon" href="data:,">
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;background:#040508;color:#e8e8e5;font-family:system-ui,-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;-webkit-font-smoothing:antialiased}
+  body{min-height:100%;background:
+    radial-gradient(1100px 620px at 78% -8%,#1b2130 0%,transparent 62%),
+    radial-gradient(760px 520px at 8% 104%,#191410 0%,transparent 58%),
+    #040508}
+  main{max-width:940px;margin:0 auto;padding:clamp(28px,6vw,76px) clamp(20px,5vw,40px) 64px}
+  .brand{display:flex;align-items:center;gap:18px;margin-bottom:clamp(34px,7vw,72px)}
+  .mark{font-family:Georgia,"Times New Roman",serif;font-size:26px;letter-spacing:.14em;color:#e6dbbf}
+  .cn{font-size:12px;color:#b4b6b8;border-left:1px solid #3c3d40;padding-left:18px}
+  h1{margin:0 0 22px;font-size:clamp(34px,7.4vw,60px);font-weight:300;line-height:1.14;letter-spacing:.01em}
+  h1 em{font-style:normal;color:#d9b575}
+  .lede{max-width:62ch;margin:0 0 34px;font-size:clamp(14px,2.1vw,16.5px);line-height:1.85;color:#a9afb6}
+  .actions{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:18px}
+  .btn{display:inline-flex;flex-direction:column;gap:5px;padding:15px 24px;border:1px solid #3c4148;border-radius:9px;background:#111419;color:#d7dbdf;text-decoration:none;font-size:14px;transition:border-color .18s ease,background .18s ease,transform .18s ease}
+  .btn:hover{border-color:#bba374;background:#171b21;transform:translateY(-1px)}
+  .btn.primary{border-color:#a88b50;background:#37362e;color:#f4e6c6}
+  .btn.primary:hover{background:#413f34}
+  .btn small{font-size:11px;color:#9aa2aa;font-weight:400}
+  .btn.primary small{color:#c9b488}
+  .hint{margin:0 0 44px;font-size:12px;color:#7d858c;line-height:1.7}
+  figure{margin:0 0 52px;border:1px solid #262a30;border-radius:12px;overflow:hidden;background:#080a0e}
+  figure img{display:block;width:100%;height:auto}
+  figcaption{padding:11px 15px;font-size:11px;color:#7d858c;border-top:1px solid #1e2228}
+  h2{margin:0 0 18px;font-size:13px;font-weight:500;letter-spacing:.16em;color:#8f9aa4;text-transform:uppercase}
+  ul.features{list-style:none;margin:0 0 52px;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(232px,1fr));gap:11px}
+  ul.features li{padding:15px 17px;border:1px solid #22262c;border-radius:9px;background:#0b0e12;font-size:13.5px;line-height:1.65;color:#bcc2c8}
+  ul.features b{display:block;margin-bottom:5px;font-weight:500;color:#e7d8b6}
+  footer{padding-top:26px;border-top:1px solid #1e2228;font-size:12px;line-height:1.9;color:#767e86}
+  footer a{color:#a9b3bd}
+  @media(max-width:520px){.actions{flex-direction:column}.btn{width:100%}}
+</style>
+</head>
+<body>
+<main>
+  <header class="brand"><span class="mark">SOLAR</span><span class="cn">行星之间</span></header>
+
+  <h1>把整个太阳系<br>放进你的<em>桌面</em></h1>
+  <p class="lede">可交互的三维太阳系动态壁纸。八大行星的公转与自转、木星四颗伽利略卫星、土卫六、双尾彗星、太阳日珥，以及六艘带通信光点的深空探测器。行星位置由真实星历计算，全部贴图与代码内嵌在单个文件里——完全离线、无网络请求。</p>
+
+  <div class="actions">
+    <a class="btn primary" href="solar-system.html">在线进入太阳系 <small>48 MB，需加载片刻</small></a>
+    <a class="btn" href="https://github.com/Nerdless-ship-it/between-planets-solar/releases/latest">下载 Lively 安装包 <small>Windows 动态桌面</small></a>
+  </div>
+  <p class="hint">在线版需要支持 WebGL 2 的浏览器与硬件加速。设为桌面壁纸请下载安装包，拖入 Lively Wallpaper 即可应用。</p>
+
+  <figure>
+    <img src="preview.jpg" alt="行星之间 · SOLAR 预览">
+    <figcaption>行星之间 · SOLAR — 立体视角下的太阳系与小行星带</figcaption>
+  </figure>
+
+  <h2>它有什么</h2>
+  <ul class="features">
+    <li><b>八大行星</b>公转与自转、土星环、地月系统、小行星带</li>
+    <li><b>行星卫星</b>木星四颗伽利略卫星、土卫六，拉近可观察</li>
+    <li><b>双尾彗星</b>离子尾背离太阳，接近太阳时彗尾增强</li>
+    <li><b>太阳活动</b>五组缓慢变化的日珥与轻微耀斑</li>
+    <li><b>六艘深空探测器</b>三种造型，独立航线与通信光点</li>
+    <li><b>深空背景</b>银河星野、流星与黑洞吸积盘</li>
+    <li><b>两种周期模式</b>观赏压缩周期差异 / 真实比例统一模拟时间</li>
+    <li><b>4K 与高帧率</b>20–144 帧可选，30 帧以上支持 5120 宽渲染</li>
+  </ul>
+
+  <footer>
+    本项目以 MIT License 开源，版权所有 © 2026 张凌康。<br>
+    行星贴图来自 Solar System Scope（CC BY 4.0）；内置 Three.js、Astronomy Engine、Lucide、GSAP，完整许可见仓库 THIRD-PARTY.txt。<br>
+    <a href="https://github.com/Nerdless-ship-it/between-planets-solar">GitHub 仓库</a> ·
+    <a href="https://github.com/Nerdless-ship-it/between-planets-solar/blob/main/使用说明.txt">使用说明</a> ·
+    <a href="https://github.com/Nerdless-ship-it/between-planets-solar/blob/main/THIRD-PARTY.txt">第三方许可</a>
+  </footer>
+</main>
+</body>
+</html>

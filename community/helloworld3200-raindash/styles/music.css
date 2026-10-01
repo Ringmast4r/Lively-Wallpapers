@@ -1,0 +1,69 @@
+.music-main {
+    grid-column: 3;
+    grid-row: 3;
+    bottom: 0;
+    position: fixed;
+    justify-self: end;
+    margin-right: 3vw;
+    margin-bottom: 1vw;
+    min-width: 16vw;
+    display: none;
+    flex-direction: column;
+    gap: 0.5vw;
+
+    padding-bottom: 1.2vw;
+}
+
+.music-header {
+    font-size: 1.2vw;
+    font-weight: 200;
+    color: #ffffff8a;
+}
+
+.music-info {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5vw;
+}
+
+.music-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2vw;
+}
+
+.music-title {
+    font-weight: 500;
+    font-size: 1.6vw;
+}
+
+.music-artist {
+    font-weight: 200;
+    font-size: 1.1vw;
+    font-style: italic;
+}
+
+.music-viz {
+    width: 4vw;
+    height: 4vw;
+    padding: 0.5vw;
+}
+
+.music-bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 5px;
+    height: 4vh;
+}
+
+.bar {
+    width: 6px;
+    height: 1vw;
+    background: rgba(255, 255, 255, 0.363);
+    transition: height 0.5s ease;
+}
+  
+@keyframes bounce {
+    0%, 100% { height: 10px; }
+    50% { height: 20px; }
+}

@@ -1,0 +1,18 @@
+{
+  "backgroundColor": {
+    "text": "Background Colour",
+    "type": "color",
+    "value": "#ffffff"
+  },
+  "theme": {
+    "type": "dropdown",
+    "value": 1,
+    "text": "Theme",
+    "items": ["Custom", "Pastel", "Deep Red", "Forest", "Bigfoot Snail"]
+  },
+  "customColors": {
+    "text": "Custom Colours",
+    "type": "textbox",
+    "value": "#a8e6cf,#dcedc1,#ffd3b6,#ffaaa5,#ff8b94"
+  }
+}

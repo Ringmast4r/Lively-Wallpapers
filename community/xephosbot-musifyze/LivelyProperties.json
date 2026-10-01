@@ -1,0 +1,12 @@
+{
+	"visualizerColor": {
+		"text": "Visualizer",
+		"type": "color",
+		"value": "#7100BF"
+	},
+	"backgroundColor": {
+		"text": "Background",
+		"type": "color",
+		"value": "#000000"
+	}
+}

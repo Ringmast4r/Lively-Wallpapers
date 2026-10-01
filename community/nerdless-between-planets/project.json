@@ -1,0 +1,20 @@
+{
+ "title":"行星之间 · SOLAR","description":"Offline interactive 3D solar system with astronomical orbital paths, scaled distances and sizes.",
+ "type":"web","file":"solar-system.html","preview":"preview.jpg","contentrating":"Everyone",
+ "general":{"properties":{
+ "speed":{"type":"slider","text":"运行速度","min":0.25,"max":4,"value":1,"step":0.25,"order":0},
+ "mode":{"type":"combo","text":"公转周期","value":"display","options":[{"label":"观赏","value":"display"},{"label":"真实比例","value":"true"}],"order":1},
+ "quality":{"type":"combo","text":"帧率","value":120,"options":[{"label":"20","value":20},{"label":"30","value":30},{"label":"60","value":60},{"label":"90","value":90},{"label":"120","value":120},{"label":"144","value":144},{"label":"跟随屏幕","value":0}],"order":2},
+ "orbits":{"type":"bool","text":"轨道线","value":true,"order":3},
+ "names":{"type":"bool","text":"行星名称","value":true,"order":4},
+ "galaxy":{"type":"bool","text":"银河星野","value":true,"order":5},
+ "meteors":{"type":"bool","text":"流星","value":true,"order":6},
+ "blackhole":{"type":"bool","text":"黑洞吸积盘（艺术远景）","value":true,"order":7},
+ "clock":{"type":"bool","text":"显示时钟","value":true,"order":8},
+ "interaction":{"type":"bool","text":"鼠标交互","value":false,"order":9},
+ "comet":{"type":"bool","text":"长尾彗星","value":true,"order":10},
+ "satellites":{"type":"bool","text":"行星卫星","value":true,"order":11},
+ "solaractivity":{"type":"bool","text":"太阳活动","value":true,"order":12},
+ "probes":{"type":"bool","text":"深空探测器 · 6 艘","value":true,"order":13}
+ }}
+}

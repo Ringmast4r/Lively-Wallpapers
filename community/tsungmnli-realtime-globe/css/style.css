@@ -1,0 +1,113 @@
+body {
+  margin: 0;
+  font-family: Pretendard;
+}
+
+ul,
+li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#wrap {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+  position: relative;
+  background-color: #000000;
+}
+
+#globeContainer {
+  width: 60vmin;
+  height: 60vmin;
+  transition: width 0.3s ease, height 0.3s ease;
+}
+
+#floatingLeft {
+  margin-left: 2em;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  color: #ffffff;
+  text-align: left;
+}
+
+#resizePanel {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.resize-button {
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 1rem;
+  background-color: #ffffff23;
+  transition: all 0.2s ease-out;
+  user-select: none;
+}
+.resize-button:hover {
+  background-color: #ffffff42;
+}
+
+#floatingRight {
+  margin-right: 2em;
+  width: 20em;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  color: #ffffff;
+  text-align: right;
+}
+
+#globeStatus {
+  margin: 0 15px 10px;
+  height: 1em;
+}
+
+.status-message {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  font-size: 1rem;
+}
+.status-message:nth-last-child() {
+  margin-left: 5px;
+}
+
+.image-option {
+  margin: 5px 0;
+  padding: 8px 15px;
+  border-radius: 5px;
+  transition: all 0.2s ease-out;
+  cursor: pointer;
+}
+.image-option:hover {
+  background: linear-gradient(to left, #ffffff23 50%, #ffffff00);
+}
+
+.image-option[selected] {
+  background: linear-gradient(to left, #ffffff23 50%, #ffffff00);
+  font-size: 1rem;
+}
+
+.image-option:not([selected]) {
+  font-size: 0.8rem;
+}
+.image-option:not([selected]):hover {
+  font-size: 1rem;
+}
+
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+  #imageSelect {
+    display: none;
+  }
+}

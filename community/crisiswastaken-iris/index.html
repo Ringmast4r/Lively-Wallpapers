@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Iris — eyes that notice</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="stage">
+      <div class="stage__eyes">
+        <!-- 960x540 to match DEFAULT_OUTPUT_WIDTH/HEIGHT in js/config.js. The
+             canvas is scaled by CSS, never resized: the renderers cache one
+             surface set per output resolution. -->
+        <canvas width="960" height="540"></canvas>
+      </div>
+    </main>
+
+    <!--
+      The duotone tint, referenced by ID from `--eye-filter`. Inlined rather than
+      kept in a separate file because a CSS `url(#id)` filter resolves against
+      the current document. `tableValues` is rewritten by js/settings.js; the
+      values below are the LivelyProperties defaults (#FF2D55 at 85%).
+    -->
+    <svg class="tint-filter" width="0" height="0" aria-hidden="true">
+      <defs>
+        <!-- Without sRGB interpolation the browser works in linear light and
+             the tint comes out washed out. -->
+        <filter id="eye-tint" color-interpolation-filters="sRGB">
+          <feColorMatrix type="saturate" values="0" />
+          <feComponentTransfer>
+            <feFuncR id="eye-tint-r" type="table" tableValues="0 0.9250 1" />
+            <feFuncG id="eye-tint-g" type="table" tableValues="0 0.0750 1" />
+            <feFuncB id="eye-tint-b" type="table" tableValues="0 0.2369 1" />
+          </feComponentTransfer>
+        </filter>
+      </defs>
+    </svg>
+
+    <!--
+      Classic scripts, in dependency order. Not ES modules: Lively's WebView2
+      player gives every local file its own opaque origin, and a module script
+      from a `file://` URL fails the same CORS check that blocks `fetch()`.
+
+      The sixteen assets/ansi/*.js frame files are injected on demand by
+      js/ascii/frame-store.js, so PNG-only sessions never parse them.
+    -->
+    <script src="js/config.js"></script>
+    <script src="js/states.js"></script>
+    <script src="js/color.js"></script>
+    <script src="js/easing.js"></script>
+    <script src="js/gaze-map.js"></script>
+    <script src="js/surface-provider.js"></script>
+    <script src="js/transition-controller.js"></script>
+    <script src="js/autonomous.js"></script>
+    <script src="js/interaction.js"></script>
+    <script src="js/bloom.js"></script>
+    <script src="js/ascii/ansi-parser.js"></script>
+    <script src="js/ascii/renderer.js"></script>
+    <script src="js/ascii/frame-store.js"></script>
+    <script src="js/ascii/surface-cache.js"></script>
+    <script src="js/png/image-store.js"></script>
+    <script src="js/png/surface-cache.js"></script>
+    <script src="vendor/mediapipe/vision_bundle.js"></script>
+    <script src="js/webcam-tracker.js"></script>
+    <script src="js/webcam-setup.js"></script>
+    <script src="js/eyes.js"></script>
+    <script src="js/settings.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

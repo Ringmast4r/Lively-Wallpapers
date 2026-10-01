@@ -1,0 +1,22 @@
+{
+	"description" : "Reproduced a simple clock Web \n仿Apple Watch时钟，十分简洁，自动同步本地时间。 \n\nupdate:更新代码，在左上角添加了一个背景颜色选择器。 You can now find the background color selector in the upper left corner。 \n\nupdate:再次更新,隐藏了按钮，只有当你的鼠标放到左上角周围，按钮才会滑出来。(某些人强迫症= =)\nThe button is hidden, only when your mouse is placed in the upper left corner, the button will slip out.",
+	"file" : "index.html",
+	"general" : 
+	{
+		"properties" : 
+		{
+			"schemecolor" : 
+			{
+				"order" : 0,
+				"text" : "ui_browse_properties_scheme_color",
+				"type" : "color",
+				"value" : "0 0 0"
+			}
+		}
+	},
+	"preview" : "preview.jpg",
+	"title" : "Apple Watch  Clock",
+	"type" : "web",
+	"visibility" : "public",
+	"workshopid" : 798177783
+}

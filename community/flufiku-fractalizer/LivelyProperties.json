@@ -1,0 +1,42 @@
+{
+    "DropdownType": {
+        "type": "dropdown",
+        "text": "Fractal Type",
+        "value": "0",
+        "items": [
+            "Sierpinski Triangle",
+            "Sierpinski Carpet",
+            "Apollonian Gasket",
+            "Koch Snowflake",
+            "Koch Anti-Snowflake",
+            "Dragon Curve",
+            "Fractal Tree",
+            "H-Tree",
+            "Pythagoras Tree",
+            "Barnsley Fern",
+            "T-Square",
+            "Minkowski Island",
+            "Lévy C Curve",
+            "Logistic Map",
+            "Mandelbrot Set",
+            "Mandelbox",
+            "Newton Fractal",
+            "Julia Set",
+            "Burning Ship"
+        ]
+    },
+
+    "SliderIterations": {
+        "type": "slider",
+        "text": "Iterations",
+        "value": 3,
+        "min": 1,
+        "max": 15,
+        "tick": 15
+    },
+
+    "LabelWarning": {
+        "type": "label",
+        "value": "High iterations may take very long to render, have some patience!"
+    }
+}

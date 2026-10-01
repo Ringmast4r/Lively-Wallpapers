@@ -1,0 +1,14 @@
+{
+  "AppVersion": "0.9.5.5",
+  "Title": "First Light",
+  "Thumbnail": "lively_t.jpg",
+  "Preview": "lively_p.gif",
+  "Desc": "Beautiful sunrise.",
+  "Author": "Adam Kuhn",
+  "License": null,
+  "Contact": "https://codepen.io/cobra_winfrey/pen/Lyxqvv",
+  "Type": 1,
+  "FileName": "index.html",
+  "Arguments": null,
+  "IsAbsolutePath": false
+}

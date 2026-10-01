@@ -1,0 +1,17 @@
+ {
+    "AppVersion": "0.9",
+    "Title": "Comets",
+    "Thumbnail": "im0.png",
+    "Preview": "im1.gif",
+    "Desc": "Flying little comets on the screen (sparkles included)",
+    "Author": "toughboli",
+    "License": "MIT",
+    "Contact": "https://github.com/Toughboli/Comets-LiveWallpaper",
+    "Type": 1,
+    "FileName": "index.html",
+    "Arguments": null,
+    "IsAbsolutePath": false,
+    "Id": null,
+    "Tags": null,
+    "Version": 0
+  }

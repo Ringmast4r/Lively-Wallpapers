@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="UTF-8">
+        <title>Uhr</title>
+        <meta name="description" content="Eine etwas andere Uhr">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Julian Oberhofer">
+        <link rel="stylesheet" href="css/main.css">
+        <script type="text/javascript" src="js/german.js"></script>
+        <script type="text/javascript" src="js/main.js"></script>
+        
+        <link rel="icon" href="thumbnail.png" type="image/x-icon">
+        <link rel="shortcut icon" href="thumbnail.png" type="image/x-icon">
+        <meta property="og:title" content="Uhr">
+        <meta property="og:description" content="Eine etwas andere Uhr">
+        <meta property="og:image" content="https://oberhofer.ddns.net/clock/thumbnail.png">
+        <meta property="og:url" content="https://oberhofer.ddns.net/clock/german">
+        <meta property="og:type" content="website">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="Uhr">
+        <meta name="twitter:description" content="Eine etwas andere Uhr">
+        <meta name="twitter:image" content="https://oberhofer.ddns.net/clock/thumbnail.png">
+    </head>
+    <body class="light-mode loading">
+        <h1 id="header">Eine etwas andere Uhr</h1>
+        <div id="select">
+            <select id="theme" onchange="changeTheme(this.value)"></select>
+            <br>
+            <select id="language" onchange="changeLang(this.value)"></select>
+        </div>
+        <table id="german">
+            <tr>
+                <td class="es">E</td>
+                <td class="es">S</td>
+                <td class="">K</td>
+                <td class="ist">I</td>
+                <td class="ist">S</td>
+                <td class="ist">T</td>
+                <td class="">A</td>
+                <td class="fünf_min">F</td>
+                <td class="fünf_min">Ü</td>
+                <td class="fünf_min">N</td>
+                <td class="fünf_min">F</td>
+            </tr>
+            <tr>
+                <td class="zehn_min">Z</td>
+                <td class="zehn_min">E</td>
+                <td class="zehn_min">H</td>
+                <td class="zehn_min">N</td>
+                <td class="zwanzig_min">Z</td>
+                <td class="zwanzig_min">W</td>
+                <td class="zwanzig_min">A</td>
+                <td class="zwanzig_min">N</td>
+                <td class="zwanzig_min">Z</td>
+                <td class="zwanzig_min">I</td>
+                <td class="zwanzig_min">G</td>
+            </tr>
+            <tr>
+                <td class="drei_min">D</td>
+                <td class="drei_min">R</td>
+                <td class="drei_min">E</td>
+                <td class="drei_min">I</td>
+                <td class="viertel">V</td>
+                <td class="viertel">I</td>
+                <td class="viertel">E</td>
+                <td class="viertel">R</td>
+                <td class="viertel">T</td>
+                <td class="viertel">E</td>
+                <td class="viertel">L</td>
+            </tr>
+            <tr>
+                <td class="vor">V</td>
+                <td class="vor">O</td>
+                <td class="vor">R</td>
+                <td class="funk">F</td>
+                <td class="funk">U</td>
+                <td class="funk">N</td>
+                <td class="funk">K</td>
+                <td class="nach">N</td>
+                <td class="nach">A</td>
+                <td class="nach">C</td>
+                <td class="nach">H</td>
+            </tr>
+            <tr>
+                <td class="halb">H</td>
+                <td class="halb">A</td>
+                <td class="halb">L</td>
+                <td class="halb">B</td>
+                <td class="">A</td>
+                <td class="elf">E</td>
+                <td class="elf">L</td>
+                <td class="elf fünf">F</td>
+                <td class="fünf">Ü</td>
+                <td class="fünf">N</td>
+                <td class="fünf">F</td>
+            </tr>
+            <tr>
+                <td class="eins ein">E</td>
+                <td class="eins ein">I</td>
+                <td class="eins ein">N</td>
+                <td class="eins">S</td>
+                <td class="">X</td>
+                <td class="am">A</td>
+                <td class="am">M</td>
+                <td class="zwei">Z</td>
+                <td class="zwei">W</td>
+                <td class="zwei">E</td>
+                <td class="zwei">I</td>
+            </tr>
+            <tr>
+                <td class="drei">D</td>
+                <td class="drei">R</td>
+                <td class="drei">E</td>
+                <td class="drei">I</td>
+                <td class="pm">P</td>
+                <td class="pm">M</td>
+                <td class="">J</td>
+                <td class="vier">V</td>
+                <td class="vier">I</td>
+                <td class="vier">E</td>
+                <td class="vier">R</td>
+            </tr>
+            <tr>
+                <td class="sechs">S</td>
+                <td class="sechs">E</td>
+                <td class="sechs">C</td>
+                <td class="sechs">H</td>
+                <td class="sechs">S</td>
+                <td class="">N</td>
+                <td class="">L</td>
+                <td class="acht">A</td>
+                <td class="acht">C</td>
+                <td class="acht">H</td>
+                <td class="acht">T</td>
+            </tr>
+            <tr>
+                <td class="sieben">S</td>
+                <td class="sieben">I</td>
+                <td class="sieben">E</td>
+                <td class="sieben">B</td>
+                <td class="sieben">E</td>
+                <td class="sieben">N</td>
+                <td class="zwölf">Z</td>
+                <td class="zwölf">W</td>
+                <td class="zwölf">Ö</td>
+                <td class="zwölf">L</td>
+                <td class="zwölf">F</td>
+            </tr>
+            <tr>
+                <td class="zehn">Z</td>
+                <td class="zehn">E</td>
+                <td class="zehn">H</td>
+                <td class="zehn neun">N</td>
+                <td class="neun">E</td>
+                <td class="neun">U</td>
+                <td class="neun">N</td>
+                <td class="">K</td>
+                <td class="uhr">U</td>
+                <td class="uhr">H</td>
+                <td class="uhr">R</td>
+            </tr>
+        </table>
+        <div id="modeDisplay">
+            <button id="left" class="button-vertical" onclick="changeMode(-1)"></button>
+            <button id="right" class="button-vertical" onclick="changeMode(1)"></button>
+            <button id="up" class="button-horizontal" onclick="changeMode(1)"></button>
+            <button id="down" class="button-horizontal" onclick="changeMode(-1)"></button>
+            <p id="disclaimer">Will du dir so eine Uhr an die Wand hängen? Schau bei <a href="https://qlocktwo.com/"> QLOCKTWO's</a> vorbei.<br>Keine Urheberrechtsverletzung beabsichtigt.</p>
+        </div>
+        <div id="fullscreen">
+            <!-- Thx to https://icons.getbootstrap.com/ for the icons -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-fullscreen" id="fullscreen-open" viewBox="0 0 16 16" onclick="setFullscreen()">
+                <path d="M1.5 1a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4A1.5 1.5 0 0 1 1.5 0h4a.5.5 0 0 1 0 1zM10 .5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 16 1.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5M.5 10a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 0 14.5v-4a.5.5 0 0 1 .5-.5m15 0a.5.5 0 0 1 .5.5v4a1.5 1.5 0 0 1-1.5 1.5h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5"></path>
+              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-fullscreen-exit hidden" id="fullscreen-exit" viewBox="0 0 16 16" onclick="exitFullscreen()">
+                <path d="M5.5 0a.5.5 0 0 1 .5.5v4A1.5 1.5 0 0 1 4.5 6h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5m5 0a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 10 4.5v-4a.5.5 0 0 1 .5-.5M0 10.5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 6 11.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5m10 1a1.5 1.5 0 0 1 1.5-1.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0z"></path>
+              </svg>
+        </div>
+    </body>
+</html>

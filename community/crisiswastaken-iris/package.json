@@ -1,0 +1,16 @@
+{
+  "name": "iris-lively-wallpaper",
+  "version": "1.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Iris eyes as an interactive HTML wallpaper for Lively Wallpaper.",
+  "scripts": {
+    "build-assets": "node scripts/build-assets.mjs",
+    "vendor-mediapipe": "node scripts/vendor-mediapipe.mjs",
+    "package": "node scripts/package.mjs"
+  },
+  "devDependencies": {
+    "@mediapipe/tasks-vision": "^1.0.1",
+    "sharp": "^0.34.0"
+  }
+}

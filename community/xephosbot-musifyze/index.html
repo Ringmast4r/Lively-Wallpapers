@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+	<meta charset="utf-8">
+	<title>Musifyze Visualizer</title>
+
+	<link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+<canvas id="canvas"></canvas>
+<script id="vertex" type="x-shader/x-vertex">
+	attribute vec2 position;
+
+	void main() {
+		gl_Position = vec4(position, 0.0, 1.0);
+	}
+</script>
+
+<script id="fragment" type="x-shader/x-fragment">
+	precision mediump float;
+
+	uniform vec2 iResolution;
+	uniform float iTime;
+	uniform vec4 iColorSurface;
+	uniform vec4 iColorPrimary;
+
+	// Frequency values for different layers
+	float frequencies[16];
+	const vec2 zeroOne = vec2(0.0, 1.0);
+	const float PI = 3.141592653589793238;
+
+	// Rotate 2D vector by an angle
+	mat2 rotate2d(float angle) {
+		return mat2(cos(angle), -sin(angle), sin(angle), cos(angle));
+	}
+
+	// 2D Hash function
+	float hash2d(vec2 uv) {
+		float f = uv.x + uv.y * 47.0;
+		return fract(cos(f * 3.333) * 100003.9);
+	}
+
+	// Smoothly interpolate between two values
+	float smoothInterpolation(float f0, float f1, float a) {
+		return mix(f0, f1, a * a * (3.0 - 2.0 * a));
+	}
+
+	// 2D Perlin noise function
+	float noise2d(vec2 uv) {
+		vec2 fractUV = fract(uv.xy);
+		vec2 floorUV = floor(uv.xy);
+		float h00 = hash2d(floorUV);
+		float h10 = hash2d(floorUV + zeroOne.yx);
+		float h01 = hash2d(floorUV + zeroOne);
+		float h11 = hash2d(floorUV + zeroOne.yy);
+		return smoothInterpolation(
+			smoothInterpolation(h00, h10, fractUV.x),
+			smoothInterpolation(h01, h11, fractUV.x),
+			fractUV.y
+		);
+	}
+
+	void main() {
+		vec2 uv = (gl_FragCoord.xy * 2.0 - iResolution.xy) / iResolution.y;
+		//uv /= 200.0 / iResolution.y;
+		uv *= 2.5;
+
+		mat2 rotate = rotate2d(iTime);
+		float noise = noise2d(uv + rotate[0].xy);
+		float color = 0.0;
+
+		for (int i = 0; i < 16; i++) {
+			frequencies[i] = sin(iTime * (float(i) / 10000.0) + float(i) * 0.1234) * 0.25;
+
+			float wave = sqrt(sin((-(frequencies[i] * noise * PI) + ((uv.x * uv.x) + (uv.y * uv.y)))));
+			wave = smoothstep(0.8, 1.0, wave);
+			color += wave * frequencies[i] * 0.2;
+			wave = smoothstep(0.99999, 1.0, wave);
+			color += wave * 0.2;
+		}
+
+		gl_FragColor = mix(iColorSurface, iColorPrimary, color);
+	}
+</script>
+
+<script src="js/main.js" charset="utf-8"></script>
+</body>
+</html>

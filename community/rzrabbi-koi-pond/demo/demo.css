@@ -1,0 +1,443 @@
+/* Import Modern Font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+#ui-panel {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 320px;
+    background: rgba(20, 25, 35, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 24px;
+    color: #ffffff;
+    z-index: 100;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+    transition: transform 0.3s ease, opacity 0.5s ease, visibility 0.5s ease;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+    animation: slideInFade 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideInFade {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Scrollbar for panel */
+#ui-panel::-webkit-scrollbar {
+    width: 6px;
+}
+#ui-panel::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 12px;
+}
+
+.panel-header h2 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.header-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.header-buttons button {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.2s ease;
+}
+
+.header-buttons button:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+}
+
+.header-buttons button:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 2px;
+}
+
+@keyframes spinTwice {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(720deg); }
+}
+
+.spin-anim svg {
+    animation: spinTwice 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.minimized #panel-content {
+    display: none;
+}
+
+.minimized .panel-header {
+    margin-bottom: 0;
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.control-group {
+    margin-bottom: 20px;
+}
+
+.control-group label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.control-group span {
+    color: #4da6ff;
+    font-weight: 600;
+}
+
+/* Custom Range Sliders */
+input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    background: transparent;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: #ffffff;
+    cursor: pointer;
+    margin-top: -6px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    transition: transform 0.1s;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 4px;
+    cursor: pointer;
+    background: linear-gradient(to right, #4da6ff 0%, #4da6ff var(--val, 50%), rgba(255, 255, 255, 0.2) var(--val, 50%), rgba(255, 255, 255, 0.2) 100%);
+    border-radius: 2px;
+}
+
+/* Firefox Slider Support */
+input[type="range"]::-moz-range-thumb {
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: #ffffff;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    transition: transform 0.1s;
+}
+
+input[type="range"]::-moz-range-thumb:hover {
+    transform: scale(1.2);
+}
+
+input[type="range"]::-moz-range-track {
+    width: 100%;
+    height: 4px;
+    cursor: pointer;
+    background: linear-gradient(to right, #4da6ff 0%, #4da6ff var(--val, 50%), rgba(255, 255, 255, 0.2) var(--val, 50%), rgba(255, 255, 255, 0.2) 100%);
+    border-radius: 2px;
+}
+
+input[type="range"]:focus {
+    outline: none;
+}
+
+input[type="range"]:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 2px;
+    border-radius: 2px;
+}
+
+/* Dropdown */
+select {
+    width: 100%;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: white;
+    font-size: 0.9rem;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    outline: none;
+}
+
+select:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 2px;
+}
+select option {
+    background: #1a1f2b;
+    color: white;
+}
+
+/* Checkboxes */
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: 0;
+}
+
+input[type="checkbox"] {
+    appearance: none;
+    background-color: rgba(0, 0, 0, 0.3);
+    margin: 0 10px 0 0;
+    font: inherit;
+    color: currentColor;
+    width: 20px;
+    height: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+    display: grid;
+    place-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+input[type="checkbox"]:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 2px;
+}
+
+input[type="checkbox"]::before {
+    content: "";
+    width: 12px;
+    height: 12px;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em #4da6ff;
+    background-color: CanvasText;
+    transform-origin: bottom left;
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+}
+
+input[type="checkbox"]:checked {
+    border-color: #4da6ff;
+}
+
+input[type="checkbox"]:checked::before {
+    transform: scale(1);
+}
+
+
+
+/* Action Bar */
+#action-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 12px 0 0 0;
+    padding-bottom: env(safe-area-inset-bottom);
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    z-index: 1000;
+    box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.5);
+    transition: opacity 0.5s ease, box-shadow 0.3s ease, visibility 0.5s ease;
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 28px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 12px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.btn:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 2px;
+}
+
+.btn svg {
+    margin-top: -2px;
+}
+
+/* Steam Workshop Button */
+.steam-btn {
+    background: linear-gradient(135deg, #1b2838 0%, #2a475e 100%);
+    color: #66c0f4;
+    border: 1px solid #171a21;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.steam-btn:hover {
+    background: linear-gradient(135deg, #2a475e 0%, #1b2838 100%);
+    color: #ffffff;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(42, 71, 94, 0.6);
+}
+
+/* Download Button */
+.download-btn {
+    background: linear-gradient(135deg, #00adb5 0%, #007f86 100%);
+    color: #ffffff;
+    border: 1px solid #005a5f;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.download-btn:hover {
+    background: linear-gradient(135deg, #00d2fc 0%, #00adb5 100%);
+    color: #ffffff;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 173, 181, 0.6);
+}
+
+/* Mobile Adjustments for Action Bar and UI Panel */
+@media (max-width: 768px) {
+    #action-bar {
+        height: auto;
+        padding: 10px;
+        padding-bottom: calc(10px + env(safe-area-inset-bottom));
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
+    .action-btn-container {
+        flex: 1;
+        min-width: 130px;
+    }
+
+    .btn {
+        width: 100%;
+        justify-content: center;
+        padding: 10px 12px;
+        font-size: 0.9rem;
+    }
+    
+    .hide-mobile {
+        display: none;
+    }
+    
+    .stats-text {
+        display: none;
+    }
+    
+    #ui-panel {
+        top: auto;
+        right: 10px;
+        left: 10px;
+        width: auto;
+        max-height: calc(100vh - 100px);
+        max-height: calc(100dvh - 100px);
+        bottom: 75px; /* Above the action bar */
+        border-radius: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    #ui-panel {
+        right: 0;
+        left: 0;
+        bottom: 65px;
+        border-radius: 16px 16px 0 0;
+        border-left: none;
+        border-right: none;
+        border-bottom: none;
+    }
+}
+
+.action-btn-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.stats-text {
+    font-size: 11px; /* Exact pixels prevent fractional clipping */
+    font-family: system-ui, -apple-system, sans-serif; /* Sharpest rendering at tiny sizes */
+    color: rgba(255, 255, 255, 0.4);
+    font-weight: 400;
+    letter-spacing: 0.2px;
+    line-height: 14px;
+    padding-bottom: 4px; /* Gives exactly 4 pixels for descenders, no more */
+    display: inline-block;
+    margin: 0;
+}
+
+/* UI Hidden State */
+body.ui-hidden #ui-panel,
+body.ui-hidden #action-bar {
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+}
+
+
+.fullscreen-prompt {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 16px 32px;
+    border-radius: 30px;
+    font-size: 1.2rem;
+    pointer-events: none;
+    opacity: 0;
+    z-index: 2000;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: opacity 0.5s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    line-height: 1.5;
+}
+
+.fullscreen-prompt.show {
+    opacity: 1;
+}

@@ -1,0 +1,14 @@
+{
+  "AppVersion": "1.7.2.6",
+  "Title": "Lively Dots",
+  "Thumbnail": "preview.jpg",
+  "Preview": "preview.gif",
+  "Desc": "Pastel dots (customizable) that grow when you hover over them (customizable background).\r\n\r\nRachel Smith's growing pastel dots ported to Lively Wallpaper by Cyrus Yip.",
+  "Author": "Cyrus Yip",
+  "License": "MIT",
+  "Contact": "https://github.com/realcyguy/lively-dots",
+  "Type": 1,
+  "FileName": "index.html",
+  "Arguments": null,
+  "IsAbsolutePath": false
+}

@@ -1,0 +1,183 @@
+/*
+ * Distilled from web-tracker/src/app/globals.css — only the stage survives. The
+ * glass settings panel, hue wheel, sliders, and documentation styles are gone:
+ * on the desktop those controls live in Lively's own Customise pane instead.
+ */
+
+:root {
+  /* Pure black, matching ASCII_BG in js/config.js exactly. The canvas paints its
+     own background, so anything else here draws a visible seam around the frame
+     once the eyes are scaled below 100%. */
+  --void: #000;
+
+  /* Both are rewritten at runtime by js/settings.js. */
+  --eye-size: 1;
+  /* --eye-filter is left unset until a tint is picked, so the untinted
+     wallpaper is pixel-identical to the untinted web page. */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  background: var(--void);
+  overflow: hidden;
+  /* A wallpaper has no text to select and no cursor of its own — the one on
+     screen belongs to the desktop. */
+  cursor: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/*
+ * The eyes are the wallpaper. The stage is exactly one viewport tall, never
+ * taller, so scaling the eyes past 100% crops them instead of scrolling.
+ */
+.stage {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Size is a CSS scale, not a canvas resize — the renderers cache one surface set
+   per output resolution, so resizing the canvas would re-rasterize all sixteen
+   frames on every tick of the slider. Past 100% the eyes overflow and the stage
+   crops them, which is the intended "lean in" look. */
+.stage__eyes {
+  display: block;
+  width: calc(var(--eye-size, 1) * 100%);
+  flex: none;
+  /* Hidden until the first frame is on the canvas, so the wallpaper never
+     flashes an empty black rectangle while sixteen ANSI grids rasterize. */
+  opacity: 0;
+  transition:
+    opacity 700ms cubic-bezier(0.2, 0.7, 0.3, 1),
+    width 180ms cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+.stage[data-ready] .stage__eyes {
+  opacity: 1;
+}
+
+/*
+ * The source frames are amber. Bloom is applied inside the canvas (black adds
+ * nothing under `lighter`, so only the lit strokes throw light); the default
+ * stack then pulls the whole thing to red and pushes the contrast so the glyphs
+ * read as embers rather than dim text. Picking a color in Lively's Customise
+ * pane replaces the whole stack with the duotone filter below.
+ */
+.stage__eyes canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: var(--eye-filter, hue-rotate(-20deg) saturate(1.45));
+}
+
+/* The filter lives in the document, not on screen. */
+.tint-filter {
+  position: absolute;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+/* Centered camera setup — must sit above the eyes and accept clicks in the
+   icon-free area of the desktop. */
+.webcam-setup {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(0, 0, 0, 0.72);
+  cursor: default;
+}
+
+.webcam-setup[hidden] {
+  display: none;
+}
+
+.webcam-setup__panel {
+  max-width: 420px;
+  padding: 20px 22px;
+  border: 1px solid rgba(255, 45, 85, 0.35);
+  border-radius: 12px;
+  background: rgba(12, 12, 12, 0.96);
+  color: #f2f2f2;
+  font:
+    14px/1.45 system-ui,
+    -apple-system,
+    "Segoe UI",
+    sans-serif;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55);
+}
+
+.webcam-setup__title {
+  margin-bottom: 8px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #ff2d55;
+}
+
+.webcam-setup__lead {
+  margin-bottom: 12px;
+  color: #c8c8c8;
+}
+
+.webcam-setup__steps {
+  margin: 0 0 14px 18px;
+  color: #e0e0e0;
+}
+
+.webcam-setup__steps li + li {
+  margin-top: 6px;
+}
+
+.webcam-setup__status {
+  margin-bottom: 14px;
+  color: #ffb4c2;
+  font-size: 13px;
+}
+
+.webcam-setup__status[hidden] {
+  display: none;
+}
+
+.webcam-setup__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.webcam-setup__btn {
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
+  padding: 9px 14px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #f2f2f2;
+  font: inherit;
+}
+
+.webcam-setup__btn--primary {
+  border-color: rgba(255, 45, 85, 0.55);
+  background: rgba(255, 45, 85, 0.22);
+  color: #fff;
+}
+
+.webcam-setup__btn:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}

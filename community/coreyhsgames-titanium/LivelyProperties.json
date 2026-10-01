@@ -1,0 +1,97 @@
+{
+    "label1": {
+        "type": "label",
+        "value": "Background"
+    },
+    "imgOverlay": {
+        "max": 100,
+        "min": 0,
+        "step": 1,
+        "text": "Image Darkness",
+        "type": "slider",
+        "value": 30
+    },
+    "imgPath": {
+        "type": "folderDropdown",
+        "value": "default.jpg",
+        "text": "Image/Gif",
+        "filter": "*.jpg|*.png|*.gif",
+        "folder": "images"
+    },
+    "label2": {
+        "type": "label",
+        "value": "Weather"
+    },
+    "city": {
+        "type": "textbox",
+        "text": "City",
+        "value": "London"
+    },
+    "animatedWeatherIcons": {
+        "text": "Animated Weather Icons",
+        "type": "checkbox",
+        "value": "false"
+    },
+    "label3": {
+        "type": "label",
+        "value": "Time"
+    },
+    "use24HTime": {
+        "text": "Use 24 Hour Time",
+        "type": "checkbox",
+        "value": "false"
+    },
+    "label4": {
+        "type": "label",
+        "value": "Audio Visualiser"
+    },
+    "color1": {
+        "text": "Starting Colour",
+        "type": "color",
+        "value": "#5603fc"
+    },
+    "color2": {
+        "text": "Ending Colour",
+        "type": "color",
+        "value": "#fc0303"
+    },
+    "visauliserHeight": {
+        "max": 1500,
+        "min": 100,
+        "step": 10,
+        "text": "Visualiser Height",
+        "type": "slider",
+        "value": 300
+    },
+    "albumSize": {
+        "max": 400,
+        "min": 150,
+        "step": 10,
+        "text": "Album Size",
+        "type": "slider",
+        "value": 200
+    },
+    "opacity": {
+        "max": 100,
+        "min": 0,
+        "tick": 25,
+        "step": 1,
+        "text": "Opacity",
+        "type": "slider",
+        "value": 100
+    },
+    "glow": {
+        "text": "Neon Glow",
+        "type": "checkbox",
+        "value": "true"
+    },
+    "glowStrength": {
+        "max": 50,
+        "min": 1,
+        "tick": 25,
+        "step": 1,
+        "text": "Neon Glow Intensity",
+        "type": "slider",
+        "value": 10
+    }
+}

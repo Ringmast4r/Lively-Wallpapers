@@ -1,0 +1,224 @@
+{
+	"transX": {
+		"text": "Положение по X",
+		"value": 50,
+		"type": "slider",
+		"min": 0,
+		"max": 100,
+		"step": 0.01
+	},
+	"transY": {
+		"text": "Положение по Y",
+		"value": 50,
+		"type": "slider",
+		"min": 0,
+		"max": 100,
+		"step": 0.01
+	},
+	"radius": {
+		"text": "Масштаб циферблата",
+		"value": 0.669,
+		"type": "slider",
+		"min": 0.01,
+		"max": 1.0,
+		"step": 0.001
+	},
+	"bgColor": {
+		"text": "Цвет циферблата",
+		"type": "color",
+		"value": "#000000"
+	},
+	"bgAlpha": {
+		"text": "Альфа фона циферблата",
+		"value": 0.5,
+		"type": "slider",
+		"min": 0.0,
+		"max": 1.0,
+		"step": 0.01
+	},
+	"numCheck": {
+		"text": "Отображать цифры",
+		"value": true,
+		"type": "checkbox"
+	},
+	"nameFont": {
+		"text": "Шрифт",
+		"type": "folderDropdown",
+		"value": "aksent.ttf",
+		"filter": "*.ttf",
+		"folder": "fonts"
+	},
+	"sizeFont": {
+		"text": "Размер шрифта",
+		"value": 0.28,
+		"type": "slider",
+		"min": 0.05,
+		"max": 1.0,
+		"step": 0.01
+	},
+	"numRadius": {
+		"text": "Положение Цифр",
+		"value": 1.281,
+		"type": "slider",
+		"min": 0.01,
+		"max": 3.0,
+		"step": 0.001
+	},
+	"numColor": {
+		"text": "Цвет цифр на циферблате",
+		"type": "color",
+		"value": "#ffffff"
+	},
+	"numAlpha": {
+		"text": "Альфа цифр на циферблате",
+		"value": 1,
+		"type": "slider",
+		"min": 0.0,
+		"max": 1.0,
+		"step": 0.01
+	},
+	"strokCheck": {
+		"text": "Отображать деления",
+		"value": true,
+		"type": "checkbox"
+	},
+	"strokColor": {
+		"text": "Цвет делений на циферблате",
+		"type": "color",
+		"value": "#ffffff"
+	},
+	"strockHourWidth": {
+		"text": "Толщина Часовых делений",
+		"value": 0.01,
+		"type": "slider",
+		"min": 0.003,
+		"max": 0.05,
+		"step": 0.001
+	},
+	"lineHourWidth": {
+		"text": "Длина Часовых делений",
+		"value": 0.14,
+		"type": "slider",
+		"min": 0.01,
+		"max": 1,
+		"step": 0.01
+	},
+	"strockMinuteWidth": {
+		"text": "Толщина Минутных делений",
+		"value": 0.006,
+		"type": "slider",
+		"min": 0.003,
+		"max": 0.05,
+		"step": 0.001
+	},
+	"lineMinuteWidth": {
+		"text": "Длина Минутных делений",
+		"value": 0.07,
+		"type": "slider",
+		"min": 0.01,
+		"max": 1,
+		"step": 0.01
+	},
+	"strokAlpha": {
+		"text": "Альфа делений на циферблате",
+		"value": 1,
+		"type": "slider",
+		"min": 0.0,
+		"max": 1.0,
+		"step": 0.01
+	},
+	"vnRadius": {
+		"text": "Внутренний радиус стрелок",
+		"value": -0.13,
+		"type": "slider",
+		"min": -0.4,
+		"max": 0.47,
+		"step": 0.01
+	},
+	"imgSelect": {
+		"type": "folderDropdown",
+		"value": "3dhuman.jpg",
+		"text": "Изображение для фона",
+		"filter": "*.jpg|*.png",
+		"folder": "wallpapers"
+	},
+	"hourColor": {
+		"text": "Цвет Часовой стрелки",
+		"type": "color",
+		"value": "#ffffff"
+	},
+	"hourWidth": {
+		"text": "Толщина Часовой стрелки",
+		"value": 0.022,
+		"type": "slider",
+		"min": 0.001,
+		"max": 0.05,
+		"step": 0.001
+	},
+	"hourLength": {
+		"text": "Длина Часовой стрелки",
+		"value": 0.657,
+		"type": "slider",
+		"min": 0.001,
+		"max": 1,
+		"step": 0.001
+	},
+	"minuteColor": {
+		"text": "Цвет Минутной стрелки",
+		"type": "color",
+		"value": "#ffffff"
+	},
+	"munuteWidth": {
+		"text": "Толщина Минутной стрелки",
+		"value": 0.012,
+		"type": "slider",
+		"min": 0.001,
+		"max": 0.05,
+		"step": 0.001
+	},
+	"munuteLength": {
+		"text": "Длина Минутной стрелки",
+		"value": 0.782,
+		"type": "slider",
+		"min": 0.001,
+		"max": 1,
+		"step": 0.001
+	},
+	"secondColor": {
+		"text": "Цвет Секундной стрелки",
+		"type": "color",
+		"value": "#ffffff"
+	},
+	"secondWidth": {
+		"text": "Толщина Секундной стрелки",
+		"value": 0.007,
+		"type": "slider",
+		"min": 0.001,
+		"max": 0.05,
+		"step": 0.001
+	},
+	"secondLength": {
+		"text": "Длина Секундной стрелки",
+		"value": 0.859,
+		"type": "slider",
+		"min": 0.001,
+		"max": 1,
+		"step": 0.001
+	},
+	"handAlpha": {
+		"text": "Альфа стрелок на циферблате",
+		"value": 1,
+		"type": "slider",
+		"min": 0.0,
+		"max": 1.0,
+		"step": 0.01
+	},
+	"speed": {
+		"text": "Скорость минутной стрелки",
+		"value": 1000,
+		"type": "slider",
+		"min": 1,
+		"max": 1000,
+		"step": 1
+	}
+}

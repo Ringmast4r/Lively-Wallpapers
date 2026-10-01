@@ -1,0 +1,20 @@
+{
+  "AppVersion": "1.0.0.0",
+  "Title": "My Dear Panda",
+  "Thumbnail": "p2bx0bfe.jpg",
+  "Preview": "skekeomj.gif",
+  "Desc": "AI generated depth wallpaper for my DallE3 Image",
+  "Author": "rocksdanister AI Engine",
+  "License": "See License.txt",
+  "Contact": "https://github.com/hamidtech/3d-wallpaper-panda",
+  "Type": 1,
+  "FileName": "index.html",
+  "Arguments": "--pause-event true",
+  "IsAbsolutePath": false,
+  "Id": null,
+  "Tags": [
+    "depth",
+    "depthmap"
+  ],
+  "Version": 0
+}

@@ -1,0 +1,52 @@
+{
+  "backgroundColor": {
+    "text": "Background Color",
+    "type": "color",
+    "value": "#f0f0f0"
+  },
+  "mainFontColor": {
+    "text": "Main font color",
+    "type": "color",
+    "value": "#000000"
+  },
+  "subFontColor": {
+    "text": "Subtitle font color",
+    "type": "color",
+    "value": "#000000"
+  },
+  "infoFontColor": {
+    "text": "Info font color",
+    "type": "color",
+    "value": "#000000"
+  },
+  "mainFontSize": {
+    "max": 128,
+    "min": 8,
+    "step": 1,
+    "text": "Main font size",
+    "type": "slider",
+    "value": 64
+  },
+  "subFontSize": {
+    "max": 64,
+    "min": 6,
+    "step": 1,
+    "text": "Subtitle Font Size",
+    "type": "slider",
+    "value": 32
+  },
+  "infoFontSize": {
+    "max": 48,
+    "min": 6,
+    "step": 1,
+    "text": "Info Font Size",
+    "type": "slider",
+    "value": 16
+  }
+  ,
+  "use24HourFormat": {
+    "type": "checkbox",
+    "value": false,
+    "text": "use 24h format"
+  }
+}

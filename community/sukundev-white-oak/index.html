@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <title>Lively Wallpaper</title>
+  </head>
+  <body id="body">
+    <video
+      class="object-cover w-screen h-screen"
+      id="animated-background"
+      src="media/live.webm"
+      autoplay
+      loop
+      muted
+    ></video>
+    <div class="fixed inset-x-0 text-center text-white top-16 font-fujimaru">
+      <p id="clocks" class="text-3xl -mb-7"></p>
+      <h2 id="days" class="text-9xl"></h2>
+      <p id="dates" class="mt-2 text-xl"></p>
+    </div>
+    <div
+      style="
+        z-index: 100;
+        position: absolute;
+        width: 20vw;
+        height: 22vh;
+        left: 10%;
+        top: 15%;
+      "
+    >
+      <canvas id="cpuChart" />
+    </div>
+
+    <div
+      style="
+        z-index: 100;
+        position: absolute;
+        width: 20vw;
+        height: 22vh;
+        left: 10%;
+        top: 52.5%;
+      "
+    >
+      <canvas id="gpuChart" />
+    </div>
+
+    <div
+      style="
+        z-index: 100;
+        position: absolute;
+        width: 20vw;
+        height: 22vh;
+        left: 70%;
+        top: 15%;
+      "
+    >
+      <canvas id="ramChart" />
+    </div>
+
+    <div
+      style="
+        z-index: 100;
+        position: absolute;
+        width: 20vw;
+        height: 22vh;
+        left: 70%;
+        top: 52.5%;
+      "
+    >
+      <canvas id="netChart" />
+    </div>
+    <script src="scripts/moment.min.js"></script>
+    <script src="scripts/chart.js"></script>
+    <script src="scripts/chartjs-plugin-streaming.min.js"></script>
+    <script src="scripts/chartCode.js"></script>
+    <script src="scripts/script.js"></script>
+  </body>
+</html>

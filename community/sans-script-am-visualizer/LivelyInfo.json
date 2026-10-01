@@ -1,0 +1,17 @@
+{
+  "AppVersion": "1.0.0.0",
+  "Title": "AM Audio Visualizer",
+  "Desc": "Arctic Monkeys Audio Visualizer",
+  "Thumbnail": "lively_thumbnail.jpg",
+  "Preview": "preview.gif",
+  "Author": "Alexandre Santos",
+  "License": "MIT",
+  "Contact": "https://github.com/sans-script/AM-Audio-Visualizer",
+  "Type": 1,
+  "FileName": "index.html",
+  "Arguments": "--audio",
+  "IsAbsolutePath": false,
+  "Id": "hygciyc.diwn",
+  "Tags": null,
+  "Version": 0
+}

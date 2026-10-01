@@ -1,0 +1,11 @@
+{
+  "AppVersion": "1.0",
+  "Title": "Planetarium",
+  "Desc": "A slowly spinning view of a starry sky",
+  "Author": "camblomquist",
+  "License": "MIT",
+  "Type": 1,
+  "FileName": "index.html",
+  "IsAbsolutePath": false,
+  "Thumbnail": "lively_thumbnail.jpg"
+}

@@ -1,0 +1,198 @@
+{
+  "instructions": {
+    "type": "label",
+    "value": "Changes to these controls are saved automatically by Lively."
+  },
+  "count": {
+    "type": "slider",
+    "text": "Dome count",
+    "min": 1,
+    "max": 10,
+    "step": 1,
+    "value": 5
+  },
+  "sizeScale": {
+    "type": "slider",
+    "text": "Global size",
+    "min": 0.2,
+    "max": 3,
+    "step": 0.05,
+    "value": 1
+  },
+  "speedScale": {
+    "type": "slider",
+    "text": "Speed",
+    "min": 0,
+    "max": 4,
+    "step": 0.05,
+    "value": 1
+  },
+  "forceScale": {
+    "type": "slider",
+    "text": "Displacement",
+    "min": 0,
+    "max": 3,
+    "step": 0.05,
+    "value": 1
+  },
+  "lerpSpeed": {
+    "type": "slider",
+    "text": "Smoothness",
+    "min": 0.01,
+    "max": 0.3,
+    "step": 0.01,
+    "value": 0.06
+  },
+  "cellSize": {
+    "type": "slider",
+    "text": "Grid size",
+    "min": 10,
+    "max": 60,
+    "step": 1,
+    "value": 14
+  },
+  "bgColor": {
+    "type": "color",
+    "text": "Background color",
+    "value": "#1b1b17"
+  },
+  "lineColor": {
+    "type": "color",
+    "text": "Grid line color",
+    "value": "#fffff2"
+  },
+  "lineOpacity": {
+    "type": "slider",
+    "text": "Line opacity",
+    "min": 0.01,
+    "max": 1,
+    "step": 0.01,
+    "value": 0.05
+  },
+  "autoColor": {
+    "type": "checkbox",
+    "text": "Automatic line color",
+    "value": false
+  },
+  "mouseMode": {
+    "type": "dropdown",
+    "text": "Mouse interaction",
+    "items": [
+      "repel",
+      "attract",
+      "off"
+    ],
+    "value": 0
+  },
+  "autoSize": {
+    "type": "checkbox",
+    "text": "Automatic dome size",
+    "value": false
+  },
+  "vignette": {
+    "type": "checkbox",
+    "text": "Vignette",
+    "value": true
+  },
+  "snapshot": {
+    "type": "checkbox",
+    "text": "Freeze frame",
+    "value": false
+  },
+  "fpsLimit": {
+    "type": "dropdown",
+    "text": "Frame rate",
+    "items": [
+      "15 fps",
+      "24 fps",
+      "30 fps",
+      "60 fps"
+    ],
+    "value": 2
+  },
+  "gradientLines": {
+    "type": "checkbox",
+    "text": "Grid ripple",
+    "value": false
+  },
+  "domeSize0": {
+    "type": "slider",
+    "text": "Dome 1 size",
+    "min": 0.1,
+    "max": 3,
+    "step": 0.01,
+    "value": 1
+  },
+  "domeSize1": {
+    "type": "slider",
+    "text": "Dome 2 size",
+    "min": 0.1,
+    "max": 3,
+    "step": 0.01,
+    "value": 0.42
+  },
+  "domeSize2": {
+    "type": "slider",
+    "text": "Dome 3 size",
+    "min": 0.1,
+    "max": 3,
+    "step": 0.01,
+    "value": 1.7
+  },
+  "domeSize3": {
+    "type": "slider",
+    "text": "Dome 4 size",
+    "min": 0.1,
+    "max": 3,
+    "step": 0.01,
+    "value": 0.28
+  },
+  "domeSize4": {
+    "type": "slider",
+    "text": "Dome 5 size",
+    "min": 0.1,
+    "max": 3,
+    "step": 0.01,
+    "value": 0.9
+  },
+  "domeSize5": {
+    "type": "slider",
+    "text": "Dome 6 size",
+    "min": 0.1,
+    "max": 3,
+    "step": 0.01,
+    "value": 1.3
+  },
+  "domeSize6": {
+    "type": "slider",
+    "text": "Dome 7 size",
+    "min": 0.1,
+    "max": 3,
+    "step": 0.01,
+    "value": 0.38
+  },
+  "domeSize7": {
+    "type": "slider",
+    "text": "Dome 8 size",
+    "min": 0.1,
+    "max": 3,
+    "step": 0.01,
+    "value": 0.65
+  },
+  "domeSize8": {
+    "type": "slider",
+    "text": "Dome 9 size",
+    "min": 0.1,
+    "max": 3,
+    "step": 0.01,
+    "value": 2.1
+  },
+  "domeSize9": {
+    "type": "slider",
+    "text": "Dome 10 size",
+    "min": 0.1,
+    "max": 3,
+    "step": 0.01,
+    "value": 0.22
+  }
+}

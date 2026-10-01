@@ -1,0 +1,87 @@
+{
+  "label0": {
+    "type": "label",
+    "value": "Enabled Features"
+  },
+  "computerDisplay": {
+    "type": "checkbox",
+    "value": true,
+    "text": "enable computer display"
+  },
+  "batteryDisplay": {
+    "type": "checkbox",
+    "value": true,
+    "text": "enable battery display"
+  },
+  "systemAudioDisplay": {
+    "type": "checkbox",
+    "value": true,
+    "text": "enable system audio display"
+  },
+  "label1": {
+    "type": "label",
+    "value": "Formats"
+  },
+  "fontSize": {
+    "max": 32,
+    "min": 1,
+    "step": 1,
+    "text": "Font Size",
+    "type": "slider",
+    "value": 30
+  },
+  "dateFormat": {
+    "type": "checkbox",
+    "value": true,
+    "text": "use dd/mm/yyyy"
+  },
+  "timeFormat": {
+    "type": "checkbox",
+    "value": true,
+    "text": "use 24h format"
+  },
+  "ramDisplay": {
+    "type": "checkbox",
+    "value": false,
+    "text": "Use GB"
+  },
+  "label3": {
+    "type": "label",
+    "value": "Custom Colors"
+  },
+  "customColors": {
+    "type": "checkbox",
+    "value": false,
+    "text": "enable custom colors"
+  },
+  "backgroundColor": {
+    "text": "background color",
+    "type": "color",
+    "value": "#282A37"
+  },
+  "keyColor": {
+    "text": "key color",
+    "type": "color",
+    "value": "#9cdcfe"
+  },
+  "stringColor": {
+    "text": "string color",
+    "type": "color",
+    "value": "#E5EC99"
+  },
+  "integerColor": {
+    "text": "integer color",
+    "type": "color",
+    "value": "#666a44"
+  },
+  "nullColor": {
+    "text": "null color",
+    "type": "color",
+    "value": "#569cd6"
+  },
+  "bracketsColor": {
+    "text": "brackets color",
+    "type": "color",
+    "value": "#ffffff"
+  }
+}

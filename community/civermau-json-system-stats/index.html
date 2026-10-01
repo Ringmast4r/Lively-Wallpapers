@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Json System Stats</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
+    <link rel="stylesheet" href="style/style.css" />
+  </head>
+  <body id="body">
+    
+    <div class="terminal-header">
+      <span class="command-prompt"># GET</span> <span class="command-text">/sys/hardware/stats --format=json --refresh=1s</span>
+    </div>
+    <pre id="json-display">
+      {
+        "date": "",
+        "time": "",
+        "timezone": "",
+        "day": "",
+        "month": "",
+        "year": ""
+      }</pre>
+    <div class="bg"></div>
+    <div class="vignette"></div>
+    <!-- JavaScript files in dependency order -->
+    <script src="js/config.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/json-display.js"></script>
+    <script src="js/system-data.js"></script>
+    <script src="js/lively-integration.js"></script>
+  </body>
+</html>

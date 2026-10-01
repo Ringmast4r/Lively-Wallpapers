@@ -1,0 +1,28 @@
+{
+  "waveColor": {
+    "text": "Wave",
+    "type": "color",
+    "value": "#3356FB"
+  },
+  "amplitude": {
+    "max": 100,
+    "min": 0,
+    "tick": 25,
+    "text": "Amplitude",
+    "type": "slider",
+    "value": 30
+  },
+  "rainbowSpeed": {
+    "max": 100,
+    "min": 0,
+    "tick": 25,
+    "text": "Rainbow Speed",
+    "type": "slider",
+    "value": 50
+  },
+  "rainBow": {
+    "type": "checkbox",
+    "value": false,
+    "text": "Rainbow"
+  }
+}

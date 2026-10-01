@@ -1,0 +1,14 @@
+{
+  "AppVersion": "0.9.5.0",
+  "Title": "Digital Clock",
+  "Thumbnail": "lively_t.jpg",
+  "Preview": "lively_p.gif",
+  "Desc": "3D clock with customisable options.",
+  "Author": "David Khourshid",
+  "License": null,
+  "Contact": "https://codepen.io/davidkpiano/pen/Vmyyzd",
+  "Type": 1,
+  "FileName": "clock.html",
+  "Arguments": null,
+  "IsAbsolutePath": false
+}

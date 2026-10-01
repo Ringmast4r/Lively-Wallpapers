@@ -1,0 +1,16 @@
+{
+ "speed":{"type":"slider","text":"运行速度","min":0.25,"max":4,"value":1,"step":0.25},
+ "mode":{"type":"dropdown","text":"公转周期","items":["观赏：压缩周期差异","真实比例：统一模拟时间"],"value":0},
+ "quality":{"type":"dropdown","text":"帧率","items":["20 · 省电","30 · 平衡","60 · 流畅","90 · 高帧","120 · 高刷","144 · 高刷","跟随屏幕"],"value":4},
+ "orbits":{"type":"checkbox","text":"显示轨道线","value":true},
+ "names":{"type":"checkbox","text":"显示行星名称","value":true},
+ "galaxy":{"type":"checkbox","text":"银河星野","value":true},
+ "meteors":{"type":"checkbox","text":"流星特效","value":true},
+ "blackhole":{"type":"checkbox","text":"黑洞吸积盘（艺术远景）","value":true},
+ "clock":{"type":"checkbox","text":"显示时钟","value":true},
+ "interaction":{"type":"checkbox","text":"鼠标交互","value":false},
+ "comet":{"type":"checkbox","text":"长尾彗星","value":true},
+ "satellites":{"type":"checkbox","text":"行星卫星","value":true},
+ "solaractivity":{"type":"checkbox","text":"太阳活动","value":true},
+ "probes":{"type":"checkbox","text":"深空探测器 · 6 艘","value":true}
+}

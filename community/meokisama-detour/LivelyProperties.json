@@ -1,0 +1,7 @@
+{
+	"btnRestart" : {
+	 "text" : "Click to reset",
+	 "type" : "button",
+	 "value" : "Clear"
+	 }
+}

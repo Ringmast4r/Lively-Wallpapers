@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/png" href="favicon.png?v=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Koi Pond - Live Demo</title>
+    <!-- Core styles -->
+    <link rel="stylesheet" href="../style.css">
+    <!-- Demo styles -->
+    <link rel="stylesheet" href="demo.css">
+</head>
+<body>
+    <!-- Canvas background -->
+    <div id="vignette"></div>
+    <canvas id="wallpaper-canvas"></canvas>
+
+    <!-- Fullscreen Prompt -->
+    <div id="fullscreen-prompt" class="fullscreen-prompt">
+        Press Esc to exit full screen
+    </div>
+
+    <!-- UI Overlay Panel -->
+    <div id="ui-panel">
+        <div class="panel-header">
+            <h2>Koi Pond Settings</h2>
+            <div class="header-buttons">
+                <button id="reset-btn" title="Reset to Defaults">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                </button>
+                <button id="minimize-btn" title="Minimize Panel">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                </button>
+                <button id="fullscreen-btn" title="Toggle Fullscreen">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
+                </button>
+            </div>
+        </div>
+        <div id="panel-content">
+        
+        <div class="control-group">
+            <label>Fish Count (<span id="fishCount-val">15</span>)</label>
+            <input type="range" id="fishCount" min="5" max="50" step="1" value="15">
+        </div>
+        
+        <div class="control-group">
+            <label>Fish Size Multiplier (<span id="fishSize-val">1</span>)</label>
+            <input type="range" id="fishSize" min="0.5" max="3" step="0.1" value="1">
+        </div>
+        
+        <div class="control-group">
+            <label>Fish Speed Multiplier (<span id="fishSpeed-val">1.5</span>)</label>
+            <input type="range" id="fishSpeed" min="0.5" max="3" step="0.1" value="1.5">
+        </div>
+
+        <div class="control-group">
+            <label>Water Color Hue (<span id="waterHue-val">195</span>)</label>
+            <input type="range" id="waterHue" min="0" max="360" step="1" value="195">
+        </div>
+
+        <div class="control-group">
+            <label>Ripple Strength (<span id="rippleStrength-val">1</span>)</label>
+            <input type="range" id="rippleStrength" min="0.1" max="5" step="0.1" value="1">
+        </div>
+        
+        <div class="control-group">
+            <label>Fish Color Theme</label>
+            <select id="fishTheme">
+                <option value="0" selected>Traditional</option>
+                <option value="1">Neon</option>
+                <option value="2">Monochrome</option>
+            </select>
+        </div>
+        
+        <div class="control-group checkbox-group">
+            <label>
+                <input type="checkbox" id="enableCaustics" checked> Enable Light Caustics
+            </label>
+        </div>
+
+        <div class="control-group checkbox-group">
+            <label>
+                <input type="checkbox" id="enableFeeding" checked> Enable Feeding on Click
+            </label>
+        </div>
+
+        <div class="control-group checkbox-group">
+            <label>
+                <input type="checkbox" id="shyFish" checked> Fish Avoid Cursor (Shy)
+            </label>
+        </div>
+        </div>
+    </div>
+
+    <!-- Core engine -->
+    <script src="../script.js"></script>
+    <!-- Demo logic -->
+    <script src="demo.js"></script>
+    <div id="action-bar">
+        <div class="action-btn-container">
+            <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3692215641" target="_blank" class="btn steam-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M.329 10.333A8.01 8.01 0 0 0 7.99 16C12.414 16 16 12.418 16 8s-3.586-8-8.009-8A8.006 8.006 0 0 0 0 7.468l.003.006 4.304 1.769A2.2 2.2 0 0 1 5.62 8.88l1.96-2.844-.001-.04a3.046 3.046 0 0 1 3.042-3.043 3.046 3.046 0 0 1 3.042 3.043 3.047 3.047 0 0 1-3.111 3.044l-2.804 2a2.223 2.223 0 0 1-3.075 2.11 2.22 2.22 0 0 1-1.312-1.568L.33 10.333Z"/>
+                    <path d="M4.868 12.683a1.715 1.715 0 0 0 1.318-3.165 1.7 1.7 0 0 0-1.263-.02l1.023.424a1.261 1.261 0 1 1-.97 2.33l-.99-.41a1.7 1.7 0 0 0 .882.84Zm3.726-6.687a2.03 2.03 0 0 0 2.027 2.029 2.03 2.03 0 0 0 2.027-2.029 2.03 2.03 0 0 0-2.027-2.027 2.03 2.03 0 0 0-2.027 2.027m2.03-1.527a1.524 1.524 0 1 1-.002 3.048 1.524 1.524 0 0 1 .002-3.048"/>
+                </svg>
+                <span><span class="hide-mobile">Subscribe on </span>Steam Workshop</span>
+            </a>
+            <span id="steam-sub-count" class="stats-text"></span>
+        </div>
+        
+        <div class="action-btn-container">
+            <a href="https://github.com/rzrabbi/interactive-koi-pond/releases/latest" class="btn download-btn">
+                <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                <span>Download</span>
+            </a>
+            <span id="github-dl-count" class="stats-text"></span>
+        </div>
+    </div>
+</body>
+</html>

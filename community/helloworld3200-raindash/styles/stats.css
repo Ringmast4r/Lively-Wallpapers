@@ -1,0 +1,18 @@
+.stats {
+    display: flex;
+    flex-direction: row;
+    gap: 1vw;
+    grid-column: 1;
+    grid-row: 3;
+    bottom: 0;
+    position: fixed;
+    margin-bottom: 1vw;
+    font-size: 1.2vw;
+    font-weight: 300;
+
+    padding-bottom: 1.2vw;
+}
+
+.stat {
+    font-weight: 400;
+}

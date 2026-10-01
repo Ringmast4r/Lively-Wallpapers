@@ -1,0 +1,17 @@
+{
+	"AppVersion": "2.0.7.0",
+	"Title": "Musifyze Visualizer",
+	"Thumbnail": "thumbnail.png",
+	"Preview": "preview.gif",
+	"Desc": "Audio spectrum that reacts with system sound",
+	"Author": "xephosbot",
+	"License": "MIT",
+	"Contact": "https://github.com/xephosbot/MusifyzeVisualizer",
+	"Type": 1,
+	"FileName": "index.html",
+	"Arguments": "",
+	"IsAbsolutePath": false,
+	"Id": null,
+	"Tags": null,
+	"Version": 0
+}

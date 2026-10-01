@@ -1,0 +1,14 @@
+{
+  "AppVersion": "0.9.5.1",
+  "Title": "Lantern",
+  "Thumbnail": "lively_t.jpg",
+  "Preview": "lively_p.gif",
+  "Desc": "Latern animation using css only.",
+  "Author": "Mahmoud",
+  "License": null,
+  "Contact": "https://codepen.io/7oot/pen/byPKra",
+  "Type": 1,
+  "FileName": "index.html",
+  "Arguments": null,
+  "IsAbsolutePath": false
+}

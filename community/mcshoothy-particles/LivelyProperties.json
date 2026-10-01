@@ -1,0 +1,351 @@
+{
+  "_section_presets": {
+    "type": "label",
+    "value": "━━━ PRESETS ━━━"
+  },
+  "wallpaperPreset": {
+    "type": "dropdown",
+    "text": "Preset",
+    "items": ["Balanced", "Aurora", "Nebula", "Storm", "Firefly", "Snowfall", "Neon Grid", "Solar Wind"],
+    "value": 0
+  },
+  "_section_appearance": {
+    "type": "label",
+    "value": "━━━ APPEARANCE ━━━"
+  },
+  "backgroundColor": {
+    "type": "color",
+    "text": "Background Color",
+    "value": "#0e1116"
+  },
+  "particleColor": {
+    "type": "color",
+    "text": "Particle Color",
+    "value": "#ffffff"
+  },
+  "strokeColor": {
+    "type": "color",
+    "text": "Particle Stroke Color",
+    "value": "#000000"
+  },
+  "strokeWidth": {
+    "type": "slider",
+    "text": "Stroke Width",
+    "min": 0,
+    "max": 5,
+    "step": 0.1,
+    "value": 0
+  },
+  "_section_particles": {
+    "type": "label",
+    "value": "━━━ PARTICLE BEHAVIOR ━━━"
+  },
+  "particleCount": {
+    "type": "slider",
+    "text": "Particle Count",
+    "min": 10,
+    "max": 500,
+    "step": 1,
+    "value": 80
+  },
+  "densityEnabled": {
+    "type": "checkbox",
+    "text": "Density-Based Count",
+    "value": true
+  },
+  "densityArea": {
+    "type": "slider",
+    "text": "Density Area (px²)",
+    "min": 100,
+    "max": 2000,
+    "step": 50,
+    "value": 800
+  },
+  "particleShape": {
+    "type": "dropdown",
+    "text": "Particle Shape",
+    "items": ["Circle", "Edge", "Triangle", "Polygon", "Star"],
+    "value": 0
+  },
+  "polygonSides": {
+    "type": "slider",
+    "text": "Polygon Sides",
+    "min": 3,
+    "max": 8,
+    "step": 1,
+    "value": 5
+  },
+  "particleSize": {
+    "type": "slider",
+    "text": "Particle Size",
+    "min": 0.5,
+    "max": 30,
+    "step": 0.5,
+    "value": 5
+  },
+  "sizeRandomness": {
+    "type": "checkbox",
+    "text": "Random Size Variation",
+    "value": true
+  },
+  "sizeAnimEnabled": {
+    "type": "checkbox",
+    "text": "Size Animation",
+    "value": false
+  },
+  "sizeAnimSpeed": {
+    "type": "slider",
+    "text": "Size Animation Speed",
+    "min": 1,
+    "max": 100,
+    "step": 1,
+    "value": 40
+  },
+  "sizeAnimMin": {
+    "type": "slider",
+    "text": "Min Animated Size",
+    "min": 0.1,
+    "max": 10,
+    "step": 0.1,
+    "value": 0.1
+  },
+  "particleOpacity": {
+    "type": "slider",
+    "text": "Particle Opacity",
+    "min": 0,
+    "max": 1,
+    "step": 0.05,
+    "value": 0.5
+  },
+  "opacityRandomness": {
+    "type": "checkbox",
+    "text": "Random Opacity Variation",
+    "value": false
+  },
+  "opacityAnimEnabled": {
+    "type": "checkbox",
+    "text": "Opacity Animation",
+    "value": false
+  },
+  "opacityAnimSpeed": {
+    "type": "slider",
+    "text": "Opacity Animation Speed",
+    "min": 0.1,
+    "max": 10,
+    "step": 0.1,
+    "value": 1
+  },
+  "opacityAnimMin": {
+    "type": "slider",
+    "text": "Min Animated Opacity",
+    "min": 0,
+    "max": 1,
+    "step": 0.05,
+    "value": 0.1
+  },
+  "_section_movement": {
+    "type": "label",
+    "value": "━━━ MOVEMENT ━━━"
+  },
+  "particleSpeed": {
+    "type": "slider",
+    "text": "Speed",
+    "min": 0.1,
+    "max": 30,
+    "step": 0.1,
+    "value": 6
+  },
+  "moveRandomness": {
+    "type": "checkbox",
+    "text": "Random Movement",
+    "value": false
+  },
+  "moveStraight": {
+    "type": "checkbox",
+    "text": "Straight Line Movement",
+    "value": false
+  },
+  "moveDirection": {
+    "type": "dropdown",
+    "text": "Movement Direction",
+    "items": ["None", "Top", "Top-Right", "Right", "Bottom-Right", "Bottom", "Bottom-Left", "Left", "Top-Left"],
+    "value": 0
+  },
+  "outMode": {
+    "type": "dropdown",
+    "text": "Out of Bounds",
+    "items": ["Out", "Bounce"],
+    "value": 0
+  },
+  "bounceParticles": {
+    "type": "checkbox",
+    "text": "Particle Bouncing",
+    "value": false
+  },
+  "_section_links": {
+    "type": "label",
+    "value": "━━━ LINKING & ATTRACTION ━━━"
+  },
+  "linksEnabled": {
+    "type": "checkbox",
+    "text": "Link Lines",
+    "value": true
+  },
+  "linkDistance": {
+    "type": "slider",
+    "text": "Link Distance",
+    "min": 20,
+    "max": 600,
+    "step": 5,
+    "value": 150
+  },
+  "linkColor": {
+    "type": "color",
+    "text": "Link Color",
+    "value": "#ffffff"
+  },
+  "linkOpacity": {
+    "type": "slider",
+    "text": "Link Opacity",
+    "min": 0,
+    "max": 1,
+    "step": 0.05,
+    "value": 0.4
+  },
+  "linkWidth": {
+    "type": "slider",
+    "text": "Link Width",
+    "min": 0.1,
+    "max": 10,
+    "step": 0.1,
+    "value": 1
+  },
+  "attractEnabled": {
+    "type": "checkbox",
+    "text": "Particle Attraction",
+    "value": false
+  },
+  "attractRotateX": {
+    "type": "slider",
+    "text": "Attraction X Strength",
+    "min": 100,
+    "max": 5000,
+    "step": 100,
+    "value": 600
+  },
+  "attractRotateY": {
+    "type": "slider",
+    "text": "Attraction Y Strength",
+    "min": 100,
+    "max": 5000,
+    "step": 100,
+    "value": 1200
+  },
+  "_section_hover": {
+    "type": "label",
+    "value": "━━━ MOUSE HOVER INTERACTION ━━━"
+  },
+  "hoverEnabled": {
+    "type": "checkbox",
+    "text": "Mouse Hover Effect",
+    "value": true
+  },
+  "hoverMode": {
+    "type": "dropdown",
+    "text": "Hover Mode",
+    "items": ["None", "Repulse", "Grab", "Bubble"],
+    "value": 1
+  },
+  "grabDistance": {
+    "type": "slider",
+    "text": "Grab Distance",
+    "min": 1,
+    "max": 800,
+    "step": 25,
+    "value": 400
+  },
+  "grabOpacity": {
+    "type": "slider",
+    "text": "Grab Link Opacity",
+    "min": 0,
+    "max": 1,
+    "step": 0.05,
+    "value": 1
+  },
+  "repulseDistance": {
+    "type": "slider",
+    "text": "Repulse Distance",
+    "min": 1,
+    "max": 600,
+    "step": 25,
+    "value": 200
+  },
+  "bubbleDistance": {
+    "type": "slider",
+    "text": "Bubble Distance",
+    "min": 1,
+    "max": 800,
+    "step": 25,
+    "value": 400
+  },
+  "bubbleSize": {
+    "type": "slider",
+    "text": "Bubble Size",
+    "min": 10,
+    "max": 150,
+    "step": 5,
+    "value": 40
+  },
+  "bubbleOpacity": {
+    "type": "slider",
+    "text": "Bubble Opacity",
+    "min": 0,
+    "max": 1,
+    "step": 0.05,
+    "value": 0.8
+  },
+  "bubbleDuration": {
+    "type": "slider",
+    "text": "Bubble Duration (sec)",
+    "min": 0.2,
+    "max": 5,
+    "step": 0.2,
+    "value": 2
+  },
+  "_section_click": {
+    "type": "label",
+    "value": "━━━ MOUSE CLICK INTERACTION ━━━"
+  },
+  "clickEnabled": {
+    "type": "checkbox",
+    "text": "Mouse Click Effect",
+    "value": true
+  },
+  "clickMode": {
+    "type": "dropdown",
+    "text": "Click Mode",
+    "items": ["None", "Push", "Repulse", "Bubble", "Remove"],
+    "value": 1
+  },
+  "pushCount": {
+    "type": "slider",
+    "text": "Push Particle Count",
+    "min": 1,
+    "max": 20,
+    "step": 1,
+    "value": 4
+  },
+  "removeCount": {
+    "type": "slider",
+    "text": "Remove Particle Count",
+    "min": 1,
+    "max": 20,
+    "step": 1,
+    "value": 2
+  },
+  "retinaDetect": {
+    "type": "checkbox",
+    "text": "Retina Display Support",
+    "value": true
+  }
+}

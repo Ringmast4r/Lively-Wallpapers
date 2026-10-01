@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Cache-Control" content="no-cache">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <style>
+        * {
+            user-select: none;
+        }
+
+        html,
+        body {
+            overflow: hidden;
+            background: transparent !important;
+            background-color: transparent !important;
+        }
+
+        iframe {
+            pointer-events: none;
+        }
+
+        body {
+            margin: 0;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-size: 100% 100%;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            const screens = window.outerWidth / window.screen.width; // 计算显示器数量
+            if (screens >= 2) {
+                document.querySelector('.oneclock').style.display = 'none'; // 隐藏单显示器时钟
+                document.querySelectorAll('.dbclock').forEach(clock => clock.style.display = 'block'); // 显示双显示器时钟
+            } else {
+                document.querySelector('.oneclock').style.display = 'block'; // 显示单显示器时钟
+                document.querySelectorAll('.dbclock').forEach(clock => clock.style.display = 'none'); // 隐藏双显示器时钟
+            }
+        };
+    </script>
+</head>
+
+<body style="width: 100vw;height: 100vh;">
+
+    <div class="oneclock" style="width: 100vw;height: 100vh;">
+        <iframe
+            style="position: fixed;background-color:#00000000;top: 0;left: 0;width: 100vw;height: 100vh;z-index: -1;"
+            src="./planet/index.html" allowtransparency="true" frameborder="0" width="100vw" height="100vh"
+            scrolling="no">
+        </iframe>
+        <iframe style="position: fixed;background-color:#00000000;top: 0;left: 0;width: 100vw;height: 100vh;z-index:0;pointer-events: none;"
+            src="./clock/index.html" allowtransparency="true" frameborder="0" width="50vw" height="100vh"
+            scrolling="no">
+        </iframe>
+    </div>
+
+    <div class="dbclock" style="position: fixed;top: 0;left: 0;width: 100vw;height: 100vh;z-index: -1;">
+        <iframe style="position: fixed;background-color:#00000000;top: 0;left: 0;width: 50vw;height: 100vh;z-index:0;pointer-events: none;"
+            src="./planet/index.html" allowtransparency="true" frameborder="0" width="50vw" height="100vh"
+            scrolling="no">
+        </iframe>
+        <iframe style="position: fixed;background-color:#00000000;top: 0;left: 0;width: 50vw;height: 100vh;z-index:0;pointer-events: none;"
+            src="./clock/index.html" allowtransparency="true" frameborder="0" width="50vw" height="100vh"
+            scrolling="no">
+        </iframe>
+    </div>
+
+    <div class="dbclock" style="position: fixed;top: 0;left: 50vw;width: 50vw;height: 100vh;z-index:0">
+        <iframe style="position: fixed;background-color:#00000000;top: 0;left: 50vw;width: 50vw;height: 100vh;z-index:0;pointer-events: none;"
+            src="./planet/index.html" allowtransparency="true" frameborder="0" width="50vw" height="100vh"
+            scrolling="no">
+        </iframe>
+        <iframe style="position: fixed;background-color:#00000000;top: 0;left: 50vw;width: 50vw;height: 100vh;z-index:0;pointer-events: none;"
+            src="./clock/index.html" allowtransparency="true" frameborder="0" width="50vw" height="100vh"
+            scrolling="no">
+        </iframe>
+    </div>
+
+</body>
+
+
+</html>

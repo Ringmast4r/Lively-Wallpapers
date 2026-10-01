@@ -1,0 +1,17 @@
+{
+  "AppVersion": "2.2.1.0",
+  "Title": "Grid Wallpaper",
+  "Desc": "Animated grid with interactive distortions.",
+  "Author": "gagexhill",
+  "License": "MIT",
+  "Contact": "https://github.com/gagexhill/grid-wallpaper",
+  "Type": 1,
+  "FileName": "grid-wallpaper.html",
+  "Arguments": "--pause-event true",
+  "IsAbsolutePath": false,
+  "Thumbnail": "thumbnail.jpg",
+  "Preview": "preview.gif",
+  "Id": null,
+  "Tags": ["grid", "interactive", "abstract"],
+  "Version": 1
+}

@@ -1,0 +1,130 @@
+{
+  "showAlbumArt": {
+    "text": "Show Centered Album Art",
+    "type": "checkbox",
+    "value": true
+  },
+  "albumSize": {
+    "text": "Album Size",
+    "type": "slider",
+    "min": 5,
+    "max": 100,
+    "step": 5,
+    "value": 60
+  },
+  "albumCornerRadius": {
+    "text": "Album Corner Radius",
+    "type": "slider",
+    "min": 0,
+    "max": 512,
+    "step": 1,
+    "value": 20
+  },
+  "spacer1": {
+    "value": "",
+    "type": "label"
+  },
+  "showTrackName": {
+    "text": "Show Track Name",
+    "type": "checkbox",
+    "value": true
+  },
+  "showArtistName": {
+    "text": "Show Artist Name",
+    "type": "checkbox",
+    "value": true
+  },
+  "trackInfoAlignment": {
+    "text": "Track Info Alignment",
+    "type": "dropdown",
+    "value": 0,
+    "items": [
+      "Centered",
+      "Left",
+      "Right"
+    ]
+  },
+  "trackInfoFont": {
+    "text" : "Track Info Font",
+    "type" : "textbox",
+    "value" : "Segoe UI"
+  },
+  "trackInfoSize": {
+    "text": "Track Info Size",
+    "type": "slider",
+    "min": 1,
+    "max": 10,
+    "step": 0.25,
+    "value": 1.5
+  },
+  "trackInfoBrightness": {
+    "text": "Track Info Brightness",
+    "type": "slider",
+    "min": 0,
+    "max": 1,
+    "step": 0.1,
+    "value": 0.7
+  },
+  "spacer2": {
+    "value": "",
+    "type": "label"
+  },
+  "bgImage": {
+    "text": "Background Image",
+    "type": "folderDropdown",
+    "value": "jupiter.jpg",
+    "filter": "*.jpg|*.png",
+    "folder": "backgrounds"
+  },
+  "dimBackgroundWhilePlaying": {
+    "text": "Dim Background While Playing",
+    "type": "checkbox",
+    "value": true
+  },
+  "blurBackgroundWhilePlaying": {
+    "text": "Blur Background While Playing",
+    "type": "checkbox",
+    "value": true
+  },
+  "spacer3": {
+    "value": "",
+    "type": "label"
+  },
+  "showAlbumArtBg": {
+    "text": "Show Album Art Background While Playing",
+    "type": "checkbox",
+    "value": true
+  },
+  "spacer4": {
+    "value": "",
+    "type": "label"
+  },
+  "bgInfo1": {
+    "value": "Album art background will always take the following settings.",
+    "type": "label"
+  },
+  "bgInfo2": {
+    "value": "Normal background will only take them while media is playing,",
+    "type": "label"
+  },
+  "bgInfo3": {
+    "value": "and only if the relevant setting above is enabled.",
+    "type": "label"
+  },
+  "bgBrightness": {
+    "text": "Background Brightness",
+    "type": "slider",
+    "min": 0,
+    "max": 1,
+    "step": 0.1,
+    "value": 0.4
+  },
+  "bgBlur": {
+    "text": "Background Blur",
+    "type": "slider",
+    "min": 0,
+    "max": 50,
+    "step": 5,
+    "value": 20
+  }
+}

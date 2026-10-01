@@ -1,0 +1,14 @@
+{
+    "AppVersion": "1.0.0",
+    "Title": "Text Clock",
+    "Thumbnail": "thumbnail.png",
+    "Desc": "A text clock that displays the time in a unique way.",
+    "Author": "ob-julian",
+    "License": "See LICENSE",
+    "Contact": "https://github.com/ob-julian/Clock",
+    "Type": 1,
+    "FileName": "english.html",
+    "Arguments": null,
+    "Tags": ["clock", "time"],
+    "IsAbsolutePath": false
+  }

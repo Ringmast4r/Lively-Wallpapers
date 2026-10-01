@@ -1,0 +1,40 @@
+Solar System Scope planet textures: CC BY 4.0.
+https://www.solarsystemscope.com/textures/
+https://creativecommons.org/licenses/by/4.0/
+Textures embedded locally without modification.
+
+
+Astronomy Engine 2.1.19, Copyright Donald Cross, MIT License.
+https://github.com/cosinekitty/astronomy
+
+
+Lucide 0.468.0, ISC License. Copyright Lucide contributors.
+https://lucide.dev/license
+
+
+GSAP 3.14.2, Copyright GreenSock, Inc. GSAP Standard License.
+https://gsap.com/standard-license/
+
+
+Three.js 0.181.2
+The MIT License
+
+Copyright © 2010-2025 three.js authors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.

@@ -1,0 +1,7 @@
+{
+  "fpsLock": {
+    "type": "checkbox",
+    "value": true,
+    "text": "30FPS Lock"
+  }
+}

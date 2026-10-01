@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Clock</title>
+        <meta name="description" content="A different Clock">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Julian Oberhofer">
+        <link rel="stylesheet" href="css/main.css">
+        <script type="text/javascript" src="js/english.js"></script>
+        <script type="text/javascript" src="js/main.js"></script>
+
+        <link rel="icon" href="thumbnail.png" type="image/x-icon">
+        <link rel="shortcut icon" href="thumbnail.png" type="image/x-icon">
+        <meta property="og:title" content="Clock">
+        <meta property="og:description" content="A different Clock">
+        <meta property="og:image" content="https://oberhofer.ddns.net/clock/thumbnail.png">
+        <meta property="og:url" content="https://oberhofer.ddns.net/clock/english">
+        <meta property="og:type" content="website">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="Clock">
+        <meta name="twitter:description" content="A different Clock">
+        <meta name="twitter:image" content="https://oberhofer.ddns.net/clock/thumbnail.png">
+    </head>
+    <body class="light-mode loading">
+        <h1 id="header">A different Clock</h1>
+        <div id="select">
+            <select id="theme" onchange="changeTheme(this.value)"></select>
+            <br>
+            <select id="language" onchange="changeLang(this.value)"></select>
+        </div>
+        <table id="english">
+            <tr>
+                <td class="it">I</td>
+                <td class="it">T</td>
+                <td class="">L</td>
+                <td class="is">I</td>
+                <td class="is">S</td>
+                <td class="">A</td>
+                <td class="">S</td>
+                <td class="am">A</td>
+                <td class="am">M</td>
+                <td class="pm">P</td>
+                <td class="pm">M</td>
+            </tr>
+            <tr>
+                <td class="">A</td>
+                <td class="">C</td>
+                <td class="quarter_min">Q</td>
+                <td class="quarter_min">U</td>
+                <td class="quarter_min">A</td>
+                <td class="quarter_min">R</td>
+                <td class="quarter_min">T</td>
+                <td class="quarter_min">E</td>
+                <td class="quarter_min">R</td>
+                <td class="">D</td>
+                <td class="">C</td>
+            </tr>
+            <tr>
+                <td class="twenty_min twentyfive_min">T</td>
+                <td class="twenty_min twentyfive_min">W</td>
+                <td class="twenty_min twentyfive_min">E</td>
+                <td class="twenty_min twentyfive_min">N</td>
+                <td class="twenty_min twentyfive_min">T</td>
+                <td class="twenty_min twentyfive_min">Y</td>
+                <td class="five_min twentyfive_min">F</td>
+                <td class="five_min twentyfive_min">I</td>
+                <td class="five_min twentyfive_min">V</td>
+                <td class="five_min twentyfive_min">E</td>
+                <td class="">X</td>
+            </tr>
+            <tr>
+                <td class="half_min">H</td>
+                <td class="half_min">A</td>
+                <td class="half_min">L</td>
+                <td class="half_min">F</td>
+                <td class="">S</td>
+                <td class="ten_min">T</td>
+                <td class="ten_min">E</td>
+                <td class="ten_min">N</td>
+                <td class="">F</td>
+                <td class="to">T</td>
+                <td class="to">O</td>
+            </tr>
+            <tr>
+                <td class="past">P</td>
+                <td class="past">A</td>
+                <td class="past">S</td>
+                <td class="past">T</td>
+                <td class="">E</td>
+                <td class="">R</td>
+                <td class="">U</td>
+                <td class="nine">N</td>
+                <td class="nine">I</td>
+                <td class="nine">N</td>
+                <td class="nine">E</td>
+            </tr>
+            <tr>
+                <td class="one">O</td>
+                <td class="one">N</td>
+                <td class="one">E</td>
+                <td class="six">S</td>
+                <td class="six">I</td>
+                <td class="six">X</td>
+                <td class="three">T</td>
+                <td class="three">H</td>
+                <td class="three">R</td>
+                <td class="three">E</td>
+                <td class="three">E</td>
+            </tr>
+            <tr>
+                <td class="four">F</td>
+                <td class="four">O</td>
+                <td class="four">U</td>
+                <td class="four">R</td>
+                <td class="five">F</td>
+                <td class="five">I</td>
+                <td class="five">V</td>
+                <td class="five">E</td>
+                <td class="two">T</td>
+                <td class="two">W</td>
+                <td class="two">O</td>
+            </tr>
+            <tr>
+                <td class="eight">E</td>
+                <td class="eight">I</td>
+                <td class="eight">G</td>
+                <td class="eight">H</td>
+                <td class="eight">T</td>
+                <td class="eleven">E</td>
+                <td class="eleven">L</td>
+                <td class="eleven">E</td>
+                <td class="eleven">V</td>
+                <td class="eleven">E</td>
+                <td class="eleven">N</td>
+            </tr>
+            <tr>
+                <td class="seven">S</td>
+                <td class="seven">E</td>
+                <td class="seven">V</td>
+                <td class="seven">E</td>
+                <td class="seven">N</td>
+                <td class="twelve">T</td>
+                <td class="twelve">W</td>
+                <td class="twelve">E</td>
+                <td class="twelve">L</td>
+                <td class="twelve">V</td>
+                <td class="twelve">E</td>
+            </tr>
+            <tr>
+                <td class="ten">T</td>
+                <td class="ten">E</td>
+                <td class="ten">N</td>
+                <td class="">S</td>
+                <td class="">E</td>
+                <td class="oclock">O</td>
+                <td class="oclock">C</td>
+                <td class="oclock">L</td>
+                <td class="oclock">O</td>
+                <td class="oclock">C</td>
+                <td class="oclock">K</td>
+            </tr>
+        </table>
+        <div id="modeDisplay">
+            <button id="left" class="button-vertical" onclick="changeMode(-1)"></button>
+            <button id="right" class="button-vertical" onclick="changeMode(1)"></button>
+            <button id="up" class="button-horizontal" onclick="changeMode(1)"></button>
+            <button id="down" class="button-horizontal" onclick="changeMode(-1)"></button>
+            <p id="disclaimer">Would you like a clock like this for your home? Avalabile at <a href="https://qlocktwo.com/"> QLOCKTWO's</a>.<br>No copyright infringement intended.</p>
+        </div>
+        <div id="fullscreen">
+            <!-- Thx to https://icons.getbootstrap.com/ for the icons -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-fullscreen" id="fullscreen-open" viewBox="0 0 16 16" onclick="setFullscreen()">
+                <path d="M1.5 1a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4A1.5 1.5 0 0 1 1.5 0h4a.5.5 0 0 1 0 1zM10 .5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 16 1.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5M.5 10a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 0 14.5v-4a.5.5 0 0 1 .5-.5m15 0a.5.5 0 0 1 .5.5v4a1.5 1.5 0 0 1-1.5 1.5h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5"></path>
+              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-fullscreen-exit hidden" id="fullscreen-exit" viewBox="0 0 16 16" onclick="exitFullscreen()">
+                <path d="M5.5 0a.5.5 0 0 1 .5.5v4A1.5 1.5 0 0 1 4.5 6h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5m5 0a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 10 4.5v-4a.5.5 0 0 1 .5-.5M0 10.5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 6 11.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5m10 1a1.5 1.5 0 0 1 1.5-1.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0z"></path>
+              </svg>
+        </div>
+    </body>
+</html>

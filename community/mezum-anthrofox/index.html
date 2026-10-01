@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>AnthroFox</title>
+    <meta name="description" content="Anthro fox in the forest.">
+    <script src="js/script.js" defer></script>
+    <style>
+        * {
+            user-select: none;
+            pointer-events: none;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: black;
+        }
+
+        body {
+            width: 100lvw;
+            height: 100lvh;
+        }
+
+        .bg-container {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+        }
+
+        .bg-container img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-position: 72% 60%;
+            object-fit: cover;
+        }
+
+        .dynamic {
+            opacity: 0;
+            visibility: hidden;
+            transition:
+                opacity 5s ease-in-out,
+                visibility 5s steps(1, jump-end);
+        }
+
+        .dynamic.active {
+            opacity: 1;
+            visibility: visible;
+            transition:
+                opacity 5s ease-in-out,
+                visibility 5s steps(1, jump-start);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-container">
+        <img class="dynamic" data-season="Spring" data-time="Day" src="bg/spring-day.png" />
+        <img class="dynamic" data-season="Spring" data-time="Night" src="bg/spring-night.png" />
+        <img class="dynamic" data-season="Summer" data-time="Day" src="bg/summer-day.png" />
+        <img class="dynamic" data-season="Summer" data-time="Night" src="bg/summer-night.png" />
+        <img class="dynamic" data-season="Autumn" data-time="Day" src="bg/fall-day.png" />
+        <img class="dynamic" data-season="Autumn" data-time="Night" src="bg/fall-night.png" />
+        <img class="dynamic" data-season="Winter" data-time="Day" src="bg/winter-day.png" />
+        <img class="dynamic" data-season="Winter" data-time="Night" src="bg/winter-night.png" />
+    </div>
+</body>

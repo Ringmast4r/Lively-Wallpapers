@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>growing pastel dots</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <canvas id="canvas" width="100" height="100"></canvas>
+    <script src="./script.js"></script>
+    <script>
+      var theme;
+      themes = [
+        ["#a8e6cf", "#dcedc1", "#ffd3b6", "#ffaaa5", "#ff8b94"],
+        ["#410b13", "#cd5d67", "#ba1f33", "#421820", "#91171f"],
+        ["#343e3d", "#607466", "#aedcc0", "#7bd389", "#38e4ae"],
+        ["#cda7ad", "#e19ed0", "#e698aa", "#e89284", "#795047"]
+      ];
+      function livelyPropertyListener(name, val) {
+        if (name == "backgroundColor") {
+          canvas.style.backgroundColor = val;
+        } else if (name == "theme") {
+          theme = val;
+          if (val == 0) {
+            colors = customColors;
+          } else {
+            colors = themes[val - 1];
+          }
+          placeDots();
+        } else if (name == "customColors") {
+          customColors = val.split(",");
+          if (theme == 0) {
+            colors = customColors;
+          }
+          placeDots();
+        }
+      }
+    </script>
+  </body>
+</html>

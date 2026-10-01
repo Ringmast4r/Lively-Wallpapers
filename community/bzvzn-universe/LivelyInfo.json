@@ -1,0 +1,23 @@
+{
+  "AppVersion": "2.2.1.0",
+  "Title": "Universe",
+  "Thumbnail": "thumbnail.png",
+  "Preview": "preview.gif",
+  "Desc": "A procedural 3D universe live wallpaper (stars, nebulas, galaxies, black holes).",
+  "Author": "Bzvzn",
+  "License": "MIT",
+  "Contact": "https://github.com/Bzvzn/universe-wallpaper",
+  "Type": 1,
+  "FileName": "index.html",
+  "Arguments": "",
+  "IsAbsolutePath": false,
+  "Id": null,
+  "Tags": [
+    "space",
+    "universe",
+    "three.js",
+    "3d",
+    "sci-fi"
+  ],
+  "Version": 1
+}

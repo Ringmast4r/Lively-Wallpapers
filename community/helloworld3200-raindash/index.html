@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta property="og:image" content="./social.jpg" />
+    <title>Rainy Window</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" href="styles/style.css" />
+    <link rel="stylesheet" href="styles/time.css" />
+    <link rel="stylesheet" href="styles/music.css" />
+    <link rel="stylesheet" href="styles/topright.css" />
+    <link rel="stylesheet" href="styles/stats.css" />
+  </head>
+  <body>
+    <div id="container"></div>
+    <input id="filePicker" type="file" accept=".jpg, .jpeg, .png, .mp4, .webm" style="visibility: hidden" />
+
+    <div id="progressbar" class="indeterminate-progress-bar">
+      <div class="indeterminate-progress-bar__progress"></div>
+    </div>
+
+    <div id="ui-main" class="ui-main">
+      <div id="timer" class="timer">
+        <div id="clock" class="clock">
+          Clock
+        </div>
+        <div id="date" class="date">
+          <div id="day" class="day">Day</div>
+          <div id="date-internal">Date</div>
+        </div>
+      </div>
+
+      <div id="top-right" class="top-right">
+        <div id="greeting" class="greeting">
+          <div id="greeting-internal" class="greeting-internal">Greeting</div>
+          <div id="greeting-name" class="greeting-name">Name</div>
+        </div>
+        <div id="weather-main" class="weather-main">
+          <div id="weather-primary" class="weather-primary">
+            <img id="weather-icon" class="weather-icon" />
+            <div id="weather-temp" class="weather-temp"><div id="weather-temp-internal">Temp</div>°C</div>
+          </div>
+          <div id="weather-secondary" class="weather-secondary">
+            <div>HUM</div>
+            <div id="weather-hum" class="weather-item">0%</div>
+            <div>WND</div>
+            <div id="weather-wind" class="weather-item">0 km/h</div>
+            <div>PRS</div>
+            <div id="weather-press" class="weather-item">0 hPa</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="stats" class="stats">
+        <div>CPU</div>
+        <div id="stat-cpu" class="stat">0%</div>
+        <div>GPU</div>
+        <div id="stat-gpu" class="stat">0%</div>
+        <div>RAM</div>
+        <div id="stat-ram" class="stat">0%</div>
+      </div>
+
+      <div id="music-main" class="music-main">
+        <div id="music-header" class="music-header">Now Playing</div>
+        <div id="music-info" class="music-info">
+          <img id="music-viz" class="music-viz" src="/media/image.jpg"/>
+          <div id="music-text" class="music-text">
+            <div id="music-title" class="music-title">Title</div>
+            <div id="music-artist" class="music-artist">Artist</div>
+            <div id="music-bars" class="music-bars">
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/dat.gui.min.js"></script>
+    <script src="js/three.min.js"></script>
+    <script src="js/script.js"></script>
+
+    <script src="geoloc/geoloc.js"></script>
+    <script src="weather/iconmap.js"></script>
+
+    <script src="js/ui.js"></script>
+    <script>
+      //threejs scene first run
+      let background = document.getElementById("container");
+      const progress = document.getElementById("progressbar");
+      document.addEventListener("sceneLoaded", () => {
+        if (background.style.opacity == 0) setVisible(background);
+        progress.style.display = "none";
+      });
+
+      async function setVisible(element) {
+        for (let val = 0; val < 1; val += 0.1) {
+          element.style.opacity = val;
+          await new Promise((r) => setTimeout(r, 75));
+        }
+      }
+    </script>
+  </body>
+</html>

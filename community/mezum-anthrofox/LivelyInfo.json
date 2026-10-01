@@ -1,0 +1,14 @@
+{
+    "AppVersion": "2.2.1.0",
+    "Title": "AnthroFox",
+    "Thumbnail": "thumbnail.jpg",
+    "Preview": "preview.gif",
+    "Desc": "Anthro fox in the forest.",
+    "Author": "Kitsunesaki Mezumona",
+    "License": "MIT",
+    "Contact": "https://github.com/mezum/lively-anthro-fox-in-forest",
+    "Type": 1,
+    "FileName": "index.html",
+    "Arguments": null,
+    "IsAbsolutePath": false
+}

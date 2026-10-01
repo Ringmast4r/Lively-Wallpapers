@@ -1,0 +1,14 @@
+{
+  "AppVersion": "0.9.6.0",
+  "Title": "Particle Stream",
+  "Thumbnail": "lively_t.jpg",
+  "Preview": "lively_p.gif",
+  "Desc": "Three.js particle stream.",
+  "Author": "Szenia Zadvornykh",
+  "License": null,
+  "Contact": "https://codepen.io/zadvorsky/pen/qOYqGv",
+  "Type": 1,
+  "FileName": "index.html",
+  "Arguments": null,
+  "IsAbsolutePath": false
+}

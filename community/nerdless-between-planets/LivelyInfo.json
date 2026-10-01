@@ -1,0 +1,21 @@
+{
+  "AppVersion": "2.0.0.0",
+  "Title": "Between Planets (Solar System)",
+  "Thumbnail": "preview.jpg",
+  "Preview": null,
+  "Desc": "4K 三维太阳系，八大行星、木星卫星、土卫六、双尾彗星、太阳日珥和六艘深空探测器。含时钟、黑洞与流星，支持 120 帧及独立特效开关。鼠标交互默认关闭，完全离线。",
+  "Author": "张凌康",
+  "License": "MIT",
+  "Contact": null,
+  "Type": 1,
+  "FileName": "solar-system.html",
+  "Arguments": null,
+  "IsAbsolutePath": false,
+  "Tags": [
+    "solar system",
+    "space",
+    "3d",
+    "interactive"
+  ],
+  "Version": 2
+}

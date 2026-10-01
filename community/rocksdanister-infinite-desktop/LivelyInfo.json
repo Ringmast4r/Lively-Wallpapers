@@ -1,0 +1,14 @@
+{
+  "AppVersion": "0.9.6.0",
+  "Title": "Infinite Desktop",
+  "Thumbnail": "lively_t.jpg",
+  "Preview": "lively_p.gif",
+  "Desc": "Infinite mirror like desktop effect. Built from the 2020 source with a fix for a per-frame GDI bitmap leak.",
+  "Author": "rocksdanister",
+  "License": "MIT (see LICENSE.txt)",
+  "Contact": "https://github.com/rocksdanister/infinite-mirror-desktop",
+  "Type": 0,
+  "FileName": "InfiniteMirror.exe",
+  "Arguments": null,
+  "IsAbsolutePath": false
+}

@@ -1,0 +1,15 @@
+{
+  "AppVersion": "1.2.121",
+  "Title": "Lively Gradient Ribbons",
+  "Thumbnail": "f1xmy0lt.vsu.jpg",
+  "Preview": "1fvnskpb.rqc.gif",
+  "Desc": "Animated gradient ribbons wallpaper with current playing media info, clock and weather.",
+  "Author": "Berk Ege (brkee)",
+  "License": "SEE LICENSE IN LICENSE.MD",
+  "Contact": "brkee.jp@gmail.com",
+  "Type": 1,
+  "FileName": "index.html",
+  "Arguments": "--system-nowplaying --audio",
+  "Tags": ["gradient", "media", "clock"]
+
+}

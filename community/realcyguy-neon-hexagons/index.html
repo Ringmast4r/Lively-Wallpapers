@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>neon hexagon-forming particles</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <canvas id="c"></canvas>
+    <script src="./script.js"></script>
+    <script>
+      function livelyPropertyListener(name, val) {
+        if (name == "size") {
+          opts.len = val;
+        } else if (name == "hueChange") {
+          opts.hueChange = val;
+        }
+        re();
+      }
+    </script>
+  </body>
+</html>

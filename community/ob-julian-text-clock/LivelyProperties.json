@@ -1,0 +1,27 @@
+{
+    "aditionalUI": {
+        "type": "checkbox",
+        "value": false,
+        "text": "Show aditional UI elements"
+    },
+    "theme": {
+        "type": "dropdown",
+        "value": 0,
+        "text": "Theme",
+        "items": [
+            "auto",
+            "light",
+            "dark"
+        ]
+    },
+    "show": {
+        "type": "dropdown",
+        "value": 0,
+        "text": "Select what to show",
+        "items": [
+            "Time",
+            "Seconds",
+            "AM/PM"
+        ]
+    }
+}
