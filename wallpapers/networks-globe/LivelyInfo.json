@@ -1,0 +1,14 @@
+{
+  "AppVersion": "2.2.1.0",
+  "Title": "Net Works Globe",
+  "Thumbnail": "thumbnail.jpg",
+  "Preview": "preview.gif",
+  "Desc": "The Net // Works globe, spinning: a black and white low-polygon world with a graticule and two orbit rings. Speed, dark or light, rings and corner text are settings.",
+  "Author": "Ringmast4r",
+  "License": "MIT",
+  "Contact": "https://github.com/Ringmast4r/Lively-Wallpapers",
+  "Type": 1,
+  "FileName": "index.html",
+  "Arguments": null,
+  "IsAbsolutePath": false
+}

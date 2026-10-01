@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Net Works globe live wallpaper</title>
+<style>
+/* DM Mono ships beside the page (fonts/, SIL OFL) so the wallpaper never needs the network. */
+@font-face{font-family:"DM Mono";font-weight:400;font-style:normal;src:url(fonts/DMMono-Regular.woff2) format("woff2")}
+@font-face{font-family:"DM Mono";font-weight:500;font-style:normal;src:url(fonts/DMMono-Medium.woff2) format("woff2")}
+html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:#0a0a0a}
+canvas{position:absolute;display:block}
+</style>
+</head>
+<body>
+<canvas id="markL"></canvas><canvas id="markR"></canvas><canvas id="globe"></canvas><canvas id="over"></canvas>
+<script>
+/* Net // Works globe, spinning, as a desktop wallpaper.
+ *
+ * This is the Net Works still wallpaper set in motion: same layout, same
+ * palette, same land mask, same 2x2 supersample, same differenced 15-degree
+ * graticule, same two orbit rings and the same wordmark. The globe turns east
+ * and the ring nodes travel and breathe, all on one clock that the Speed
+ * setting slows down; Speed 100 is the pace of the globe on the Net Works
+ * site, one turn in 14 seconds.
+ *
+ * How it is drawn, given that it redraws every frame for as long as the
+ * desktop is up:
+ *   - the globe body is raycast in a WebGL2 fragment shader rather than a
+ *     JavaScript loop, and the graticule is drawn in the same shader, so the
+ *     per-pixel work is the GPU's,
+ *   - the page is small stacked canvases - the two corners of the wordmark,
+ *     drawn once, then the globe and the limb/rings/nodes - over a plain CSS
+ *     background, so a frame repaints the globe's box and nothing else.
+ * The continent outlines below are the hand-drawn low-polygon world the stills
+ * use; if a coast is ever redrawn there, paste it here too.
+ *
+ * It opens as a plain file in any wallpaper host that takes a web page (Lively
+ * Wallpaper reads LivelyProperties.json beside it for the settings panel).
+ * Query string, for looking at it in a browser:
+ *   ?theme=light   ?speed=100   ?orbits=0   ?mark=0   ?corner=YOUR+TEXT
+ *   ?t=12.5        freeze the clock at that many seconds
+ *   ?still         freeze on the still wallpaper's pose, to compare the two
+ */
+(function () {
+  var D = Math.PI / 180;
+
+  /* ---- land mask ------------------------------------------------------- */
+  var MW = 4096, MH = 2048, land = new Uint8Array(MW * MH);
+  (function buildMask() {
+    var m = document.createElement('canvas'); m.width = MW; m.height = MH;
+    var mc = m.getContext('2d');
+    mc.fillStyle = '#fff'; mc.fillRect(0, 0, MW, MH); mc.fillStyle = '#000';
+    function poly(pts) {
+      mc.beginPath();
+      for (var i = 0; i < pts.length; i++) {
+        var x = (pts[i][0] + 180) / 360 * MW, y = (90 - pts[i][1]) / 180 * MH;
+        if (i === 0) mc.moveTo(x, y); else mc.lineTo(x, y);
+      }
+      mc.closePath(); mc.fill();
+    }
+    mc.fillRect(0, (90 - (-70)) / 180 * MH, MW, MH);
+    var NA=[[-156,71],[-166,68.5],[-165,66],[-168,65.5],[-162,60],[-152,58],[-148,60],[-136,58],[-130,54],[-124,48],[-124,40],[-121,35],[-117,33],[-112,29],[-112,26],[-106,23],[-105,20],[-101,17],[-94,16],[-92,15],[-88,16],[-84,10],[-83,9],[-78,8],[-77,9],[-83,15],[-88,21],[-90,21],[-95,19],[-97,22],[-97,26],[-94,29],[-89,29],[-85,30],[-82,28],[-81,25],[-80,27],[-81,31],[-76,35],[-75,38],[-71,41],[-70,43],[-67,45],[-60,47],[-64,49],[-66,52],[-78,53],[-79,58],[-72,60],[-64,60],[-78,63],[-95,62],[-90,68],[-105,68],[-115,70],[-125,70],[-133,69],[-141,70]];
+    var GR=[[-43,60],[-50,64],[-53,68],[-56,72],[-58,76],[-45,80],[-30,83],[-18,80],[-22,76],[-30,70],[-38,66],[-42,61]];
+    var SA=[[-78,8],[-72,11],[-64,11],[-60,8],[-50,4],[-51,0],[-48,-1],[-44,-2],[-38,-5],[-35,-8],[-39,-13],[-39,-18],[-41,-22],[-48,-25],[-48,-28],[-54,-34],[-57,-38],[-62,-40],[-65,-43],[-65,-48],[-69,-52],[-66,-55],[-71,-54],[-73,-50],[-74,-44],[-73,-37],[-71,-30],[-70,-23],[-71,-18],[-77,-12],[-81,-5],[-80,-2],[-81,2]];
+    var AF=[[-6,36],[-10,30],[-13,28],[-17,21],[-17,15],[-16,12],[-11,7],[-8,5],[-2,5],[3,6],[8,4],[9,2],[10,-1],[13,-6],[12,-12],[13,-17],[15,-23],[17,-29],[20,-35],[26,-34],[31,-30],[33,-26],[35,-22],[40,-16],[41,-11],[40,-5],[41,-2],[43,2],[46,5],[48,8],[51,12],[49,11],[44,10],[43,11],[44,12],[41,15],[40,12],[38,16],[37,19],[35,23],[34,28],[32,31],[28,31],[22,32],[18,30],[12,33],[10,37],[5,37],[0,36],[-2,36]];
+    var ARAB=[[34,28],[36,29],[39,21],[43,13],[48,14],[52,16],[57,22],[60,25],[57,25],[50,28],[48,30],[42,30],[40,28],[36,28]];
+    var EU=[[-9,43],[-9,37],[-6,36],[-1,36],[0,40],[3,42],[3,44],[-2,44],[-2,48],[1,51],[7,53],[8,57],[6,58],[10,59],[6,61],[8,64],[14,67],[20,70],[26,71],[30,69],[27,65],[22,63],[20,60],[26,60],[30,60],[28,56],[22,56],[20,54],[14,54],[12,52],[16,50],[24,50],[30,52],[35,48],[40,44],[28,41],[20,42],[13,44],[8,44],[3,43],[-2,40],[-6,38]];
+    var ITALY=[[7,44],[10,44],[12,42],[15,40],[18,40],[16,41],[14,42],[12,44],[10,46]];
+    var ASIA=[[48,30],[50,37],[53,37],[54,30],[57,25],[61,25],[67,24],[68,23],[70,21],[73,16],[74,12],[77,8],[80,10],[80,13],[83,16],[87,21],[89,22],[92,21],[94,18],[97,16],[98,10],[99,6],[100,3],[104,1],[103,8],[106,10],[109,11],[108,16],[106,18],[108,21],[110,21],[113,22],[117,23],[120,25],[121,30],[121,34],[120,37],[122,40],[125,40],[126,38],[129,35],[129,38],[128,41],[130,43],[135,44],[140,46],[142,46],[143,49],[140,53],[143,59],[155,59],[160,60],[164,60],[170,62],[177,64],[180,66],[180,68],[172,66],[168,70],[160,70],[152,72],[140,73],[130,74],[113,74],[105,77],[95,76],[90,75],[80,73],[73,72],[68,68],[60,68],[55,68],[58,60],[55,55],[52,50],[50,45],[48,42],[48,37]];
+    var AU=[[114,-22],[113,-26],[115,-31],[118,-35],[123,-34],[129,-32],[135,-35],[138,-35],[140,-38],[147,-38],[150,-37],[153,-32],[153,-28],[153,-25],[146,-19],[145,-15],[142,-11],[140,-17],[137,-12],[136,-15],[133,-12],[130,-12],[127,-14],[122,-18]];
+    var TAS=[[145,-41],[148,-41],[148,-43],[146,-43]];
+    var NZN=[[173,-35],[176,-38],[178,-38],[175,-41],[174,-41],[173,-37]];
+    var NZS=[[167,-44],[171,-43],[174,-42],[173,-46],[168,-47],[166,-45]];
+    var JP=[[130,31],[132,33],[135,34],[137,35],[140,36],[141,38],[142,40],[140,42],[141,43],[144,44],[143,42],[140,40],[138,37],[136,35],[133,34],[131,33],[129,32]];
+    var PHIL=[[120,18],[122,17],[124,13],[126,10],[126,7],[124,6],[122,9],[120,13]];
+    var SUMA=[[95,5],[98,2],[100,0],[102,-2],[104,-4],[106,-6],[105,-6],[101,-2],[98,1]];
+    var JAVA=[[105,-6],[108,-7],[112,-8],[114,-8],[112,-8],[108,-8]];
+    var BORN=[[109,2],[113,3],[117,4],[119,1],[117,-3],[114,-4],[110,-3],[109,0]];
+    var SULA=[[120,1],[123,1],[125,-2],[122,-5],[120,-2],[119,0]];
+    var PNG=[[131,-1],[135,-2],[140,-3],[144,-4],[147,-6],[150,-9],[146,-8],[141,-8],[137,-7],[133,-4]];
+    var MAD=[[49,-12],[50,-16],[48,-22],[45,-25],[44,-22],[46,-16],[48,-13]];
+    var LKA=[[80,9],[82,8],[82,6],[80,6],[79,8]];
+    var ICE=[[-22,64],[-18,66],[-14,65],[-15,64],[-19,63]];
+    var GB=[[-5,50],[-3,51],[0,51],[1,53],[-1,54],[-2,56],[-5,58],[-6,57],[-5,55],[-5,53]];
+    var IRE=[[-10,52],[-6,52],[-6,55],[-8,55],[-10,54]];
+    [NA,GR,SA,AF,ARAB,EU,ITALY,ASIA,AU,TAS,NZN,NZS,JP,PHIL,SUMA,JAVA,BORN,SULA,PNG,MAD,LKA,ICE,GB,IRE].forEach(poly);
+    var d = mc.getImageData(0, 0, MW, MH).data;
+    for (var i = 0; i < MW * MH; i++) land[i] = d[i * 4] < 128 ? 255 : 0;
+  })();
+
+  /* ---- palette --------------------------------------------------------- */
+  var THEMES = {
+    light: { bg: '#fafafa', ink: [20, 19, 14],    sea: [250, 250, 250], dim: 'rgba(20,19,14,0.34)' },
+    dark:  { bg: '#0a0a0a', ink: [242, 241, 236], sea: [10, 10, 10],    dim: 'rgba(242,241,236,0.30)' }
+  };
+
+  /* ---- settings -------------------------------------------------------- */
+  var q = new URLSearchParams(location.search);
+  var cfg = {
+    theme:  q.get('theme') === 'light' ? 'light' : 'dark',
+    speed:  q.has('speed') ? +q.get('speed') : 40,   /* percent of full pace; 100 = one turn in 14 s */
+    orbits: q.get('orbits') !== '0',
+    mark:   q.get('mark') !== '0',
+    still:  q.has('still'),
+    freeze: q.has('t') ? +q.get('t') : null,
+    corner: q.has('corner') ? q.get('corner') : 'NET-WORKS-LAB.COM'
+  };
+  var T = THEMES[cfg.theme];
+
+  /* The site globe's own numbers. */
+  var SPIN = 0.45, TILT = -0.30, PHI0 = 25 * D;   /* PHI0 is the still wallpaper's pose, so the two start alike */
+  var cGT = Math.cos(TILT), sGT = Math.sin(TILT);
+  var rings = [
+    { f: 1.28, incl: 0.30,  base: 0.0, spd: 0.34,  nodes: 6, noff: 0.0 },
+    { f: 1.44, incl: -0.24, base: 1.1, spd: -0.27, nodes: 5, noff: 0.4 }
+  ];
+
+  /* ---- layout, in device pixels like the still ------------------------- */
+  var markL = document.getElementById('markL'), markR = document.getElementById('markR');
+  var globe = document.getElementById('globe');
+  var over = document.getElementById('over'), octx = over.getContext('2d');
+  var dpr = 1, W = 0, H = 0, cx = 0, cy = 0, R = 0, devW = 0, devH = 0;
+  var gb = { x: 0, y: 0, w: 1, h: 1 }, ob = { x: 0, y: 0, w: 1, h: 1 };
+
+  /* Every canvas has to land on the device-pixel grid one-to-one, or the
+     compositor resamples it and the linework goes soft. Layout keeps CSS
+     lengths in 1/64 px, so at 125% or 150% display scaling only some
+     device-pixel values survive the trip (multiples of 5, of 3); each edge
+     moves outward to the nearest one that does. */
+  function onGrid(v) { var c = v / dpr * 64; return Math.abs(c - Math.round(c)) < 1e-6; }
+  function gridDown(v) { v = Math.floor(v); for (var n = 0; n < 64 && !onGrid(v); n++) v--; return v; }
+  function gridUp(v) { v = Math.ceil(v); for (var n = 0; n < 64 && !onGrid(v); n++) v++; return v; }
+  /* Sizes a canvas to cover the device-pixel box x0,y0..x1,y1; returns where it landed. */
+  function place(cv, x0, y0, x1, y1) {
+    var x = gridDown(x0), y = gridDown(y0), w = gridUp(x1 - x), h = gridUp(y1 - y);
+    if (cv.width !== w) cv.width = w;
+    if (cv.height !== h) cv.height = h;
+    cv.style.left = (x / dpr) + 'px'; cv.style.top = (y / dpr) + 'px';
+    cv.style.width = (w / dpr) + 'px'; cv.style.height = (h / dpr) + 'px';
+    return { x: x, y: y, w: w, h: h };
+  }
+  function layout() {
+    dpr = window.devicePixelRatio || 1;
+    /* innerWidth is rounded to whole CSS px, which is a device pixel out on a
+       2560-wide screen at 150%; the observer below reports the real size. It
+       is only believed when it agrees to within that rounding - under an
+       emulated scale factor it answers in CSS px instead. */
+    W = Math.max(1, Math.round(window.innerWidth * dpr)); H = Math.max(1, Math.round(window.innerHeight * dpr));
+    if (Math.abs(devW - W) <= dpr && Math.abs(devH - H) <= dpr) { W = devW; H = devH; }
+    R = Math.min(W, H) * 0.27; cx = W / 2; cy = H * 0.48;
+    /* The globe canvas is the disc plus a pixel of slack; the overlay is the
+       box the outer ring (1.44R) and its nodes can reach. */
+    gb = place(globe, cx - R - 1, cy - R - 1, cx + R + 1, cy + R + 1);
+    var pad = Math.ceil(R * 0.05) + 4;
+    ob = place(over, cx - 1.44 * R - pad, cy - R - pad, cx + 1.44 * R + pad, cy + R + pad);
+    drawMarks();
+  }
+  try {
+    new ResizeObserver(function (entries) {
+      var s = entries[0].devicePixelContentBoxSize;
+      if (!s || (s[0].inlineSize === devW && s[0].blockSize === devH)) return;
+      devW = s[0].inlineSize; devH = s[0].blockSize; layout();
+    }).observe(document.documentElement, { box: 'device-pixel-content-box' });
+  } catch (e) {}
+
+  /* ---- static layer: background and wordmark --------------------------- */
+  function drawMarks() {
+    document.documentElement.style.background = document.body.style.background = T.bg;
+    var corner = String(cfg.corner || '').toUpperCase();
+    markL.style.display = cfg.mark ? '' : 'none';
+    markR.style.display = cfg.mark && corner ? '' : 'none';
+    if (!cfg.mark) return;
+    var INK = 'rgb(' + T.ink[0] + ',' + T.ink[1] + ',' + T.ink[2] + ')';
+    var unit = Math.min(W, H), edge = Math.round(unit * 0.055), my = H - Math.round(unit * 0.05);
+    /* On a screen wider than 16:9 the wordmark keeps to a centred 16:9 frame,
+       which is where Windows puts it when the still is set to Fit, and which
+       keeps it out from under a taskbar docked to the side. */
+    var fw = Math.min(W, Math.round(H * 16 / 9)), fx = Math.round((W - fw) / 2);
+    /* Letter-spacing is drawn by hand: canvas has no tracking. parts is [text, fill] pairs. */
+    function run(cv, parts, weight, fs, fromRight) {
+      var ctx = cv.getContext('2d'), font = weight + ' ' + fs + 'px "DM Mono", ui-monospace, monospace', track = fs * 0.34;
+      ctx.font = font;
+      var total = -track;
+      parts.forEach(function (p) { total += ctx.measureText(p[0]).width + track * p[0].length; });
+      var x = fromRight ? fx + fw - edge - total : fx + edge;
+      var b = place(cv, x - fs, my - 2 * fs, x + total + fs, my + fs);
+      ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, b.w, b.h);
+      ctx.translate(-b.x, -b.y);
+      ctx.font = font; ctx.textBaseline = 'alphabetic';   /* resizing a canvas resets its state */
+      parts.forEach(function (p) {
+        ctx.fillStyle = p[1];
+        for (var c = 0; c < p[0].length; c++) { ctx.fillText(p[0][c], x, my); x += ctx.measureText(p[0][c]).width + track; }
+      });
+    }
+    run(markL, [['NET ', INK], ['// ', T.dim], ['WORKS', INK]], 500, Math.max(11, Math.round(unit * 0.0135)), false);
+    if (corner) run(markR, [[corner, T.dim]], 400, Math.max(9, Math.round(unit * 0.0105)), true);
+  }
+
+  /* ---- globe body and graticule, in a fragment shader ------------------- */
+  /* Per pixel: the still's four subsamples at +-0.25 px, each raycast onto the
+     tilted sphere and looked up in the land mask with the same truncation, so
+     coast and limb antialias exactly as they do in the still. The graticule is
+     the still's difference stroke: distance to the nearest parallel/meridian is
+     the angular gap over the angle's screen gradient, and a pixel inside the
+     stroke width inverts - twice where a parallel crosses a meridian, as two
+     overlapping difference strokes do. */
+  var VERT = '#version 300 es\n' +
+    'void main(){gl_Position=vec4(float((gl_VertexID<<1)&2)*2.0-1.0,float(gl_VertexID&2)*2.0-1.0,0.0,1.0);}';
+  var FRAG = [
+    '#version 300 es',
+    'precision highp float;',
+    'uniform sampler2D u_mask;',
+    'uniform vec2 u_c;',      /* globe centre in this canvas, px, y up */
+    'uniform float u_R;',
+    'uniform float u_phi;',
+    'uniform vec2 u_tilt;',   /* cos, sin */
+    'uniform vec3 u_ink;',
+    'uniform vec3 u_sea;',
+    'uniform float u_lw;',    /* graticule stroke width, px */
+    'out vec4 o;',
+    'const float PI=3.141592653589793;',
+    'float landAt(vec2 P){',
+    '  float Z=sqrt(max(0.0,1.0-dot(P,P)));',
+    '  float wy=P.y*u_tilt.x+Z*u_tilt.y, wz=-P.y*u_tilt.y+Z*u_tilt.x;',
+    '  float lat=asin(clamp(wy,-1.0,1.0));',
+    '  float lon=atan(P.x,wz)-u_phi;',
+    '  int mx=min(int(fract(lon/(2.0*PI)+0.5)*' + MW + '.0),' + (MW - 1) + ');',
+    '  int my=clamp(int((0.5-lat/PI)*' + MH + '.0),0,' + (MH - 1) + ');',
+    '  return texelFetch(u_mask,ivec2(mx,my),0).r;',
+    '}',
+    'void main(){',
+    '  vec2 p=(gl_FragCoord.xy-u_c)/u_R;',
+    '  float inside=0.0,onLand=0.0;',
+    '  for(int sy=0;sy<2;sy++)for(int sx=0;sx<2;sx++){',
+    '    vec2 P=p+(vec2(float(sx),float(sy))-0.5)*0.5/u_R;',
+    '    if(dot(P,P)>1.0)continue;',
+    '    inside+=1.0; onLand+=landAt(P);',
+    '  }',
+    '  if(inside==0.0){o=vec4(0.0);return;}',
+    '  vec3 c=mix(u_sea,u_ink,onLand/inside);',
+    '  vec2 g=p; float d2=dot(g,g);',
+    '  if(d2>0.9995)g*=sqrt(0.9995/d2);',   /* keeps the gradients finite on the limb, under the limb stroke */
+    '  float Z=sqrt(1.0-dot(g,g));',
+    '  float ct=u_tilt.x, st=u_tilt.y;',
+    '  float wy=g.y*ct+Z*st, wz=-g.y*st+Z*ct;',
+    '  vec2 dZ=-g/Z;',
+    '  vec2 dwy=vec2(st*dZ.x,ct+st*dZ.y);',
+    '  vec2 dwz=vec2(ct*dZ.x,-st+ct*dZ.y);',
+    '  float h2=max(1e-6,1.0-wy*wy);',
+    '  float latDeg=degrees(asin(clamp(wy,-1.0,1.0)));',
+    '  float lonDeg=degrees(atan(g.x,wz)-u_phi);',
+    '  float gLat=length(degrees(dwy/sqrt(h2))/u_R);',                       /* degrees of latitude per px */
+    '  float gLon=length(degrees(vec2(wz-g.x*dwz.x,-g.x*dwz.y)/h2)/u_R);',   /* degrees of longitude per px */
+    '  float nearPar=clamp(floor(latDeg/15.0+0.5)*15.0,-75.0,75.0);',
+    '  float dPar=abs(latDeg-nearPar)/max(gLat,1e-6);',
+    '  float dMer=abs(lonDeg-15.0*floor(lonDeg/15.0+0.5))/max(gLon,1e-6);',
+    '  dMer=length(vec2(dMer,max(0.0,abs(latDeg)-82.0)/max(gLat,1e-6)));',   /* meridians stop at 82 degrees, round cap */
+    '  float hw=0.5*u_lw+0.5;',
+    '  c=mix(c,1.0-c,clamp(hw-dPar,0.0,1.0));',
+    '  c=mix(c,1.0-c,clamp(hw-dMer,0.0,1.0));',
+    '  float a=inside/4.0;',
+    '  o=vec4(c*a,a);',
+    '}'
+  ].join('\n');
+
+  var gl = null, prog = null, uni = {};
+  function initGL() {
+    gl = globe.getContext('webgl2', { alpha: true, premultipliedAlpha: true, antialias: false, depth: false, stencil: false });
+    if (!gl) return;
+    function sh(type, src) {
+      var s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s);
+      if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw Error(gl.getShaderInfoLog(s));
+      return s;
+    }
+    prog = gl.createProgram();
+    gl.attachShader(prog, sh(gl.VERTEX_SHADER, VERT)); gl.attachShader(prog, sh(gl.FRAGMENT_SHADER, FRAG));
+    gl.linkProgram(prog);
+    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) throw Error(gl.getProgramInfoLog(prog));
+    gl.useProgram(prog);
+    ['u_mask', 'u_c', 'u_R', 'u_phi', 'u_tilt', 'u_ink', 'u_sea', 'u_lw'].forEach(function (n) { uni[n] = gl.getUniformLocation(prog, n); });
+    gl.bindVertexArray(gl.createVertexArray());
+    var tex = gl.createTexture();
+    gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, tex);
+    gl.pixelStorei(gl.UNPACK_ALIGNMENT, 1);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.R8, MW, MH, 0, gl.RED, gl.UNSIGNED_BYTE, land);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    gl.uniform1i(uni.u_mask, 0);
+    gl.disable(gl.BLEND); gl.clearColor(0, 0, 0, 0);
+  }
+  /* A wallpaper outlives driver resets and sleep, so take the context back when it returns. */
+  globe.addEventListener('webglcontextlost', function (e) { e.preventDefault(); prog = null; });
+  globe.addEventListener('webglcontextrestored', function () { try { initGL(); } catch (err) { console.error(err); } });
+
+  function drawGlobe(phi) {
+    if (!gl || !prog) return;
+    gl.viewport(0, 0, gb.w, gb.h);
+    gl.uniform2f(uni.u_c, cx - gb.x, gb.h - (cy - gb.y));
+    gl.uniform1f(uni.u_R, R);
+    gl.uniform1f(uni.u_phi, phi);
+    gl.uniform2f(uni.u_tilt, cGT, sGT);
+    gl.uniform3f(uni.u_ink, T.ink[0] / 255, T.ink[1] / 255, T.ink[2] / 255);
+    gl.uniform3f(uni.u_sea, T.sea[0] / 255, T.sea[1] / 255, T.sea[2] / 255);
+    gl.uniform1f(uni.u_lw, Math.max(1, 2 * R * 0.0034));
+    gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+  }
+
+  /* ---- limb, orbit rings and their nodes ------------------------------- */
+  function drawOver(clock) {
+    var ctx = octx;
+    ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, ob.w, ob.h);
+    ctx.translate(-ob.x, -ob.y);
+    ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+    var INK = 'rgb(' + T.ink[0] + ',' + T.ink[1] + ',' + T.ink[2] + ')';
+    ctx.lineWidth = Math.max(1.6, R * 0.006);
+    ctx.strokeStyle = INK;
+    ctx.beginPath(); ctx.arc(cx, cy, R, 0, 6.2832); ctx.stroke();
+    if (!cfg.orbits) return;
+    for (var g = 0; g < rings.length; g++) {
+      var rg = rings[g], Ro = rg.f * R, si = Math.sin(rg.incl), spin = rg.base + clock * rg.spd;
+      ctx.lineWidth = Math.max(1.6, R * 0.005);
+      ctx.strokeStyle = INK;
+      ctx.beginPath(); ctx.ellipse(cx, cy, Ro, Math.abs(Ro * si), 0, 0, 6.2832); ctx.stroke();
+      for (var n = 0; n < rg.nodes; n++) {
+        var na = rg.noff + n * 2 * Math.PI / rg.nodes + spin;
+        var nx = cx + Ro * Math.cos(na), ny = cy + Ro * Math.sin(na) * si;
+        var nr = Math.max(3, R * 0.022) * (cfg.still ? 1 : 1 + 0.14 * Math.sin(clock * 2.2 + n * 1.7));
+        ctx.beginPath(); ctx.arc(nx, ny, nr + R * 0.008, 0, 6.2832); ctx.fillStyle = T.bg; ctx.fill();
+        ctx.beginPath(); ctx.arc(nx, ny, nr, 0, 6.2832); ctx.fillStyle = INK; ctx.fill();
+      }
+    }
+  }
+
+  /* ---- clock ----------------------------------------------------------- */
+  /* One clock drives the spin, the ring nodes and their pulse, in full-pace
+     seconds, so Speed slows the whole scene rather than one part of it. */
+  var clock = 0, prevT = performance.now(), frames = 0;
+  function frame(now) {
+    var dt = (now - prevT) / 1000; prevT = now;
+    if (dt > 0.05) dt = 0.05;   /* a paused or hidden wallpaper resumes where it stopped, without a lurch */
+    if (cfg.freeze !== null) clock = cfg.freeze;
+    else if (!cfg.still && dt > 0) clock += dt * cfg.speed / 100;
+    drawGlobe((PHI0 + SPIN * clock) % (2 * Math.PI));
+    drawOver(clock);
+    frames++;
+    requestAnimationFrame(frame);
+  }
+
+  /* ---- settings from the wallpaper host -------------------------------- */
+  /* Lively Wallpaper calls this once per property on load and again on change. */
+  window.livelyPropertyListener = function (name, val) {
+    if (name === 'speed') cfg.speed = Math.max(0, +val || 0);
+    else if (name === 'theme') { cfg.theme = +val === 1 ? 'light' : 'dark'; T = THEMES[cfg.theme]; drawMarks(); }
+    else if (name === 'orbits') cfg.orbits = !!val;
+    else if (name === 'mark') { cfg.mark = !!val; drawMarks(); }
+    else if (name === 'corner') { cfg.corner = String(val == null ? '' : val); drawMarks(); }
+  };
+
+  /* Read-only diagnostics for local checks. */
+  window.nwLive = function () {
+    return { frames: frames, clock: clock, W: W, H: H, R: R, dpr: dpr, webgl2: !!(gl && prog), theme: cfg.theme, speed: cfg.speed };
+  };
+
+  /* scripts/shoot.py steps the clock through this to record the README loop. */
+  window.nwLiveAt = function (t) { cfg.freeze = t; };
+
+  try { initGL(); } catch (err) { console.error(err); }
+  layout();
+  window.addEventListener('resize', layout);
+  /* Canvas text does not count as a use of a webfont, so ask for it by hand, then redraw the wordmark. */
+  Promise.all([document.fonts.load('500 32px "DM Mono"'), document.fonts.load('400 32px "DM Mono"')])
+    .catch(function () {}).then(function () { drawMarks(); window.NW_LIVE_READY = true; });
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
