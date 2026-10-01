@@ -4,7 +4,7 @@
 
 `Windows` [`Lively Wallpaper`](https://github.com/lively-community/lively) `WebGL` `HTML` `Live Wallpaper` - Custom live wallpapers for Lively Wallpaper on Windows: plain HTML pages that draw on the GPU, each with its own settings panel. Widget counterpart: [Ringmast4r/Rainmeter](https://github.com/Ringmast4r/Rainmeter)
 
-[![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=600&size=22&pause=1000&color=00E676&center=true&vCenter=true&multiline=true&repeat=true&width=950&height=80&lines=Your+wallpaper+does+not+have+to+sit+still.;Plain+HTML+%C2%B7+WebGL+%C2%B7+no+build+step;Drop+the+zip+on+Lively.+Done.)](https://git.io/typing-svg)
+[![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=600&size=22&pause=1000&color=00E676&center=true&vCenter=true&multiline=true&repeat=true&width=950&height=100&lines=Your+wallpaper+does+not+have+to+sit+still.;Plain+HTML+%C2%B7+WebGL+%C2%B7+no+build+step;Drop+the+zip+on+Lively.+Done.)](https://git.io/typing-svg)
 
 <img width="800" alt="Net Works Globe, one full turn" src="screenshots/networks-globe.gif"/>
 
@@ -13,7 +13,7 @@
 [![Wallpapers](https://img.shields.io/badge/Wallpapers-1-00C853?style=for-the-badge&logo=windows&logoColor=white)](#the-wallpapers)
 [![Host](https://img.shields.io/badge/Host-Lively_Wallpaper-000000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/lively-community/lively)
 [![Drawn with](https://img.shields.io/badge/Drawn_with-WebGL2-00C853?style=for-the-badge&logo=webgl&logoColor=white)](#how-a-wallpaper-is-built)
-[![License](https://img.shields.io/badge/License-MIT-000000?style=for-the-badge&logo=opensourceinitiative&logoColor=white)](./LICENSE)
+[![License](https://img.shields.io/badge/License-Proprietary-000000?style=for-the-badge&logo=readme&logoColor=white)](./LICENSE)
 
 [![Stars](https://img.shields.io/github/stars/Ringmast4r/Lively-Wallpapers?style=flat-square&color=00C853&label=%E2%98%85%20Stars)](https://github.com/Ringmast4r/Lively-Wallpapers/stargazers)
 [![Forks](https://img.shields.io/github/forks/Ringmast4r/Lively-Wallpapers?style=flat-square&color=00E676&label=%E2%9A%A1%20Forks)](https://github.com/Ringmast4r/Lively-Wallpapers/network/members)
@@ -35,6 +35,7 @@ you@github:~$ cat lively-wallpapers.txt
   HOST:           Lively Wallpaper (free, open source, Windows 10 and 11)
   FORMAT:         One folder per wallpaper: index.html + two small JSON files
   NETWORK:        None. Fonts ship in the folder; nothing is fetched
+  RIGHTS:         Proprietary to Net Works Lab LLC. Free to run, not to redistribute
   STATUS:         [ ACTIVE ]
 ```
 
@@ -116,6 +117,7 @@ wallpapers/networks-globe/
   thumbnail.jpg            what Lively's library shows
   preview.gif              what it shows on hover
   fonts/                   DM Mono, shipped locally so nothing loads from the network
+  LICENSE.txt              the terms the wallpaper is shared under
 ```
 
 Lively hands each setting to the page by calling one function, once per setting on load and again whenever you change it:
@@ -127,13 +129,13 @@ window.livelyPropertyListener = function (name, val) {
 };
 ```
 
-Three things we learned building the globe that are worth stealing:
+Three things we learned building the globe:
 
 - **Put the per-pixel work in a shader.** The globe is raycast in a WebGL2 fragment shader with the land mask as a texture, so the per-pixel work (four samples for every pixel of the disc, every frame, for as long as the desktop is up) runs on the GPU and not in a JavaScript loop.
 - **Repaint only what moves.** The page is four small canvases over a plain CSS background: the two corners of the wordmark (drawn once), the globe, and the rings. A frame touches the globe's box and nothing else.
 - **Land every canvas on the device-pixel grid.** At 125% or 150% scaling a canvas whose CSS size is a hair off its pixel size gets resampled and the linework goes soft. The page snaps each canvas edge to a pixel value that survives the conversion. See `gridDown` / `gridUp` in `index.html`.
 
-To add a wallpaper: make a folder under `wallpapers/` with those files, run `py -3.13 scripts/build_packages.py` to zip it into `packages/`, and add its row to the table above.
+Adding a wallpaper to this repo: make a folder under `wallpapers/` with those files, run `py -3.13 scripts/build_packages.py` to zip it into `packages/`, and add its row to the table above.
 
 ---
 
@@ -148,7 +150,7 @@ To add a wallpaper: make a folder under `wallpapers/` with those files, run `py 
 | **Settings** | `5` | Speed, theme, rings, wordmark, corner text |
 | **Network requests** | `0` | Fonts and code are in the folder |
 | **Dependencies** | `0` | One HTML file, no libraries |
-| **Package size** | `781 KB` | Most of it is the hover preview |
+| **Package size** | `783 KB` | Most of it is the hover preview |
 
 </div>
 
@@ -166,7 +168,11 @@ To add a wallpaper: make a folder under `wallpapers/` with those files, run `py 
 <a id="license"></a>
 ## `> license`
 
-The wallpapers are MIT licensed, see [LICENSE](./LICENSE). The DM Mono font in `wallpapers/networks-globe/fonts/` is under the SIL Open Font License; its text is beside it in `OFL.txt`.
+These wallpapers are proprietary to Net Works Lab LLC. Copyright (c) 2026 Net Works Lab LLC, all rights reserved.
+
+You are welcome to download them and run them, unmodified, on your own devices for personal, non-commercial use. Redistributing, re-hosting, modifying or using them commercially needs written permission. The full terms are in [LICENSE](./LICENSE); this is not an open-source project.
+
+The DM Mono font in `wallpapers/networks-globe/fonts/` is the one exception: it belongs to its own authors and stays under the SIL Open Font License, whose text is beside it in `OFL.txt`.
 
 **Maintained by** [@Ringmast4r](https://github.com/Ringmast4r)
 
