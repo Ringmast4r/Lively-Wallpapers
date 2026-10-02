@@ -152,5 +152,65 @@
     },
     "colour": true,
     "thumb": 16
+  },
+  {
+    "id": "numbers-station",
+    "title": "Net Works Numbers Station",
+    "shared": [
+      "nwlive.js",
+      "marks.js"
+    ],
+    "turn": 16,
+    "stills": {
+      "dark": "?t=6",
+      "light": "?t=6&theme=light"
+    },
+    "colour": true,
+    "thumb": 30
+  },
+  {
+    "id": "phosphor",
+    "title": "Net Works Phosphor",
+    "shared": [
+      "nwlive.js",
+      "marks.js"
+    ],
+    "turn": 12,
+    "stills": {
+      "dark": "?t=1.9",
+      "light": "?t=1.9&theme=light"
+    },
+    "colour": true,
+    "thumb": 13
+  },
+  {
+    "id": "cross-bearing",
+    "title": "Net Works Cross Bearing",
+    "shared": [
+      "nwlive.js",
+      "land-110m.js",
+      "marks.js"
+    ],
+    "turn": 40,
+    "stills": {
+      "dark": "?t=6",
+      "light": "?t=6&theme=light"
+    },
+    "colour": true,
+    "thumb": 12
+  },
+  {
+    "id": "intercept",
+    "title": "Net Works Intercept",
+    "shared": [
+      "nwlive.js"
+    ],
+    "turn": 60,
+    "stills": {
+      "dark": "?t=50",
+      "light": "?t=50&theme=light"
+    },
+    "colour": true,
+    "thumb": 70
   }
 ]

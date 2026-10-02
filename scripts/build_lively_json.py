@@ -87,6 +87,31 @@ WALLPAPERS = {
                 "headstones, a dish, a crow on a yagi. The beacons blink red and bats cross the sky.",
         "props": [SPEED, ("bats", {"type": "checkbox", "text": "Bats", "value": True}), THEME, MARK, CORNER],
     },
+    "numbers-station": {
+        "desc": "A page of five-figure groups, the traffic a numbers station reads out. The digits keep "
+                "changing and an underline walks the groups; the ones that are lit make a skull, then a ghost, "
+                "then a pumpkin, with red figures in the eyes.",
+        "props": [("speed", {"type": "slider", "text": "Speed (100 = full pace)", "value": 40, "min": 0, "max": 200, "step": 5}),
+                  THEME, MARK, CORNER],
+    },
+    "phosphor": {
+        "desc": "An oscilloscope in XY mode drawing things it should not: the beam traces a ghost, a skull, a "
+                "bat and a pumpkin with a tail of afterglow, and the two signals that draw them run underneath.",
+        "props": [("speed", {"type": "slider", "text": "Speed (100 = full pace)", "value": 40, "min": 0, "max": 200, "step": 5}),
+                  THEME, MARK, CORNER],
+    },
+    "cross-bearing": {
+        "desc": "Direction finding on a chart of the North Atlantic: three listening posts take bearings on a "
+                "ghost wandering off Ireland, and the fix goes in red where the three lines cross.",
+        "props": [("speed", {"type": "slider", "text": "Speed (100 = full pace)", "value": 40, "min": 0, "max": 200, "step": 5}),
+                  THEME, MARK, CORNER],
+    },
+    "intercept": {
+        "desc": "A watch log that types itself out: an unidentified station on 6.660 MHz, a fix on a hill with "
+                "no transmitter, and a signal that knows who is listening. Then the night starts again.",
+        "props": [("speed", {"type": "slider", "text": "Typing speed (100 = full pace)", "value": 40, "min": 0, "max": 200, "step": 5}),
+                  THEME, MARK, CORNER],
+    },
     "haunting": {
         "desc": "The round ghosts, drifting up the screen: small ones rise and sway, the near ones are larger, one "
                 "is red, and the big one in the middle bobs where it is.",

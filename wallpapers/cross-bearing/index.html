@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Net Works Cross Bearing</title>
+<style>html{background:#0a0a0a}</style>
+</head>
+<body>
+<script src="nwlive.js"></script>
+<script src="land-110m.js"></script>
+<script src="marks.js"></script>
+<script>
+/* Cross Bearing: three listening posts taking bearings on a ghost, as a
+ * desktop wallpaper.
+ * Copyright (c) 2026 Net Works Lab LLC. All rights reserved. See LICENSE.txt.
+ *
+ * Direction finding the way it is done: three stations each report the bearing
+ * a signal comes from, the three lines are drawn on a chart, and where they
+ * cross is the fix. The lines never quite meet at a point, so they close a
+ * small triangle and the fix is put in the middle of it. Here the stations
+ * are ALPHA, BRAVO and CHARLIE round the North Atlantic, and the thing they
+ * are fixing is a ghost wandering off Ireland. The fix is in blood red.
+ *
+ * Canvas 2D. The chart (frame, graticule, dotted land, stations) is drawn once;
+ * a frame repaints the three bearings, the triangle, the fix and the readout.
+ * The target's wander and the bearing errors are whole numbers of cycles in
+ * forty seconds, so the scene repeats exactly. Coastlines are Natural Earth
+ * 1:110m (land-110m.js); the ghost is Net Works' own Haunt mark (marks.js).
+ * Query string, for looking at the page in a browser:
+ *   ?theme=light   ?speed=100   ?mark=0   ?corner=YOUR+TEXT   ?t=6
+ */
+(function () {
+  var D = NWLive.D, RED = '#CC0000';
+  var LON0 = -78, LON1 = 22, LAT0 = 28, LAT1 = 70, KX = Math.cos(50 * D), LOOP = 40;
+  var POSTS = [
+    { name: 'ALPHA', lon: -52.7, lat: 47.6, ph: 0.0 },
+    { name: 'BRAVO', lon: -21.9, lat: 64.1, ph: 2.1 },
+    { name: 'CHARLIE', lon: -27.1, lat: 38.7, ph: 4.2 }
+  ];
+
+  var m = NWLive.land(1440, 720), dots = [];
+  NWLive.lattice(0.8).forEach(function (p) {
+    if (p[0] > LON0 && p[0] < LON1 && p[1] > LAT0 && p[1] < LAT1 && m.at(p[0], p[1])) dots.push(p);
+  });
+  var ghost = new Image();
+  var ready = new Promise(function (ok) { ghost.onload = ok; ghost.onerror = ok; });
+  ghost.src = NW_MARKS.ghost;
+
+  var cx0, cy0, cw, ch, cbox;
+  function PX(lon) { return cx0 + (lon - LON0) / (LON1 - LON0) * cw; }
+  function PY(lat) { return cy0 + (LAT1 - lat) / (LAT1 - LAT0) * ch; }
+  function inkA(a) { var c = S.T.ink; return 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + a + ')'; }
+  function text(ctx, s, x, y, size, color, align, weight) {
+    ctx.font = (weight || 400) + ' ' + size + 'px "DM Mono", ui-monospace, monospace'; ctx.textBaseline = 'alphabetic';
+    var track = size * 0.16, wd = -track, n;
+    for (n = 0; n < s.length; n++) wd += ctx.measureText(s[n]).width + track;
+    if (align === 'right') x -= wd; else if (align === 'center') x -= wd / 2;
+    ctx.fillStyle = color;
+    for (n = 0; n < s.length; n++) { ctx.fillText(s[n], x, y); x += ctx.measureText(s[n]).width + track; }
+    return wd;
+  }
+  function pad3(v) { return ('00' + Math.round(v)).slice(-3); }
+
+  function drawChart() {
+    var ctx = S.context(chart, cbox), lw = Math.max(1, cw / 900), fs = Math.max(9, Math.round(cw * 0.016)), v;
+    ctx.strokeStyle = inkA(0.15); ctx.lineWidth = lw; ctx.beginPath();
+    for (v = -70; v <= 20; v += 10) { ctx.moveTo(PX(v), cy0); ctx.lineTo(PX(v), cy0 + ch); }
+    for (v = 30; v <= 60; v += 10) { ctx.moveTo(cx0, PY(v)); ctx.lineTo(cx0 + cw, PY(v)); }
+    ctx.stroke();
+    for (v = -70; v <= 20; v += 10)
+      text(ctx, pad3(Math.abs(v)) + (v < 0 ? 'W' : v > 0 ? 'E' : ''), PX(v), cy0 + ch + fs * 1.7, fs, inkA(0.7), 'center');
+    for (v = 30; v <= 60; v += 10) text(ctx, v + 'N', cx0 - fs * 0.7, PY(v) + fs * 0.36, fs, inkA(0.7), 'right');
+    ctx.fillStyle = inkA(0.62); ctx.beginPath();
+    var r = Math.max(0.9, cw / 700);
+    dots.forEach(function (p) { var x = PX(p[0]), y = PY(p[1]); ctx.moveTo(x + r, y); ctx.arc(x, y, r, 0, 6.2832); });
+    ctx.fill();
+    ctx.strokeStyle = S.ink(); ctx.lineWidth = Math.max(1.4, cw / 520); ctx.strokeRect(cx0, cy0, cw, ch);
+    /* the posts: a mast on a base, and a name */
+    POSTS.forEach(function (p) {
+      var x = PX(p.lon), y = PY(p.lat), u = cw / 110;
+      ctx.fillStyle = S.T.bg; ctx.beginPath(); ctx.arc(x, y, u * 1.5, 0, 6.2832); ctx.fill();
+      ctx.strokeStyle = S.ink(); ctx.lineWidth = Math.max(1.4, cw / 520);
+      ctx.beginPath(); ctx.moveTo(x - u, y + u * 0.8); ctx.lineTo(x, y - u * 1.1); ctx.lineTo(x + u, y + u * 0.8); ctx.closePath(); ctx.stroke();
+      ctx.fillStyle = S.ink(); ctx.beginPath(); ctx.arc(x, y, u * 0.28, 0, 6.2832); ctx.fill();
+      text(ctx, p.name, x, y + u * 2.6, fs, S.ink(), 'center', 500);
+    });
+    text(ctx, 'HF/DF  6.660 MHz', cx0, cy0 - fs * 0.9, fs, inkA(0.78), 'left');
+    text(ctx, '31 OCT  0000Z', cx0 + cw, cy0 - fs * 0.9, fs, inkA(0.78), 'right');
+  }
+
+  var S = NWLive.stage({
+    fps: 30,
+    ready: ready,
+    layout: function (S) {
+      cw = Math.round(Math.min(S.W * 0.60, S.H * 1.12)); ch = Math.round(cw * (LAT1 - LAT0) / ((LON1 - LON0) * KX));
+      cx0 = Math.round(S.cx - cw / 2); cy0 = Math.round(S.cy - ch / 2 - S.H * 0.02);
+      var pad = Math.round(cw * 0.09) + 8;
+      cbox = S.place(chart, cx0 - pad, cy0 - pad, cx0 + cw + pad, cy0 + ch + pad * 1.9);
+      S.place(live, cx0 - pad, cy0 - pad, cx0 + cw + pad, cy0 + ch + pad * 1.9);
+      drawChart();
+    },
+    change: function () { drawChart(); },
+    draw: function (S, clock) {
+      var ctx = S.context(live, cbox), w = clock / LOOP * 6.2832, INK = S.ink();
+      var tlon = -11 + 9 * Math.sin(w), tlat = 53.5 + 4.5 * Math.sin(2 * w + 0.6), tx = PX(tlon), ty = PY(tlat);
+      var lw = Math.max(1.2, cw / 620), far = cw * 2;
+
+      /* each post reports the bearing it hears, a degree or two out */
+      var L = POSTS.map(function (p) {
+        var x = PX(p.lon), y = PY(p.lat), a = Math.atan2(tx - x, -(ty - y)) + 1.7 * D * Math.sin(3 * w + p.ph);
+        return { x: x, y: y, dx: Math.sin(a), dy: -Math.cos(a), brg: ((a / D) % 360 + 360) % 360 };
+      });
+      function meet(p, q) {
+        var det = p.dx * q.dy - p.dy * q.dx, t = ((q.x - p.x) * q.dy - (q.y - p.y) * q.dx) / det;
+        return [p.x + p.dx * t, p.y + p.dy * t];
+      }
+      var T = [meet(L[0], L[1]), meet(L[1], L[2]), meet(L[2], L[0])];
+      var fx = (T[0][0] + T[1][0] + T[2][0]) / 3, fy = (T[0][1] + T[1][1] + T[2][1]) / 3;
+
+      ctx.save(); ctx.beginPath(); ctx.rect(cx0, cy0, cw, ch); ctx.clip();
+      ctx.lineCap = 'round'; ctx.strokeStyle = INK; ctx.lineWidth = lw; ctx.globalAlpha = 0.85; ctx.beginPath();
+      L.forEach(function (l) { ctx.moveTo(l.x, l.y); ctx.lineTo(l.x + l.dx * far, l.y + l.dy * far); });
+      ctx.stroke();
+      ctx.globalAlpha = 1;
+      if (ghost.naturalWidth) {
+        var gw = cw * 0.05, gh = gw * ghost.naturalHeight / ghost.naturalWidth;
+        ctx.save(); ctx.translate(tx, ty); ctx.rotate(0.12 * Math.sin(3 * w));
+        ctx.drawImage(ghost, -gw / 2, -gh / 2, gw, gh);
+        ctx.restore();
+      }
+      ctx.strokeStyle = RED; ctx.lineWidth = lw * 1.3; ctx.lineJoin = 'round';
+      ctx.beginPath(); ctx.moveTo(T[0][0], T[0][1]); ctx.lineTo(T[1][0], T[1][1]); ctx.lineTo(T[2][0], T[2][1]); ctx.closePath(); ctx.stroke();
+      var ring = cw * 0.038;
+      ctx.beginPath(); ctx.arc(fx, fy, ring, 0, 6.2832); ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(fx - ring * 1.5, fy); ctx.lineTo(fx - ring * 0.6, fy); ctx.moveTo(fx + ring * 0.6, fy); ctx.lineTo(fx + ring * 1.5, fy);
+      ctx.moveTo(fx, fy - ring * 1.5); ctx.lineTo(fx, fy - ring * 0.6); ctx.moveTo(fx, fy + ring * 0.6); ctx.lineTo(fx, fy + ring * 1.5);
+      ctx.stroke();
+      ctx.restore();
+
+      /* the readout under the chart */
+      var fs = Math.max(9, Math.round(cw * 0.017)), y = cy0 + ch + fs * 4.4, x = cx0;
+      L.forEach(function (l, n) {
+        x += text(ctx, POSTS[n].name + ' BRG ' + pad3(l.brg), x, y, fs, inkA(0.85), 'left') + fs * 2.4;
+      });
+      var flon = LON0 + (fx - cx0) / cw * (LON1 - LON0), flat = LAT1 - (fy - cy0) / ch * (LAT1 - LAT0);
+      function dm(v, pos, neg, wide) {
+        var a = Math.abs(v), d = Math.floor(a), mm = Math.floor((a - d) * 60);
+        return ((wide ? '00' : '0') + d).slice(wide ? -3 : -2) + ' ' + ('0' + mm).slice(-2) + (v < 0 ? neg : pos);
+      }
+      var spread = Math.max(Math.hypot(T[0][0] - T[1][0], T[0][1] - T[1][1]), Math.hypot(T[1][0] - T[2][0], T[1][1] - T[2][1]),
+                            Math.hypot(T[2][0] - T[0][0], T[2][1] - T[0][1]));
+      var nm = Math.max(1, Math.round(spread / ch * (LAT1 - LAT0) * 60 / 2));
+      text(ctx, 'FIX ' + dm(flat, 'N', 'S', false) + '  ' + dm(flon, 'E', 'W', true) + '  CEP ' + nm + ' NM', cx0, y + fs * 2.1, fs, RED, 'left', 500);
+    }
+  });
+  var chart = S.canvas(), live = S.canvas();
+  S.start();
+})();
+</script>
+</body>
+</html>

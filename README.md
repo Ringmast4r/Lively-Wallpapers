@@ -1,6 +1,6 @@
 <div align="center">
 
-<img width="100%" alt="LIVELY WALLPAPERS" src="https://capsule-render.vercel.app/api?type=waving&color=0:000000,100:00C853&height=220&section=header&text=LIVELY%20WALLPAPERS&fontSize=58&fontColor=ffffff&animation=twinkling&fontAlignY=35&desc=Eleven%20of%20ours%20and%2085%20community%20picks%20%7C%20Live%20wallpapers%20for%20Windows&descSize=18&descAlignY=58"/>
+<img width="100%" alt="LIVELY WALLPAPERS" src="https://capsule-render.vercel.app/api?type=waving&color=0:000000,100:00C853&height=220&section=header&text=LIVELY%20WALLPAPERS&fontSize=58&fontColor=ffffff&animation=twinkling&fontAlignY=35&desc=Fifteen%20of%20ours%20and%2085%20community%20picks%20%7C%20Live%20wallpapers%20for%20Windows&descSize=18&descAlignY=58"/>
 
 `Windows` [`Lively Wallpaper`](https://github.com/lively-community/lively) `WebGL` `Canvas` `HTML` `Live Wallpaper` - Custom live wallpapers for Lively Wallpaper on Windows: plain HTML pages that draw on the GPU, each with its own settings panel. Widget counterpart: [Ringmast4r/Rainmeter](https://github.com/Ringmast4r/Rainmeter)
 
@@ -65,6 +65,10 @@ Every picture in this README is the wallpaper itself, recorded by stepping the r
 | <img width="200" alt="" src="wallpapers/ghost-signal/preview.gif"/> | **[Ghost Signal](#ghost-signal)** | A receiver waterfall that a ghost, a pumpkin or a skull comes down every so often. | [`ghost-signal.zip`](https://github.com/Ringmast4r/Lively-Wallpapers/raw/main/packages/ghost-signal.zip) |
 | <img width="200" alt="" src="wallpapers/listening-post/preview.gif"/> | **[Listening Post](#listening-post)** | The globe turning over an antenna yard that is also a graveyard, beacons blinking. | [`listening-post.zip`](https://github.com/Ringmast4r/Lively-Wallpapers/raw/main/packages/listening-post.zip) |
 | <img width="200" alt="" src="wallpapers/haunting/preview.gif"/> | **[Haunting](#haunting)** | Round ghosts drifting up the screen, one of them red. | [`haunting.zip`](https://github.com/Ringmast4r/Lively-Wallpapers/raw/main/packages/haunting.zip) |
+| <img width="200" alt="" src="wallpapers/numbers-station/preview.gif"/> | **[Numbers Station](#numbers-station)** | Five-figure groups that light up as a skull, a ghost and a pumpkin, with red figures in the eyes. | [`numbers-station.zip`](https://github.com/Ringmast4r/Lively-Wallpapers/raw/main/packages/numbers-station.zip) |
+| <img width="200" alt="" src="wallpapers/phosphor/preview.gif"/> | **[Phosphor](#phosphor)** | An oscilloscope beam drawing a ghost, a skull, a bat and a pumpkin, with afterglow. | [`phosphor.zip`](https://github.com/Ringmast4r/Lively-Wallpapers/raw/main/packages/phosphor.zip) |
+| <img width="200" alt="" src="wallpapers/cross-bearing/preview.gif"/> | **[Cross Bearing](#cross-bearing)** | Three listening posts taking bearings on a ghost off Ireland; the fix goes in red. | [`cross-bearing.zip`](https://github.com/Ringmast4r/Lively-Wallpapers/raw/main/packages/cross-bearing.zip) |
+| <img width="200" alt="" src="wallpapers/intercept/preview.gif"/> | **[Intercept](#intercept)** | A watch log that types out one bad night on 6.660 MHz, then starts again. | [`intercept.zip`](https://github.com/Ringmast4r/Lively-Wallpapers/raw/main/packages/intercept.zip) |
 
 **Settings every wallpaper has** (right click the wallpaper in Lively, then Customise):
 
@@ -359,6 +363,62 @@ Every ghost makes a whole number of trips in sixteen seconds at Speed 100, so it
 
 ---
 
+<a id="numbers-station"></a>
+## `> numbers_station`
+
+<p align="center">
+  <img width="49%" alt="Numbers Station, dark" src="screenshots/numbers-station-dark.png"/>
+  <img width="49%" alt="Numbers Station, light" src="screenshots/numbers-station-light.png"/>
+</p>
+
+A page of five-figure groups, the traffic a numbers station reads out. The digits keep changing a few at a time, and an underline walks the groups in the order a voice would read them. Most of the page is dim. The groups that are lit make a skull, then a ghost, then a pumpkin, each wiped in from the top, and the figures that fall in its eyes are blood red.
+
+It is text and nothing else. Every digit is a pure function of its cell and the clock, so the page can be frozen at any moment and drawn again exactly. The marks are our own: Nullskull, Haunt and Emberjack.
+
+---
+
+<a id="phosphor"></a>
+## `> phosphor`
+
+<p align="center">
+  <img width="49%" alt="Phosphor, dark" src="screenshots/phosphor-dark.png"/>
+  <img width="49%" alt="Phosphor, light" src="screenshots/phosphor-light.png"/>
+</p>
+
+An oscilloscope in XY mode, drawing things it should not. Feed a scope one signal on X and another on Y and the beam draws a picture. Here it draws a ghost, then a skull, a bat and a pumpkin: the beam runs round the outline with a tail of afterglow, the whole figure stays faintly lit the way a slow phosphor would hold it, and every twelve seconds the signals drift and the trace pulls itself into the next shape. The eyes are in red.
+
+The two strips underneath are the signals themselves, X and Y against time, with a red marker where the beam is. Each figure is the same number of points, traced from our own marks by `scripts/build_marks.py`, so one shape turns into the next point for point.
+
+---
+
+<a id="cross-bearing"></a>
+## `> cross_bearing`
+
+<p align="center">
+  <img width="49%" alt="Cross Bearing, dark" src="screenshots/cross-bearing-dark.png"/>
+  <img width="49%" alt="Cross Bearing, light" src="screenshots/cross-bearing-light.png"/>
+</p>
+
+Direction finding the way it is done. Three stations each report the bearing a signal comes from, the three lines are drawn on a chart, and where they cross is the fix. The lines never quite meet at a point, so they close a small triangle and the fix goes in the middle of it. Here the stations are ALPHA, BRAVO and CHARLIE round the North Atlantic, and the thing they are fixing is a ghost wandering off Ireland. The triangle, the fix and its position are in blood red.
+
+The chart is drawn once; a frame repaints the bearings, the triangle and the readout. The wander and the bearing errors are whole numbers of cycles in forty seconds, so it loops without a seam. Coastlines are Natural Earth 1:110m.
+
+---
+
+<a id="intercept"></a>
+## `> intercept`
+
+<p align="center">
+  <img width="49%" alt="Intercept, dark" src="screenshots/intercept-dark.png"/>
+  <img width="49%" alt="Intercept, light" src="screenshots/intercept-light.png"/>
+</p>
+
+A watch log that types itself out, a character at a time, the way an operator would enter it. One night on 6.660 MHz: an unidentified station reading five-figure groups, a direction-finding fix on a hill with no transmitter on it, and a signal that turns out to know who is listening. When the watch ends the page holds for a few seconds, clears, and the night starts again. Three of the entries are in blood red.
+
+Text only, and the story is ours. What is on the page is a pure function of the clock. Here Speed is the typing speed.
+
+---
+
 <a id="install"></a>
 ## `> install`
 
@@ -391,9 +451,9 @@ A Lively web wallpaper is a folder. No SDK and no build step.
 ```
 wallpapers/pumpkin-globe/
   index.html               the wallpaper: its drawing, and nothing else
-  nwlive.js                the kit all eleven share: settings, layout, wordmark, clock, shader pieces
+  nwlive.js                the kit all fifteen share: settings, layout, wordmark, clock, shader pieces
   land-110m.js             the real coastlines (the globes that use them)
-  marks.js                 our bat, ghost, pumpkin and skull marks as data (the October four)
+  marks.js                 our bat, ghost, pumpkin and skull marks as data (the October ones)
   LivelyInfo.json          title, author, which file to open, thumbnail
   LivelyProperties.json    the settings panel: sliders, dropdowns, checkboxes, text boxes
   thumbnail.jpg            what Lively's library shows

@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Net Works Intercept</title>
+<style>html{background:#0a0a0a}</style>
+</head>
+<body>
+<script src="nwlive.js"></script>
+<script>
+/* Intercept: a watch log that types itself out, as a desktop wallpaper.
+ * Copyright (c) 2026 Net Works Lab LLC. All rights reserved. See LICENSE.txt.
+ *
+ * The log of one night's watch on 6.660 MHz, typed a character at a time the
+ * way an operator would enter it: an unidentified station reading five-figure
+ * groups, a direction-finding fix on a hill with no transmitter on it, and a
+ * signal that turns out to know who is listening. When the watch ends the page
+ * holds for a few seconds, clears, and the night starts again. Three of the
+ * lines are in blood red.
+ *
+ * Canvas 2D, text only. What is on the page is a pure function of the clock,
+ * so a frozen clock (?t=) draws the log as it stood at that moment. The story
+ * is ours.
+ * Query string, for looking at the page in a browser:
+ *   ?theme=light   ?speed=100   ?mark=0   ?corner=YOUR+TEXT   ?t=47
+ */
+(function () {
+  var RED = '#CC0000';
+  var CPS = 28, PAUSE = 1.2, HOLD = 8;       /* characters a second at Speed 100, the gap between entries, the wait at the end */
+  /* [text, 1 if the entry is in red] */
+  var LOG = [
+    ['0000Z  6.660  UNID   AM/VOICE  "ONE THREE.  ONE THREE.  READY."', 0],
+    ['0001Z  6.660  UNID   AM/VOICE  FIVE-FIGURE GROUPS, FEMALE VOICE, 31 GROUPS', 0],
+    ['0004Z  6.660  UNID   CW        SLOW HAND KEY.  NO CALLSIGN GIVEN', 0],
+    ['0006Z  DF     ALPHA BRG 074    BRAVO BRG 151    CHARLIE BRG 031', 0],
+    ['0007Z  FIX    53 37N 006 53W   HILL OF WARD.  CEP 2 NM', 0],
+    ['0009Z  NOTE   NO TRANSMITTER LISTED AT FIX.  NO POWER AT SITE', 0],
+    ['0013Z  6.660  UNID   CW        "WHO IS LISTENING"', 1],
+    ['0013Z  NOTE   WE HAVE NOT TRANSMITTED', 0],
+    ['0017Z  6.660  UNID   AM/VOICE  READS BACK OUR STATION DESIGNATOR', 0],
+    ['0019Z  DF     ALPHA BRG 074    BRAVO BRG 151    CHARLIE BRG 031', 0],
+    ['0019Z  NOTE   BEARINGS UNCHANGED.  SIGNAL STRENGTH RISING', 0],
+    ['0022Z  6.660  UNID   AM/VOICE  COUNTING DOWN FROM THIRTEEN', 0],
+    ['0024Z  DF     ALPHA BRG ---    BRAVO BRG ---    CHARLIE BRG ---', 0],
+    ['0024Z  NOTE   ALL BEARINGS NOW POINT INWARD', 1],
+    ['0025Z  NOTE   IT IS NOT ON THE AIR.  IT IS ON THE LINE', 0],
+    ['0026Z  6.660  UNID   AM/VOICE  "ZERO"', 1],
+    ['0026Z  ----   CARRIER DROPPED', 0],
+    ['0031Z  NOTE   POSITION 3 FOUND EMPTY.  HEADSET STILL WARM', 0],
+    ['0031Z  END OF WATCH', 0]
+  ];
+  var WIDE = LOG.reduce(function (n, l) { return Math.max(n, l[0].length); }, 0);
+  /* when each entry starts being typed, in seconds at Speed 100 */
+  var START = [], LOOP = 1.5;
+  LOG.forEach(function (l) { START.push(LOOP); LOOP += l[0].length / CPS + PAUSE; });
+  LOOP += HOLD;
+
+  function inkA(a) { var c = S.T.ink; return 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + a + ')'; }
+  var fs, adv, lh, x0, y0, box;
+
+  var S = NWLive.stage({
+    fps: 20,
+    layout: function (S) {
+      adv = Math.max(5, Math.floor(Math.min(S.W * 0.62, S.H * 1.3) / WIDE));
+      fs = Math.round(adv / 0.6); lh = Math.round(fs * 1.78);
+      var tall = (LOG.length + 2) * lh;
+      x0 = Math.round(S.cx - WIDE * adv / 2); y0 = Math.round(S.cy - tall / 2);
+      box = S.place(cv, x0 - adv * 2, y0 - lh, x0 + WIDE * adv + adv * 3, y0 + tall + lh);
+    },
+    draw: function (S, clock) {
+      var ctx = S.context(cv, box), t = ((clock % LOOP) + LOOP) % LOOP, INK = S.ink(), DIM = inkA(0.55), n, c;
+      ctx.font = '400 ' + fs + 'px "DM Mono", ui-monospace, monospace'; ctx.textBaseline = 'alphabetic';
+      function put(s, col, y, colour) {
+        ctx.fillStyle = colour;
+        for (c = 0; c < s.length; c++) if (s[c] !== ' ') ctx.fillText(s[c], x0 + (col + c) * adv, y);
+      }
+      put('INTERCEPT LOG', 0, y0 + lh * 0.7, INK);
+      put('31 OCT   6.660 MHz   POSITION 3', WIDE - 31, y0 + lh * 0.7, DIM);
+      ctx.fillStyle = INK; ctx.fillRect(x0, y0 + lh, WIDE * adv, Math.max(1, Math.round(fs * 0.08)));
+
+      var cur = null;
+      for (n = 0; n < LOG.length; n++) {
+        if (t < START[n]) break;
+        var line = LOG[n][0], shown = Math.min(line.length, Math.floor((t - START[n]) * CPS));
+        var y = y0 + (n + 2) * lh + lh * 0.7;
+        put(line.slice(0, Math.min(shown, 5)), 0, y, DIM);
+        if (shown > 5) put(line.slice(5, shown), 5, y, LOG[n][1] ? RED : INK);
+        cur = [shown, y, LOG[n][1]];
+      }
+      /* the cursor sits after the last character typed, and blinks while the operator waits */
+      if (!cur) cur = [0, y0 + 2 * lh + lh * 0.7, 0];
+      if (Math.floor(clock * 2.5) % 2 === 0 || S.still) {
+        ctx.fillStyle = cur[2] ? RED : INK;
+        ctx.fillRect(x0 + cur[0] * adv + Math.round(adv * 0.15), cur[1] - Math.round(fs * 0.86), Math.round(adv * 0.82), Math.round(fs * 1.06));
+      }
+    }
+  });
+  var cv = S.canvas();
+  S.start();
+})();
+</script>
+</body>
+</html>
