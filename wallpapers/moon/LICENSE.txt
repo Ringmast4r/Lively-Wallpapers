@@ -28,6 +28,14 @@ No other rights are granted, by implication or otherwise. Publishing this
 repository does not place the Work in the public domain or under any
 open-source license.
 
+What this license does not cover
+
+The community/ and screenshots/community/ folders are not part of the Work.
+They hold wallpapers made by other people, and previews of them, credited in
+README.md and in each community/<name>/SOURCE.md. Each of those wallpapers
+stays under its own author's license, whose text is in its folder. Nothing in
+this license applies to them, and Net Works Lab LLC claims no rights in them.
+
 Third-party material
 
 Three things in the Work belong to others and are not covered by this license:

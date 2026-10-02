@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Net Works Ghost Signal</title>
+<style>html{background:#0a0a0a}</style>
+</head>
+<body>
+<script src="nwlive.js"></script>
+<script src="marks.js"></script>
+<script>
+/* Ghost Signal: a receiver waterfall with something in it, as a desktop wallpaper.
+ * Copyright (c) 2026 Net Works Lab LLC. All rights reserved. See LICENSE.txt.
+ *
+ * A spectrum strip over a waterfall, the way a software radio shows a band:
+ * frequency across, time running down. Two carriers hold their lines, bursts
+ * come and go, a wide signal switches on and off - and every so often a
+ * transmission comes down the waterfall that turns out to be a ghost, a
+ * pumpkin or a skull, the trick radio amateurs use to send a picture.
+ *
+ * Canvas 2D. Each row of the waterfall is a pure function of its row number,
+ * so a frame only has to slide the picture down and compute the few rows that
+ * are new, and a frozen clock (?t=) still draws the whole panel. The cells are
+ * whole device pixels, so nothing is resampled. The marks are Net Works' own
+ * (marks.js): Haunt, Emberjack, Nullskull.
+ * Query string, for looking at the page in a browser:
+ *   ?theme=light   ?speed=100   ?mark=0   ?corner=YOUR+TEXT   ?t=7.6
+ */
+(function () {
+  var RED = '#CC0000';
+  var CROSS = 9.35;                 /* seconds a row takes to cross the panel at Speed 100 */
+  var ORDER = ['ghost', 'pumpkin', 'skull'];
+
+  function rnd(seed) {
+    var a = seed >>> 0;
+    return function () {
+      a |= 0; a = a + 0x6D2B79F5 | 0;
+      var t = Math.imul(a ^ a >>> 15, 1 | a);
+      t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+  }
+  var imgs = ORDER.map(function (k) {
+    var im = new Image();
+    im.ready = new Promise(function (ok) { im.onload = ok; im.onerror = ok; });
+    im.src = NW_MARKS.maps[k];
+    return im;
+  });
+
+  var cell, cols, rows, x0, sy0, sy1, wy1, markN, period, car1, car2, masks = [];
+  var off = document.createElement('canvas'), octx = null, lastTop = null, row = null, fbox, lbox;
+
+  /* each mark's fill as bits on a markN x markN grid of cells */
+  function buildMasks() {
+    masks = imgs.map(function (im) {
+      var c = document.createElement('canvas'); c.width = markN; c.height = markN;
+      var g = c.getContext('2d', { willReadFrequently: true });
+      if (im.naturalWidth) {
+        var s = Math.min(markN / im.naturalWidth, markN / im.naturalHeight), dw = im.naturalWidth * s, dh = im.naturalHeight * s;
+        g.drawImage(im, (markN - dw) / 2, (markN - dh) / 2, dw, dh);
+      }
+      var d = g.getImageData(0, 0, markN, markN).data, bits = new Uint8Array(markN * markN);
+      for (var i = 0; i < bits.length; i++) bits[i] = d[i * 4] > 127 ? 1 : 0;
+      return bits;
+    });
+  }
+
+  /* row k of the waterfall, as signal strength per column */
+  function signal(k, out) {
+    var R = rnd(Math.imul(k, 2654435761) ^ 0x9e3779b9), c;
+    for (c = 0; c < cols; c++) out[c] = -Math.log(1 - R()) * 0.07;
+    out[car1 + Math.round(Math.sin(k * 0.045) * 1.3)] += 0.42 * (0.6 + 0.4 * R());
+    out[car2] += 0.55 * (0.7 + 0.3 * R());
+    if (((k % 260) + 260) % 260 < 90) for (c = Math.round(cols * 0.60); c < cols * 0.70; c++) out[c] += 0.05 + 0.10 * R();
+    if (R() < 0.12) {
+      var c0 = Math.floor(R() * cols * 0.9), len = 4 + Math.floor(R() * 26), amp = 0.38 + 0.3 * R();
+      for (c = c0; c < Math.min(cols, c0 + len); c++) out[c] += amp;
+    }
+    var seq = Math.floor(k / period), j = k - seq * period;
+    if (j < markN && masks.length) {
+      /* the first row sent ends up lowest, so a mark goes out bottom row first */
+      var bits = masks[((seq % 3) + 3) % 3], mr = markN - 1 - j;
+      var at = Math.round(cols * 0.06 + rnd(seq * 7919 + 13)() * (cols * 0.88 - markN));
+      for (c = 0; c < markN; c++) if (bits[mr * markN + c]) out[at + c] += 0.62 * (0.5 + 0.5 * R());
+    }
+  }
+
+  function paint(top, y0, n) {
+    var img = octx.createImageData(cols, n), px = img.data, bg = S.T.sea, ink = S.T.ink;
+    for (var y = 0; y < n; y++) {
+      signal(top - (y0 + y), row);
+      for (var c = 0; c < cols; c++) {
+        var g = Math.pow(Math.min(1, row[c]), 0.8), i = (y * cols + c) * 4;
+        px[i] = bg[0] + (ink[0] - bg[0]) * g; px[i + 1] = bg[1] + (ink[1] - bg[1]) * g;
+        px[i + 2] = bg[2] + (ink[2] - bg[2]) * g; px[i + 3] = 255;
+      }
+    }
+    octx.putImageData(img, 0, y0);
+  }
+
+  function inkA(a) { var c = S.T.ink; return 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + a + ')'; }
+  function text(ctx, s, x, y, size, color, align) {
+    ctx.font = '400 ' + size + 'px "DM Mono", ui-monospace, monospace'; ctx.textBaseline = 'alphabetic';
+    var track = size * 0.16, wd = -track, n;
+    for (n = 0; n < s.length; n++) wd += ctx.measureText(s[n]).width + track;
+    if (align === 'right') x -= wd; else if (align === 'center') x -= wd / 2;
+    ctx.fillStyle = color;
+    for (n = 0; n < s.length; n++) { ctx.fillText(s[n], x, y); x += ctx.measureText(s[n]).width + track; }
+  }
+
+  /* the instrument around the picture: frames, ticks, frequencies. Drawn once. */
+  function drawFrame() {
+    var ctx = S.context(frame, fbox), pw = cols * cell, lw = Math.max(1, Math.round(cell * 0.67)), n;
+    var fs = Math.max(9, Math.round(pw * 0.0205)), dim = inkA(0.78), f0 = 6.650, span = 0.020;
+    ctx.strokeStyle = S.ink(); ctx.lineWidth = lw;
+    ctx.strokeRect(x0 - lw / 2, sy0 - lw / 2, pw + lw, sy1 - sy0 + lw / 2);
+    ctx.strokeRect(x0 - lw / 2, sy1, pw + lw, wy1 - sy1 + lw / 2);
+    ctx.beginPath();
+    for (n = 0; n <= 20; n++) {
+      var tx = x0 + pw * n / 20;
+      ctx.moveTo(tx, wy1 + lw); ctx.lineTo(tx, wy1 + lw + fs * (n % 5 === 0 ? 0.95 : 0.5));
+    }
+    ctx.stroke();
+    for (n = 0; n <= 4; n++)
+      text(ctx, (f0 + span * n / 4).toFixed(3), x0 + pw * n / 4, wy1 + fs * 2.6, fs, dim, n === 0 ? 'left' : n === 4 ? 'right' : 'center');
+    text(ctx, 'RX ' + (f0 + span * (car2 + 0.5) / cols).toFixed(3) + ' MHz  USB', x0, sy0 - fs * 0.9, fs, dim, 'left');
+    text(ctx, '31 OCT  0000Z', x0 + pw, sy0 - fs * 0.9, fs, dim, 'right');
+  }
+
+  var S = NWLive.stage({
+    fps: 30,
+    ready: Promise.all(imgs.map(function (im) { return im.ready; })).then(function () { if (markN) { buildMasks(); lastTop = null; } }),
+    layout: function (S) {
+      var want = Math.min(S.W * 0.56, S.H * 1.15);
+      cell = Math.max(2, Math.round(want / 420));
+      cols = Math.floor(want / cell); rows = Math.floor(S.H * 0.52 / cell);
+      var strip = Math.round(S.H * 0.075), tall = strip + rows * cell;
+      x0 = Math.round(S.cx - cols * cell / 2); sy0 = Math.round(S.cy - tall / 2); sy1 = sy0 + strip; wy1 = sy1 + rows * cell;
+      markN = Math.min(Math.round(rows * 0.62), Math.floor(cols * 0.7)); period = markN + Math.round(rows * 0.26);
+      car1 = Math.round(cols * 0.13); car2 = Math.round(cols * 0.84);
+      off.width = cols; off.height = rows; octx = off.getContext('2d'); row = new Float32Array(cols + 4);
+      buildMasks(); lastTop = null;
+      var pad = Math.round(cols * cell * 0.09) + 8;
+      fbox = S.place(frame, x0 - pad, sy0 - pad, x0 + cols * cell + pad, wy1 + pad);
+      lbox = S.place(live, x0 - pad, sy0 - pad, x0 + cols * cell + pad, wy1 + pad);
+      drawFrame();
+    },
+    change: function () { lastTop = null; drawFrame(); },
+    draw: function (S, clock) {
+      var top = Math.floor(clock * rows / CROSS), n = lastTop === null ? rows : top - lastTop;
+      if (n < 0 || n >= rows) paint(top, 0, rows);
+      else if (n > 0) {
+        octx.globalCompositeOperation = 'copy';
+        octx.drawImage(off, 0, 0, cols, rows - n, 0, n, cols, rows - n);
+        octx.globalCompositeOperation = 'source-over';
+        paint(top, 0, n);
+      }
+      lastTop = top;
+
+      var ctx = S.context(live, lbox), pw = cols * cell, c;
+      ctx.imageSmoothingEnabled = false;
+      ctx.drawImage(off, x0, sy1, pw, rows * cell);
+
+      /* the strip: the last few rows, averaged */
+      var power = new Float32Array(cols), AV = 8;
+      for (var a = 0; a < AV; a++) { signal(top - a, row); for (c = 0; c < cols; c++) power[c] += row[c] / AV; }
+      var sh = sy1 - sy0 - cell * 3;
+      ctx.strokeStyle = S.ink(); ctx.lineWidth = Math.max(1.2, cell * 0.7); ctx.lineJoin = 'round'; ctx.beginPath();
+      for (c = 0; c < cols; c++) {
+        var y = sy1 - cell * 1.5 - Math.min(1, power[c] / 0.75) * sh, x = x0 + (c + 0.5) * cell;
+        if (c === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+
+      var xr = x0 + (car2 + 0.5) * cell, lw = Math.max(1, Math.round(cell * 0.67)), tri = cell * 3.5;
+      ctx.strokeStyle = RED; ctx.lineWidth = lw; ctx.beginPath(); ctx.moveTo(xr, sy0); ctx.lineTo(xr, wy1); ctx.stroke();
+      ctx.fillStyle = RED; ctx.beginPath(); ctx.moveTo(xr - tri, sy0 - tri * 1.3); ctx.lineTo(xr + tri, sy0 - tri * 1.3); ctx.lineTo(xr, sy0 + 1); ctx.closePath(); ctx.fill();
+    }
+  });
+  var live = S.canvas(), frame = S.canvas();
+  S.start();
+})();
+</script>
+</body>
+</html>

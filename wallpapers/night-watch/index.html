@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Net Works Night Watch</title>
+<style>html{background:#0a0a0a}</style>
+</head>
+<body>
+<script src="nwlive.js"></script>
+<script src="marks.js"></script>
+<script>
+/* Night Watch: a radar scope with bats for contacts, as a desktop wallpaper.
+ * Copyright (c) 2026 Net Works Lab LLC. All rights reserved. See LICENSE.txt.
+ *
+ * Range rings, a bearing scale and a sweep that goes round once every eight
+ * seconds at Speed 100. Each bat is a contact: it is painted when the sweep
+ * passes over it and fades until the sweep comes round again. One contact is
+ * in blood red and carries its bearing and range.
+ *
+ * Canvas 2D. The scope itself (rings, spokes, ticks, bearings) is drawn once
+ * on its own canvas; a frame repaints only the sweep and the contacts. Every
+ * motion is a whole number of cycles per sweep, so the scene repeats exactly.
+ * Query string, for looking at the page in a browser:
+ *   ?theme=light   ?speed=100   ?bats=10   ?mark=0   ?corner=YOUR+TEXT   ?t=12.5
+ */
+(function () {
+  var D = NWLive.D, RED = '#CC0000';
+  var PERIOD = 8, WEDGE = 78;
+
+  function rnd(seed) {
+    var a = seed >>> 0;
+    return function () {
+      a |= 0; a = a + 0x6D2B79F5 | 0;
+      var t = Math.imul(a ^ a >>> 15, 1 | a);
+      t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+  }
+  var R0 = rnd(1031), C = [];
+  for (var i = 0; i < 12; i++) {
+    C.push({ brg: (i * 137.5 + 20 * R0()) % 360, rng: 0.26 + 0.62 * R0(), size: 0.11 + 0.13 * R0(),
+             sway: 3 + 5 * R0(), ph: R0() * 6.2832, tilt: (R0() - 0.5) * 28 });
+  }
+
+  var bat = new Image();
+  var ready = new Promise(function (ok) { bat.onload = ok; bat.onerror = ok; });
+  bat.src = NW_MARKS.bat;
+
+  function ink(a) { var c = S.T.ink; return 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + a + ')'; }
+  function text(ctx, s, x, y, size, color, align, weight) {
+    ctx.font = (weight || 400) + ' ' + size + 'px "DM Mono", ui-monospace, monospace';
+    ctx.textBaseline = 'alphabetic';
+    var track = size * 0.16, wd = -track, n;
+    for (n = 0; n < s.length; n++) wd += ctx.measureText(s[n]).width + track;
+    if (align === 'right') x -= wd; else if (align === 'center') x -= wd / 2;
+    ctx.fillStyle = color;
+    for (n = 0; n < s.length; n++) { ctx.fillText(s[n], x, y); x += ctx.measureText(s[n]).width + track; }
+  }
+  function pt(brg, f) { var a = (brg - 90) * D; return [S.cx + Math.cos(a) * S.R * f, S.cy + Math.sin(a) * S.R * f]; }
+
+  var box;
+  function drawScope() {
+    var ctx = S.context(scope, box), R = S.R, cx = S.cx, cy = S.cy, n;
+    ctx.lineCap = 'round';
+    ctx.strokeStyle = ink(0.18); ctx.lineWidth = Math.max(1, R / 340); ctx.beginPath();
+    for (n = 0; n < 360; n += 30) { var e = pt(n, 1); ctx.moveTo(cx, cy); ctx.lineTo(e[0], e[1]); }
+    ctx.stroke();
+    ctx.strokeStyle = ink(0.42);
+    for (n = 1; n <= 3; n++) { ctx.beginPath(); ctx.arc(cx, cy, R * n / 4, 0, 6.2832); ctx.stroke(); }
+    ctx.strokeStyle = S.ink(); ctx.lineWidth = Math.max(1.6, R / 170); ctx.beginPath(); ctx.arc(cx, cy, R, 0, 6.2832); ctx.stroke();
+    ctx.lineWidth = Math.max(1.2, R / 260); ctx.beginPath();
+    for (n = 0; n < 360; n += 5) {
+      var a = pt(n, 1), b = pt(n, 1 + (n % 30 === 0 ? 0.052 : n % 10 === 0 ? 0.03 : 0.016));
+      ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]);
+    }
+    ctx.stroke();
+    var fs = Math.max(10, Math.round(R * 0.042));
+    for (n = 0; n < 360; n += 30) {
+      var q = pt(n, 1.125);
+      text(ctx, ('00' + n).slice(-3), q[0], q[1] + fs * 0.36, fs, ink(0.8), 'center');
+    }
+  }
+
+  var S = NWLive.stage({
+    size: 0.36, fps: 30,
+    settings: { bats: 7 },
+    ready: ready,
+    layout: function (S) {
+      var pad = S.R * 0.22 + 8;
+      box = S.place(scope, S.cx - S.R - pad, S.cy - S.R - pad, S.cx + S.R + pad, S.cy + S.R + pad);
+      S.place(live, S.cx - S.R - pad, S.cy - S.R - pad, S.cx + S.R + pad, S.cy + S.R + pad);
+      drawScope();
+    },
+    change: function () { drawScope(); },
+    draw: function (S, clock) {
+      var ctx = S.context(live, box), R = S.R, cx = S.cx, cy = S.cy, P = S.T.ink;
+      var turn = clock / PERIOD, lead = (turn * 360) % 360, w = turn * 6.2832;
+      function clear(a) { return 'rgba(' + P[0] + ',' + P[1] + ',' + P[2] + ',' + a + ')'; }
+
+      var g = ctx.createConicGradient((lead - WEDGE - 90) * D, cx, cy);
+      g.addColorStop(0, clear(0)); g.addColorStop(WEDGE / 360, clear(0.30));
+      g.addColorStop(WEDGE / 360 + 0.0005, clear(0)); g.addColorStop(1, clear(0));
+      ctx.fillStyle = g; ctx.beginPath(); ctx.arc(cx, cy, R, 0, 6.2832); ctx.fill();
+      var l = pt(lead, 1);
+      ctx.strokeStyle = S.ink(); ctx.lineCap = 'round'; ctx.lineWidth = Math.max(1.6, R / 200);
+      ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(l[0], l[1]); ctx.stroke();
+
+      /* a contact is brightest as the sweep crosses it and decays behind it */
+      function glow(brg) { return Math.exp(-(((lead - brg) % 360 + 360) % 360) / 105); }
+      var n = Math.max(0, Math.min(C.length, Math.round(S.cfg.bats)));
+      if (bat.naturalWidth) for (var i = 0; i < n; i++) {
+        var c = C[i], brg = c.brg + c.sway * Math.sin(w + c.ph), p = pt(brg, c.rng + 0.035 * Math.sin(2 * w + c.ph));
+        var bw = c.size * R * 2, bh = bw * bat.naturalHeight / bat.naturalWidth;
+        ctx.save(); ctx.translate(p[0], p[1]); ctx.rotate((c.tilt + 6 * Math.sin(w + c.ph)) * D);
+        ctx.globalAlpha = 0.14 + 0.86 * glow(brg);
+        ctx.drawImage(bat, -bw / 2, -bh / 2, bw, bh);
+        ctx.restore();
+      }
+
+      /* the one in red, with its bearing and range */
+      var kb = 64 + 9 * Math.sin(w), kr = 0.5 + 0.06 * Math.sin(2 * w + 1), k = pt(kb, kr), dot = Math.max(4, R * 0.018);
+      ctx.globalAlpha = 0.45 + 0.55 * glow(kb);
+      ctx.fillStyle = RED; ctx.beginPath(); ctx.arc(k[0], k[1], dot, 0, 6.2832); ctx.fill();
+      ctx.strokeStyle = RED; ctx.lineWidth = Math.max(1.4, R / 220);
+      ctx.beginPath(); ctx.arc(k[0], k[1], dot * 2.7, 0, 6.2832); ctx.stroke();
+      var fs = Math.max(9, Math.round(R * 0.038));
+      text(ctx, 'BRG ' + ('00' + Math.round(kb)).slice(-3) + '  RNG ' + ('0' + Math.round(kr * 26)).slice(-2),
+           k[0] - dot * 2, k[1] + dot * 2.7 + fs * 1.5, fs, RED, 'left', 500);
+      ctx.globalAlpha = 1;
+      ctx.fillStyle = S.ink(); ctx.beginPath(); ctx.arc(cx, cy, Math.max(3, R * 0.012), 0, 6.2832); ctx.fill();
+    }
+  });
+  var scope = S.canvas(), live = S.canvas();
+  S.start();
+})();
+</script>
+</body>
+</html>

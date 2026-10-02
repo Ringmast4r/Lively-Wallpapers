@@ -1,0 +1,37 @@
+{
+  "speed": {
+    "type": "slider",
+    "text": "Speed (100 = one sweep in 8 s)",
+    "value": 40,
+    "min": 0,
+    "max": 200,
+    "step": 5
+  },
+  "bats": {
+    "type": "slider",
+    "text": "Contacts",
+    "value": 7,
+    "min": 0,
+    "max": 12,
+    "step": 1
+  },
+  "theme": {
+    "type": "dropdown",
+    "text": "Theme",
+    "value": 0,
+    "items": [
+      "Dark",
+      "Light"
+    ]
+  },
+  "mark": {
+    "type": "checkbox",
+    "text": "Corner wordmark",
+    "value": true
+  },
+  "corner": {
+    "type": "textbox",
+    "text": "Right corner text",
+    "value": "NET-WORKS-LAB.COM"
+  }
+}

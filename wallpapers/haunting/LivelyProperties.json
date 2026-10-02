@@ -1,0 +1,37 @@
+{
+  "speed": {
+    "type": "slider",
+    "text": "Speed (100 = full pace)",
+    "value": 40,
+    "min": 0,
+    "max": 200,
+    "step": 5
+  },
+  "ghosts": {
+    "type": "slider",
+    "text": "Ghosts",
+    "value": 9,
+    "min": 0,
+    "max": 16,
+    "step": 1
+  },
+  "theme": {
+    "type": "dropdown",
+    "text": "Theme",
+    "value": 0,
+    "items": [
+      "Dark",
+      "Light"
+    ]
+  },
+  "mark": {
+    "type": "checkbox",
+    "text": "Corner wordmark",
+    "value": true
+  },
+  "corner": {
+    "type": "textbox",
+    "text": "Right corner text",
+    "value": "NET-WORKS-LAB.COM"
+  }
+}

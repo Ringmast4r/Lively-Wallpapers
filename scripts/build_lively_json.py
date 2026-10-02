@@ -69,6 +69,31 @@ WALLPAPERS = {
                 "banknote builds a shape.",
         "props": [SPEED, THEME, MARK, CORNER],
     },
+    "night-watch": {
+        "desc": "A radar scope with bats for contacts: range rings, a bearing scale and a sweep that paints each "
+                "bat as it passes and lets it fade. One contact is in red, with its bearing and range.",
+        "props": [("speed", {"type": "slider", "text": "Speed (100 = one sweep in 8 s)", "value": 40, "min": 0, "max": 200, "step": 5}),
+                  ("bats", {"type": "slider", "text": "Contacts", "value": 7, "min": 0, "max": 12, "step": 1}),
+                  THEME, MARK, CORNER],
+    },
+    "ghost-signal": {
+        "desc": "A receiver waterfall with something in it: carriers, bursts and noise run down the screen, and "
+                "every so often a transmission turns out to be a ghost, a pumpkin or a skull.",
+        "props": [("speed", {"type": "slider", "text": "Speed (100 = full pace)", "value": 40, "min": 0, "max": 200, "step": 5}),
+                  THEME, MARK, CORNER],
+    },
+    "listening-post": {
+        "desc": "The Net // Works globe turning over an antenna yard that is also a graveyard: a guyed tower, "
+                "headstones, a dish, a crow on a yagi. The beacons blink red and bats cross the sky.",
+        "props": [SPEED, ("bats", {"type": "checkbox", "text": "Bats", "value": True}), THEME, MARK, CORNER],
+    },
+    "haunting": {
+        "desc": "The round ghosts, drifting up the screen: small ones rise and sway, the near ones are larger, one "
+                "is red, and the big one in the middle bobs where it is.",
+        "props": [("speed", {"type": "slider", "text": "Speed (100 = full pace)", "value": 40, "min": 0, "max": 200, "step": 5}),
+                  ("ghosts", {"type": "slider", "text": "Ghosts", "value": 9, "min": 0, "max": 16, "step": 1}),
+                  THEME, MARK, CORNER],
+    },
 }
 
 

@@ -1,6 +1,6 @@
 <div align="center">
 
-<img width="100%" alt="LIVELY WALLPAPERS" src="https://capsule-render.vercel.app/api?type=waving&color=0:000000,100:00C853&height=220&section=header&text=LIVELY%20WALLPAPERS&fontSize=58&fontColor=ffffff&animation=twinkling&fontAlignY=35&desc=Seven%20of%20ours%20and%2085%20community%20picks%20%7C%20Live%20wallpapers%20for%20Windows&descSize=18&descAlignY=58"/>
+<img width="100%" alt="LIVELY WALLPAPERS" src="https://capsule-render.vercel.app/api?type=waving&color=0:000000,100:00C853&height=220&section=header&text=LIVELY%20WALLPAPERS&fontSize=58&fontColor=ffffff&animation=twinkling&fontAlignY=35&desc=Eleven%20of%20ours%20and%2085%20community%20picks%20%7C%20Live%20wallpapers%20for%20Windows&descSize=18&descAlignY=58"/>
 
 `Windows` [`Lively Wallpaper`](https://github.com/lively-community/lively) `WebGL` `Canvas` `HTML` `Live Wallpaper` - Custom live wallpapers for Lively Wallpaper on Windows: plain HTML pages that draw on the GPU, each with its own settings panel. Widget counterpart: [Ringmast4r/Rainmeter](https://github.com/Ringmast4r/Rainmeter)
 
@@ -61,6 +61,10 @@ Every picture in this README is the wallpaper itself, recorded by stepping the r
 | <img width="200" alt="" src="wallpapers/great-circles/preview.gif"/> | **[Great Circles](#great-circles)** | Routes between cities arcing over a quiet dotted globe, each carrying a pulse. | [`great-circles.zip`](https://github.com/Ringmast4r/Lively-Wallpapers/raw/main/packages/great-circles.zip) |
 | <img width="200" alt="" src="wallpapers/engraved-globe/preview.gif"/> | **[Engraved Globe](#engraved-globe)** | Continents ruled out of parallels, the way a banknote builds a shape. | [`engraved-globe.zip`](https://github.com/Ringmast4r/Lively-Wallpapers/raw/main/packages/engraved-globe.zip) |
 | <img width="200" alt="" src="wallpapers/rabbit-hole/preview.gif"/> | **[Rabbit Hole](#rabbit-hole)** | A girl falling down a well lined with shelves, maps and cupboards, forever. | [`rabbit-hole.zip`](https://github.com/Ringmast4r/Lively-Wallpapers/raw/main/packages/rabbit-hole.zip) |
+| <img width="200" alt="" src="wallpapers/night-watch/preview.gif"/> | **[Night Watch](#night-watch)** | A radar scope with bats for contacts, painted by the sweep and fading behind it. | [`night-watch.zip`](https://github.com/Ringmast4r/Lively-Wallpapers/raw/main/packages/night-watch.zip) |
+| <img width="200" alt="" src="wallpapers/ghost-signal/preview.gif"/> | **[Ghost Signal](#ghost-signal)** | A receiver waterfall that a ghost, a pumpkin or a skull comes down every so often. | [`ghost-signal.zip`](https://github.com/Ringmast4r/Lively-Wallpapers/raw/main/packages/ghost-signal.zip) |
+| <img width="200" alt="" src="wallpapers/listening-post/preview.gif"/> | **[Listening Post](#listening-post)** | The globe turning over an antenna yard that is also a graveyard, beacons blinking. | [`listening-post.zip`](https://github.com/Ringmast4r/Lively-Wallpapers/raw/main/packages/listening-post.zip) |
+| <img width="200" alt="" src="wallpapers/haunting/preview.gif"/> | **[Haunting](#haunting)** | Round ghosts drifting up the screen, one of them red. | [`haunting.zip`](https://github.com/Ringmast4r/Lively-Wallpapers/raw/main/packages/haunting.zip) |
 
 **Settings every wallpaper has** (right click the wallpaper in Lively, then Customise):
 
@@ -299,6 +303,62 @@ It loops without a seam. The wall is drawn once into a tall strip one period lon
 
 ---
 
+<a id="night-watch"></a>
+## `> night_watch`
+
+<p align="center">
+  <img width="49%" alt="Night Watch, dark" src="screenshots/night-watch-dark.png"/>
+  <img width="49%" alt="Night Watch, light" src="screenshots/night-watch-light.png"/>
+</p>
+
+A radar scope for October. Range rings, a bearing scale round the rim and a sweep that goes round once every eight seconds at Speed 100. Each bat is a contact: the sweep paints it as it passes and it fades until the sweep comes round again. One contact is in blood red and carries its bearing and range.
+
+The scope itself is drawn once on its own canvas, so a frame repaints only the sweep and the contacts. Every motion is a whole number of cycles per sweep, so the scene repeats exactly. The Contacts setting is how many bats are up, from none to twelve. The bat is our own Nightwing mark.
+
+---
+
+<a id="ghost-signal"></a>
+## `> ghost_signal`
+
+<p align="center">
+  <img width="49%" alt="Ghost Signal, dark" src="screenshots/ghost-signal-dark.png"/>
+  <img width="49%" alt="Ghost Signal, light" src="screenshots/ghost-signal-light.png"/>
+</p>
+
+A receiver waterfall with something in it. A spectrum strip sits over a waterfall the way a software radio shows a band: frequency across, time running down. Two carriers hold their lines, bursts come and go, a wide signal switches on and off. Every so often a transmission comes down the waterfall and turns out to be a ghost, a pumpkin or a skull, which is the trick radio amateurs use to send a picture.
+
+Each row is a pure function of its row number, so a frame slides the picture down and computes only the rows that are new. The cells are whole device pixels, so nothing is resampled. The marks are our own: Haunt, Emberjack and Nullskull.
+
+---
+
+<a id="listening-post"></a>
+## `> listening_post`
+
+<p align="center">
+  <img width="49%" alt="Listening Post, dark" src="screenshots/listening-post-dark.png"/>
+  <img width="49%" alt="Listening Post, light" src="screenshots/listening-post-light.png"/>
+</p>
+
+The Net Works globe turning over an antenna yard that is also a graveyard. The globe is the house drawing, land in ink with the graticule reversing over it, hung in the sky like a moon. Under it, in a line: a guyed lattice tower, headstones, a dish, and a yagi with a crow on the boom. The beacons blink in blood red and three bats cross the sky; the Bats setting sends them home.
+
+The globe body is the collection's WebGL2 sphere shader over the real Natural Earth coastlines. The yard is drawn once; a frame repaints the globe, the two beacons and the bats.
+
+---
+
+<a id="haunting"></a>
+## `> haunting`
+
+<p align="center">
+  <img width="49%" alt="Haunting, dark" src="screenshots/haunting-dark.png"/>
+  <img width="49%" alt="Haunting, light" src="screenshots/haunting-light.png"/>
+</p>
+
+The round ghosts, drifting up the screen. This is Haunt, the little ghost from our mark set, many times over. The small ones rise from below the screen and off the top, swaying as they go; the near ones are larger and more solid; one of them is blood red. The big one in the middle stays where it is and bobs. The Ghosts setting is how many are out.
+
+Every ghost makes a whole number of trips in sixteen seconds at Speed 100, so it loops without a seam.
+
+---
+
 <a id="install"></a>
 ## `> install`
 
@@ -331,8 +391,9 @@ A Lively web wallpaper is a folder. No SDK and no build step.
 ```
 wallpapers/pumpkin-globe/
   index.html               the wallpaper: its drawing, and nothing else
-  nwlive.js                the kit all seven share: settings, layout, wordmark, clock, shader pieces
+  nwlive.js                the kit all eleven share: settings, layout, wordmark, clock, shader pieces
   land-110m.js             the real coastlines (the globes that use them)
+  marks.js                 our bat, ghost, pumpkin and skull marks as data (the October four)
   LivelyInfo.json          title, author, which file to open, thumbnail
   LivelyProperties.json    the settings panel: sliders, dropdowns, checkboxes, text boxes
   thumbnail.jpg            what Lively's library shows

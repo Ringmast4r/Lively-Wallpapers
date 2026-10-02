@@ -1,0 +1,14 @@
+{
+  "AppVersion": "2.2.1.0",
+  "Title": "Net Works Ghost Signal",
+  "Thumbnail": "thumbnail.jpg",
+  "Preview": "preview.gif",
+  "Desc": "A receiver waterfall with something in it: carriers, bursts and noise run down the screen, and every so often a transmission turns out to be a ghost, a pumpkin or a skull.",
+  "Author": "Net Works",
+  "License": "Proprietary. Copyright (c) 2026 Net Works Lab LLC. All rights reserved. Personal, non-commercial use only; see LICENSE.txt.",
+  "Contact": "https://github.com/Ringmast4r/Lively-Wallpapers",
+  "Type": 1,
+  "FileName": "index.html",
+  "Arguments": null,
+  "IsAbsolutePath": false
+}

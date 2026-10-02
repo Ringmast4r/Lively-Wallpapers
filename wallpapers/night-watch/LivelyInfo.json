@@ -1,0 +1,14 @@
+{
+  "AppVersion": "2.2.1.0",
+  "Title": "Net Works Night Watch",
+  "Thumbnail": "thumbnail.jpg",
+  "Preview": "preview.gif",
+  "Desc": "A radar scope with bats for contacts: range rings, a bearing scale and a sweep that paints each bat as it passes and lets it fade. One contact is in red, with its bearing and range.",
+  "Author": "Net Works",
+  "License": "Proprietary. Copyright (c) 2026 Net Works Lab LLC. All rights reserved. Personal, non-commercial use only; see LICENSE.txt.",
+  "Contact": "https://github.com/Ringmast4r/Lively-Wallpapers",
+  "Type": 1,
+  "FileName": "index.html",
+  "Arguments": null,
+  "IsAbsolutePath": false
+}

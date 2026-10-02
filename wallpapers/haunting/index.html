@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Net Works Haunting</title>
+<style>html{background:#0a0a0a}</style>
+</head>
+<body>
+<script src="nwlive.js"></script>
+<script src="marks.js"></script>
+<script>
+/* Haunting: the round ghosts, drifting up the screen, as a desktop wallpaper.
+ * Copyright (c) 2026 Net Works Lab LLC. All rights reserved. See LICENSE.txt.
+ *
+ * Haunt, the little ghost from the Net Works mark set, many times over. The
+ * small ones rise from below the screen and off the top, swaying as they go;
+ * the near ones are larger and more solid. One of them is blood red. The big
+ * one in the middle stays where it is and bobs.
+ *
+ * Canvas 2D, one canvas the size of the screen, a dozen images a frame. Every
+ * ghost makes a whole number of trips in sixteen seconds at Speed 100, so the
+ * scene repeats exactly.
+ * Query string, for looking at the page in a browser:
+ *   ?theme=light   ?speed=100   ?ghosts=14   ?mark=0   ?corner=YOUR+TEXT   ?t=12.5
+ */
+(function () {
+  var D = NWLive.D, LOOP = 16;
+
+  function rnd(seed) {
+    var a = seed >>> 0;
+    return function () {
+      a |= 0; a = a + 0x6D2B79F5 | 0;
+      var t = Math.imul(a ^ a >>> 15, 1 | a);
+      t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+  }
+  /* far ones first, so the near ones are drawn over them */
+  var R0 = rnd(77), G = [];
+  for (var i = 0; i < 16; i++) {
+    G.push({ size: 0.045 + 0.085 * R0(), laps: R0() < 0.45 ? 2 : 1,
+             ph: R0(), sway: 1 + Math.floor(R0() * 3), sp: R0() * 6.2832 });
+  }
+  G.sort(function (a, b) { return a.size - b.size; });
+  /* however many are showing, they are the last few here: a golden-ratio step keeps any such run spread out */
+  G.forEach(function (g, n) { g.x = 0.07 + 0.86 * ((n * 0.618034 + 0.31) % 1); g.ph = (g.ph * 0.4 + n * 0.381966) % 1; });
+  var RED_ONE = G.length - 3;
+
+  function img(src) {
+    var im = new Image();
+    im.ready = new Promise(function (ok) { im.onload = ok; im.onerror = ok; });
+    im.src = src;
+    return im;
+  }
+  var ghost = img(NW_MARKS.ghost), red = img(NW_MARKS.ghostRed);
+
+  var box;
+  var S = NWLive.stage({
+    size: 0.30, fps: 30,
+    settings: { ghosts: 9 },
+    ready: Promise.all([ghost.ready, red.ready]),
+    layout: function (S) { box = S.place(cv, 0, 0, S.W, S.H); },
+    draw: function (S, clock) {
+      var ctx = S.context(cv, box), W = S.W, H = S.H, unit = Math.min(W, H), t = clock / LOOP, w = t * 6.2832;
+      if (!ghost.naturalWidth) return;
+      var ar = ghost.naturalHeight / ghost.naturalWidth;
+      function put(im, x, y, width, deg, alpha) {
+        ctx.save(); ctx.translate(x, y); ctx.rotate(deg * D); ctx.globalAlpha = alpha;
+        ctx.drawImage(im, -width / 2, -width * ar / 2, width, width * ar);
+        ctx.restore();
+      }
+      var n = Math.max(0, Math.min(G.length, Math.round(S.cfg.ghosts)));
+      for (var i = G.length - n; i < G.length; i++) {
+        var g = G[i], width = g.size * unit, trip = (g.ph + g.laps * t) % 1;
+        var y = H + width - trip * (H + 2 * width * ar + width);
+        var x = g.x * W + 0.022 * W * Math.sin(g.sway * w + g.sp);
+        var near = (g.size - 0.045) / 0.085;
+        put(i === RED_ONE && red.naturalWidth ? red : ghost, x, y, width, 7 * Math.sin(g.sway * w + g.sp + 1), 0.30 + 0.55 * near);
+      }
+      /* the house ghost */
+      put(ghost, S.cx + 0.008 * W * Math.sin(w), S.cy + 0.022 * H * Math.sin(2 * w), S.R * 1.5, 4 * Math.sin(w + 0.6), 1);
+    }
+  });
+  var cv = S.canvas();
+  S.start();
+})();
+</script>
+</body>
+</html>

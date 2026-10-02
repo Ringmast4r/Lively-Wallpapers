@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Net Works Listening Post</title>
+<style>html{background:#0a0a0a}</style>
+</head>
+<body>
+<script src="nwlive.js"></script>
+<script src="land-110m.js"></script>
+<script src="marks.js"></script>
+<script>
+/* Listening Post: the Net Works globe turning over an antenna yard that is
+ * also a graveyard, as a desktop wallpaper.
+ * Copyright (c) 2026 Net Works Lab LLC. All rights reserved. See LICENSE.txt.
+ *
+ * The globe is the house drawing - land in ink, the 15-degree graticule
+ * reversing over it - hung in the sky like a moon. Under it, in line: a guyed
+ * lattice tower, headstones, a dish, and a yagi with a crow on the boom. The
+ * tower beacons blink in blood red and three bats cross the sky.
+ *
+ * The globe body is the collection's WebGL2 sphere shader. The yard is drawn
+ * once on its own canvas; a frame repaints the globe, the two beacons and the
+ * bats. Coastlines are Natural Earth 1:110m (land-110m.js); the bat is Net
+ * Works' own Nightwing mark (marks.js).
+ * Query string, for looking at the page in a browser:
+ *   ?theme=light   ?speed=100   ?bats=0   ?mark=0   ?corner=YOUR+TEXT   ?t=12.5
+ */
+(function () {
+  var D = NWLive.D, G = NWLive.GLSL, RED = '#CC0000';
+  var SPIN = 0.45, TILT = -0.30, PHI0 = 25 * D;
+
+  var mask = NWLive.land(2880, 1440);
+  var FRAG = G.head + [
+    'uniform sampler2D u_mask;',
+    'uniform vec3 u_ink;',
+    'uniform vec3 u_sea;',
+    'uniform float u_lw;',
+    ''
+  ].join('\n') + G.lonlat + G.mask + G.graticule + [
+    'void main(){',
+    '  vec2 p=(gl_FragCoord.xy-u_c)/u_R;',
+    '  float inside=0.0,onLand=0.0;',
+    '  for(int sy=0;sy<2;sy++)for(int sx=0;sx<2;sx++){',
+    '    vec2 P=p+(vec2(float(sx),float(sy))-0.5)*0.5/u_R;',
+    '    if(dot(P,P)>1.0)continue;',
+    '    inside+=1.0; onLand+=nwMask(u_mask,nwLonLat(P).xy);',
+    '  }',
+    '  if(inside==0.0){o=vec4(0.0);return;}',
+    '  vec3 c=mix(u_sea,u_ink,onLand/inside);',
+    '  vec2 g=nwGraticule(p,u_lw);',
+    '  c=mix(c,1.0-c,g.x);',
+    '  c=mix(c,1.0-c,g.y);',
+    '  float a=inside/4.0;',
+    '  o=vec4(c*a,a);',
+    '}'
+  ].join('\n');
+
+  var bat = new Image();
+  var ready = new Promise(function (ok) { bat.onload = ok; bat.onerror = ok; });
+  bat.src = NW_MARKS.bat;
+
+  /* The yard is laid out in units of u = R / 348, from the horizon up; these are
+     where things stand, so the frame can find the beacons without redrawing it. */
+  var gb, yb, fb, u, yh, towerX, towerTop, mastX, mastTop;
+
+  function drawYard() {
+    var ctx = S.context(yard, yb), INK = S.ink(), BG = S.T.bg, cx = S.cx, n;
+    function px(v) { return v * u; }
+    function line(a, b, c, d) { ctx.beginPath(); ctx.moveTo(a, b); ctx.lineTo(c, d); ctx.stroke(); }
+    ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.strokeStyle = INK; ctx.fillStyle = INK;
+
+    /* the lattice tower and its guys */
+    var th = px(713), half = px(50), topw = px(8), N = 10;
+    ctx.lineWidth = Math.max(1, px(1.5)); ctx.globalAlpha = 0.6;
+    line(towerX, yh - th * 0.74, towerX - px(118), yh); line(towerX, yh - th * 0.74, towerX + px(112), yh);
+    ctx.globalAlpha = 1; ctx.lineWidth = Math.max(1.4, px(3));
+    line(towerX - half, yh, towerX - topw, yh - th); line(towerX + half, yh, towerX + topw, yh - th);
+    ctx.lineWidth = Math.max(1, px(1.7));
+    for (n = 0; n < N; n++) {
+      var ya = yh - th * n / N, y2 = yh - th * (n + 1) / N;
+      var ha = half + (topw - half) * n / N, hb = half + (topw - half) * (n + 1) / N;
+      line(towerX - hb, y2, towerX + hb, y2); line(towerX - ha, ya, towerX + hb, y2); line(towerX + ha, ya, towerX - hb, y2);
+    }
+    ctx.lineWidth = Math.max(1.4, px(3)); line(towerX, yh - th, towerX, yh - th - px(44));
+
+    /* the yagi on its mast, and the crow on the boom */
+    var mh = px(391), by = yh - mh + px(14);
+    ctx.lineWidth = Math.max(2, px(4.5)); line(mastX, yh, mastX, yh - mh);
+    ctx.lineWidth = Math.max(1.4, px(3.2)); line(mastX - px(168), by, mastX + px(58), by);
+    ctx.lineWidth = Math.max(1.2, px(2.6));
+    [[-160, 24], [-122, 27], [-84, 30], [-46, 33], [-6, 36], [44, 44]].forEach(function (e) {
+      line(mastX + px(e[0]), by - px(e[1]), mastX + px(e[0]), by + px(e[1]));
+    });
+    ctx.save(); ctx.translate(mastX - px(66), by - px(2)); ctx.scale(u * 1.25, u * 1.25);
+    ctx.beginPath(); ctx.ellipse(0, -21, 30, 15, -0.32, 0, 6.2832); ctx.fill();
+    ctx.beginPath(); ctx.arc(-25, -39, 12, 0, 6.2832); ctx.fill();
+    ctx.beginPath(); ctx.moveTo(-34, -44); ctx.lineTo(-57, -37); ctx.lineTo(-34, -33); ctx.closePath(); ctx.fill();
+    ctx.beginPath(); ctx.moveTo(20, -16); ctx.lineTo(60, -1); ctx.lineTo(54, -13); ctx.lineTo(26, -28); ctx.closePath(); ctx.fill();
+    ctx.lineWidth = 2.4; line(-5, -9, -5, 0); line(6, -9, 6, 0);
+    ctx.fillStyle = BG; ctx.beginPath(); ctx.arc(-29, -42, 2.6, 0, 6.2832); ctx.fill();
+    ctx.restore();
+
+    /* the dish */
+    var dx = cx + px(264), dy = yh - px(104);
+    ctx.strokeStyle = INK; ctx.lineWidth = Math.max(2, px(4.5)); line(dx, yh, dx, dy);
+    ctx.save(); ctx.translate(dx, dy); ctx.rotate(-0.62); ctx.scale(u, u); ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.moveTo(-74, -30); ctx.quadraticCurveTo(0, 34, 74, -30); ctx.closePath();
+    ctx.fillStyle = BG; ctx.fill(); ctx.stroke();
+    ctx.lineWidth = 2; line(-40, -6, 0, -78); line(40, -6, 0, -78);
+    ctx.fillStyle = INK; ctx.beginPath(); ctx.arc(0, -80, 6, 0, 6.2832); ctx.fill();
+    ctx.restore();
+
+    /* the headstones */
+    function slab(x, w, h, deg) {
+      ctx.save(); ctx.translate(x, yh); ctx.rotate(deg * D); ctx.scale(u, u);
+      ctx.beginPath(); ctx.moveTo(-w / 2, 6); ctx.lineTo(-w / 2, -(h - w / 2));
+      ctx.arc(0, -(h - w / 2), w / 2, Math.PI, 0); ctx.lineTo(w / 2, 6); ctx.closePath();
+      ctx.fillStyle = BG; ctx.fill(); ctx.strokeStyle = INK; ctx.lineWidth = 3; ctx.stroke();
+      ctx.globalAlpha = 0.55; ctx.lineWidth = 2;
+      line(-w * 0.24, -h * 0.56, w * 0.24, -h * 0.56); line(-w * 0.17, -h * 0.42, w * 0.17, -h * 0.42);
+      ctx.restore();
+    }
+    function cross(x, h, deg) {
+      var a = 13, arm = 40, up = h * 0.70;
+      ctx.save(); ctx.translate(x, yh); ctx.rotate(deg * D); ctx.scale(u, u);
+      ctx.beginPath();
+      ctx.moveTo(-a, 6); ctx.lineTo(-a, -up + a); ctx.lineTo(-arm, -up + a); ctx.lineTo(-arm, -up - a); ctx.lineTo(-a, -up - a);
+      ctx.lineTo(-a, -h); ctx.lineTo(a, -h); ctx.lineTo(a, -up - a); ctx.lineTo(arm, -up - a); ctx.lineTo(arm, -up + a);
+      ctx.lineTo(a, -up + a); ctx.lineTo(a, 6); ctx.closePath();
+      ctx.fillStyle = BG; ctx.fill(); ctx.strokeStyle = INK; ctx.lineWidth = 3; ctx.stroke();
+      ctx.restore();
+    }
+    slab(cx - px(239), 92, 138, -3); slab(cx - px(129), 74, 100, 4); cross(cx - px(26), 150, -2);
+    slab(cx + px(77), 100, 150, 2); slab(cx + px(168), 68, 88, -6);
+    ctx.fillStyle = BG; ctx.fillRect(yb.x, yh + px(2), yb.w, px(14));
+    ctx.strokeStyle = INK; ctx.lineWidth = Math.max(1.4, px(3)); line(cx - px(640), yh, cx + px(640), yh);
+  }
+
+  var S = NWLive.stage({
+    size: 0.235,
+    settings: { bats: true },
+    ready: ready,
+    layout: function (S) {
+      S.cy = S.H * 0.385;
+      u = S.R / 348; yh = Math.round(S.cy + S.R * 1.97);
+      towerX = S.cx - 406 * u; towerTop = yh - 713 * u - 56 * u;
+      mastX = S.cx + 432 * u; mastTop = yh - 391 * u - 12 * u;
+      gb = S.place(globe, S.cx - S.R - 1, S.cy - S.R - 1, S.cx + S.R + 1, S.cy + S.R + 1);
+      yb = S.place(yard, S.cx - 660 * u, yh - 800 * u, S.cx + 660 * u, yh + 24 * u);
+      fb = S.place(fx, S.cx - 3.3 * S.R, S.cy - 1.75 * S.R, S.cx + 3.3 * S.R, yh);
+      drawYard();
+    },
+    change: function () { drawYard(); },
+    draw: function (S, clock) {
+      if (P.live) {
+        P.sphere(gb, PHI0 + SPIN * clock, TILT);
+        P.rgb('u_ink', S.T.ink); P.rgb('u_sea', S.T.sea);
+        P.gl.uniform1f(P.u('u_lw'), Math.max(1, 2 * S.R * 0.0034));
+        P.draw(gb);
+      }
+      var ctx = S.context(fx, fb), R = S.R, i;
+      /* the limb, then the beacons: the tower's is on for half of every two seconds, the mast's answers it */
+      ctx.lineWidth = Math.max(1.6, R * 0.006); ctx.strokeStyle = S.ink();
+      ctx.beginPath(); ctx.arc(S.cx, S.cy, R, 0, 6.2832); ctx.stroke();
+      var beat = (clock * 0.5) % 1;
+      ctx.fillStyle = RED;
+      ctx.globalAlpha = S.still || beat < 0.5 ? 1 : 0.16;
+      ctx.beginPath(); ctx.arc(towerX, towerTop, Math.max(3, 11 * u), 0, 6.2832); ctx.fill();
+      ctx.globalAlpha = S.still || beat >= 0.5 ? 1 : 0.16;
+      ctx.beginPath(); ctx.arc(mastX, mastTop, Math.max(2.5, 8 * u), 0, 6.2832); ctx.fill();
+      ctx.globalAlpha = 1;
+
+      if (S.cfg.bats && bat.naturalWidth) {
+        var ar = bat.naturalHeight / bat.naturalWidth, span = fb.w + R;
+        [[0.00, -1.25, 0.44, 23, 1.0], [0.37, -0.55, 0.30, 31, 1.7], [0.71, -1.55, 0.24, 41, 2.6]].forEach(function (b) {
+          var trip = (b[0] + clock / b[3]) % 1, w = b[2] * R;
+          var x = fb.x - R * 0.5 + trip * span, y = S.cy + b[1] * R + 0.10 * R * Math.sin(trip * 18 + b[4]);
+          ctx.save(); ctx.translate(x, y); ctx.rotate(0.22 * Math.cos(trip * 18 + b[4]));
+          ctx.drawImage(bat, -w / 2, -w * ar / 2, w, w * ar);
+          ctx.restore();
+        });
+      }
+    }
+  });
+  var globe = S.canvas(), yard = S.canvas(), fx = S.canvas();
+  var P = S.program(globe, FRAG, function (gl, P) { P.bitmap(0, mask); gl.uniform1i(P.u('u_mask'), 0); });
+  S.start();
+})();
+</script>
+</body>
+</html>

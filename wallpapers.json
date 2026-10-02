@@ -91,5 +91,66 @@
       "light": "?t=3.2&theme=light"
     },
     "thumb": 19
+  },
+  {
+    "id": "night-watch",
+    "title": "Net Works Night Watch",
+    "shared": [
+      "nwlive.js",
+      "marks.js"
+    ],
+    "turn": 8,
+    "stills": {
+      "dark": "?t=1.2",
+      "light": "?t=1.2&theme=light"
+    },
+    "colour": true,
+    "thumb": 13
+  },
+  {
+    "id": "ghost-signal",
+    "title": "Net Works Ghost Signal",
+    "shared": [
+      "nwlive.js",
+      "marks.js"
+    ],
+    "turn": 8.228,
+    "stills": {
+      "dark": "?t=7.57",
+      "light": "?t=7.57&theme=light"
+    },
+    "colour": true,
+    "thumb": 77
+  },
+  {
+    "id": "listening-post",
+    "title": "Net Works Listening Post",
+    "shared": [
+      "nwlive.js",
+      "land-110m.js",
+      "marks.js"
+    ],
+    "turn": 13.963,
+    "stills": {
+      "dark": "?t=2",
+      "light": "?t=2&theme=light"
+    },
+    "colour": true,
+    "thumb": 12
+  },
+  {
+    "id": "haunting",
+    "title": "Net Works Haunting",
+    "shared": [
+      "nwlive.js",
+      "marks.js"
+    ],
+    "turn": 16,
+    "stills": {
+      "dark": "?t=3",
+      "light": "?t=3&theme=light"
+    },
+    "colour": true,
+    "thumb": 16
   }
 ]
